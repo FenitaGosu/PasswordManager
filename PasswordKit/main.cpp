@@ -1,32 +1,29 @@
-#include <cassert>
+#include <memory>
+#include <execution>
+#include <iostream>
+#include <cstdlib>
 
-#include <QApplication>
-#include <QFile>
+#include "Application/Application.h"
+#include "ApplicationSettings/ApplicatonSettingsJsonImpl.h"
 
 #include "MainWindow.h"
 
-namespace {
-
-const QString STYLE_PATH = ":/resources/theme/style.qss";
-
-QString LoadStyle(const QString& file)
-{
-	QFile style(file);
-	assert(style.open(QFile::ReadOnly));
-	return style.readAll();
-}
-
-}
-
 int main(int argc, char *argv[])
 {
-	QApplication app(argc, argv);
+	try
+	{
+		PasswordKit::Application app(argc, argv);
+		app.СonfiguringApplicationSettings(std::make_unique<PasswordKit::ApplicatonSettingsJsonImpl>());
 
-	Q_INIT_RESOURCE(PasswordKit);
-	app.setStyleSheet(app.styleSheet() + LoadStyle(STYLE_PATH));
+		PasswordKit::MainWindow w;
+		w.setWindowTitle(app.applicationName());
+		w.show();
 
-	MainWindow w;
-	w.show();
-
-	return app.exec();
+		return app.exec();
+	}
+	catch(std::exception& exp)
+	{
+		std::cerr << exp.what();
+		return EXIT_FAILURE;
+	}
 }
