@@ -18,8 +18,26 @@ if (MSVC_VERSION GREATER_EQUAL "1900")
 	endif()
 endif()
 
+include(CTest)
+
+set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
+
+include(DownloadProject.cmake)
+download_project(PROJ                googletest
+				 GIT_REPOSITORY      https://github.com/google/googletest.git
+				 GIT_TAG             master
+				 ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+)
+
+
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+
+add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+
 include_directories(${CMAKE_SOURCE_DIR})
 
 include(addTaget.cmake)
 include(PasswordKit/PasswordKit.cmake)
 include(JsonTools/JsonTools.cmake)
+include(Tests/Tests.cmake)
+
