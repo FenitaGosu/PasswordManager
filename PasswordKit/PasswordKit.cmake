@@ -9,6 +9,7 @@ AddTarget(EXECUTABLE
 	Application
 	Interfaces
 	ApplicationSettings
+	Mediator
 	DEPS
 	JsonTools
 	)

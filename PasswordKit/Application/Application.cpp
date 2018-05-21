@@ -1,6 +1,7 @@
 #include <cassert>
 
 #include <QFile>
+#include <QMainWindow>
 
 #include "Interfaces/IApplicationSettings.h"
 
@@ -33,6 +34,16 @@ void Application::СonfiguringApplicationSettings(std::unique_ptr<IApplicatonSet
 	setApplicationName(settings->GetApplicationName());
 
 	ConfigureStyleSheet();
+}
+
+void Application::SetMainWindow(QPointer<QMainWindow> mainWindow)
+{
+	m_window = mainWindow;
+}
+
+QPointer<QMainWindow> Application::GetMainWindow() const
+{
+	return m_window;
 }
 
 void Application::ConfigureStyleSheet()
