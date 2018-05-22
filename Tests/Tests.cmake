@@ -14,3 +14,18 @@ AddTarget(EXECUTABLE
 	)
 
 add_test(NAME QJsonImplTest COMMAND QJsonImplTest)
+
+AddTarget(EXECUTABLE
+	NAME SQLiteImplTest
+	SOURCE_DIR Tests/
+	SRC *.cpp *.h *.qrc
+	QT_USE Core Widgets
+	SUBDIRS
+	SQLiteImplTest
+	DEPS
+	gtest
+	gmock_main
+	DataBase
+	)
+
+add_test(NAME SQLiteImplTest COMMAND SQLiteImplTest)
