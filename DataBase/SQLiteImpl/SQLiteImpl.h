@@ -17,7 +17,7 @@ public:
 public:
 	bool OpenConnection() override;
 	void CloseConnection() override;
-	QSqlDatabase GetDataBase() const override;
+	std::shared_ptr<IQuery> GetQuery() const override;
 
 private:
 	bool OpenDataBase();

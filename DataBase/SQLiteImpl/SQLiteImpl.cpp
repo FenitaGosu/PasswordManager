@@ -2,6 +2,8 @@
 #include <QFile>
 #include <QUuid>
 
+#include "SQLQueryImpl/Query.h"
+
 #include "SQLiteImpl.h"
 
 namespace {
@@ -39,13 +41,13 @@ bool SQLiteImpl::OpenConnection()
 
 void SQLiteImpl::CloseConnection()
 {
-	GetDataBase().close();
+	QSqlDatabase::database(m_impl->connectionName).close();
 	QSqlDatabase::removeDatabase(m_impl->connectionName);
 }
 
-QSqlDatabase SQLiteImpl::GetDataBase() const
+std::shared_ptr<IQuery> SQLiteImpl::GetQuery() const
 {
-	return QSqlDatabase::database(m_impl->connectionName);
+	return std::make_shared<Query>(QSqlDatabase::database(m_impl->connectionName));
 }
 
 bool SQLiteImpl::OpenDataBase()
