@@ -35,7 +35,7 @@ IQuery::IsSuccess Query::Exec()
 		m_impl->fieldIndex.clear();
 		const auto record = m_impl->query.record();
 		for (int i = 0, countFeild = record.count(); i < countFeild; ++i)
-			m_impl->fieldIndex.emplace(std::make_pair(record.fieldName(i), i));
+			m_impl->fieldIndex.emplace(record.fieldName(i), i);
 	}
 
 	return MakeIsSuccess(isCorrect);
@@ -83,7 +83,7 @@ std::optional<int> Query::IndexOf(const QString& name) const
 
 QString Query::GetError() const
 {
-	return "Data base error " + m_impl->query.lastError().databaseText() + ";" + "Driver error " + m_impl->query.lastError().driverText();
+	return "Data base error: " + m_impl->query.lastError().databaseText() + ";" + "Driver error: " + m_impl->query.lastError().driverText();
 }
 
 IQuery::IsSuccess Query::MakeIsSuccess(bool value)
