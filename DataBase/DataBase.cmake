@@ -6,4 +6,5 @@ AddTarget(
 	SUBDIRS
 	Interfaces
 	SQLiteImpl
+	SQLQueryImpl
 	)
