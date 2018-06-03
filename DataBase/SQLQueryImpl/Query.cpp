@@ -26,34 +26,32 @@ Query::Query(const QSqlDatabase& db)
 {
 }
 
-IQuery::IsSuccess Query::Exec()
+void Query::Exec()
 {
-	const auto isCorrect = m_impl->query.exec();
+	if (!m_impl->query.exec())
+		throw std::logic_error("Request could not be completed: " + GetError());
 
-	if (isCorrect)
-	{
-		m_impl->fieldIndex.clear();
-		const auto record = m_impl->query.record();
-		for (int i = 0, countFeild = record.count(); i < countFeild; ++i)
-			m_impl->fieldIndex.emplace(record.fieldName(i), i);
-	}
+	m_impl->fieldIndex.clear();
+	const auto record = m_impl->query.record();
+	for (int i = 0, countFeild = record.count(); i < countFeild; ++i)
+		m_impl->fieldIndex.emplace(record.fieldName(i), i);
 
-	return MakeIsSuccess(isCorrect);
 }
 
-IQuery::IsSuccess Query::Exec(const QString& textQuery, const IQuery::Parameters& values)
+void Query::Exec(const QString& textQuery, const IQuery::Parameters& values)
 {
 	SetTextQuery(textQuery);
 	SetParametersQuery(values);
-	return Exec();
+	Exec();
 }
 
-IQuery::IsSuccess Query::SetTextQuery(const QString& textQuery)
+void Query::SetTextQuery(const QString& textQuery)
 {
-	return MakeIsSuccess(m_impl->query.prepare(textQuery));
+	if (!m_impl->query.prepare(textQuery))
+		throw std::logic_error("Request preparation failed: " + GetError());
 }
 
-IQuery::IsSuccess Query::SetParametersQuery(const IQuery::Parameters& values)
+void Query::SetParametersQuery(const IQuery::Parameters& values)
 {
 	for (const auto& value : values)
 		m_impl->query.bindValue(value.first, value.second);
@@ -62,12 +60,13 @@ IQuery::IsSuccess Query::SetParametersQuery(const IQuery::Parameters& values)
 
 	const auto isCorrect = std::all_of(boundValues.cbegin(), boundValues.cend(), [](const auto& elem) { return elem.isValid(); });
 
-	return { isCorrect, isCorrect ? QString() : "Failed to add parameters" };
+	if (!isCorrect)
+		throw std::logic_error("Failed to add parameters");
 }
 
-IQuery::IsSuccess Query::Next()
+bool Query::Next()
 {
-	return MakeIsSuccess(m_impl->query.next());
+	return m_impl->query.next();
 }
 
 QVariant Query::Value(int index) const
@@ -81,12 +80,7 @@ std::optional<int> Query::IndexOf(const QString& name) const
 	return (it == m_impl->fieldIndex.cend()) ? std::nullopt : std::optional<int>(it->second);
 }
 
-QString Query::GetError() const
+std::string Query::GetError() const
 {
-	return "Data base error: " + m_impl->query.lastError().databaseText() + ";" + "Driver error: " + m_impl->query.lastError().driverText();
-}
-
-IQuery::IsSuccess Query::MakeIsSuccess(bool value)
-{
-	return IQuery::IsSuccess(value, value ? QString() : GetError());
+	return m_impl->query.lastError().text().toStdString();
 }

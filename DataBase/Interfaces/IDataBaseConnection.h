@@ -16,7 +16,7 @@ class IDataBaseConnection
 public:
 	virtual ~IDataBaseConnection() = default;
 
-	virtual bool OpenConnection() = 0;
+	virtual void OpenConnection() = 0;
 	virtual void CloseConnection() = 0;
 	virtual std::shared_ptr<IQuery> GetQuery() const = 0;
 };

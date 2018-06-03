@@ -14,19 +14,18 @@ class Query : public IQuery
 public:
 	Query(const QSqlDatabase& db);
 
-	IsSuccess Exec() override;
-	IsSuccess Exec(const QString& textQuery, const Parameters& values = {}) override;
+	void Exec() override;
+	void Exec(const QString& textQuery, const Parameters& values = {}) override;
 
-	IsSuccess SetTextQuery(const QString& textQuery) override;
-	IsSuccess SetParametersQuery(const Parameters& values) override;
+	void SetTextQuery(const QString& textQuery) override;
+	void SetParametersQuery(const Parameters& values) override;
 
-	IsSuccess Next() override;
+	bool Next() override;
 	QVariant Value(int index) const override;
 	std::optional<int> IndexOf(const QString& name) const override;
 
 private:
-	QString GetError() const;
-	IQuery::IsSuccess MakeIsSuccess(bool value);
+	std::string GetError() const;
 
 private:
 	struct Impl;

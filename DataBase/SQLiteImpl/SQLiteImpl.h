@@ -15,12 +15,12 @@ public:
 	~SQLiteImpl();
 
 public:
-	bool OpenConnection() override;
+	void OpenConnection() override;
 	void CloseConnection() override;
 	std::shared_ptr<IQuery> GetQuery() const override;
 
 private:
-	bool OpenDataBase();
+	void OpenDataBase();
 
 private:
 	struct Impl;
