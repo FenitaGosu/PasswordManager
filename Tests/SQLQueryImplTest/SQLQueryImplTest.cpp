@@ -46,8 +46,7 @@ TEST(SQLQueryImpl, SetTextQueryValidSelect)
 	auto& connection = guard.GetConnection();
 
 	const auto query = connection.GetQuery();
-	const auto res = query->SetTextQuery("CREATE TABLE Persons (PersonID int,LastName varchar(255),FirstName varchar(255),Address varchar(255),City varchar(255));");
-	ASSERT_EQ(res.first, true);
+	ASSERT_NO_THROW(query->SetTextQuery("CREATE TABLE Persons (PersonID int,LastName varchar(255),FirstName varchar(255),Address varchar(255),City varchar(255));"));
 }
 
 TEST(SQLQueryImpl, SetTextQueryInValidSelect)
@@ -56,8 +55,7 @@ TEST(SQLQueryImpl, SetTextQueryInValidSelect)
 	auto& connection = guard.GetConnection();
 
 	const auto query = connection.GetQuery();
-	const auto res = query->SetTextQuery("CREATE TAB Persons (PersonID int,LastName varchar(255),FirstName varchar(255),Address varchar(255),City varchar(255));");
-	ASSERT_EQ(res.first, false);
+	ASSERT_ANY_THROW(query->SetTextQuery("CREATE TAB Persons (PersonID int,LastName varchar(255),FirstName varchar(255),Address varchar(255),City varchar(255));"));
 }
 
 TEST(SQLQueryImpl, SetParametersQueryValidParameters)
@@ -65,11 +63,14 @@ TEST(SQLQueryImpl, SetParametersQueryValidParameters)
 	DataBaseFileGuard guard;
 	auto& connection = guard.GetConnection();
 
+	const auto createQuery = connection.GetQuery();
+	createQuery->SetTextQuery("CREATE TABLE person (id int,forename varchar(255),surname varchar(255));");
+	createQuery->Exec();
+
 	const auto query = connection.GetQuery();
 	query->SetTextQuery("INSERT INTO person (id, forename, surname) VALUES (:id, :forename, :surname)");
 
-	const auto res = query->SetParametersQuery({ {":id", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } });
-	ASSERT_EQ(res.first, true);
+	ASSERT_NO_THROW(query->SetParametersQuery({ {":id", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } }));
 }
 
 TEST(SQLQueryImpl, SetParametersQueryInValidParameters)
@@ -77,11 +78,14 @@ TEST(SQLQueryImpl, SetParametersQueryInValidParameters)
 	DataBaseFileGuard guard;
 	auto& connection = guard.GetConnection();
 
+	const auto createQuery = connection.GetQuery();
+	createQuery->SetTextQuery("CREATE TABLE person (id int,forename varchar(255),surname varchar(255));");
+	createQuery->Exec();
+
 	const auto query = connection.GetQuery();
 	query->SetTextQuery("INSERT INTO person (id, forename, surname) VALUES (:id, :forename, :surname)");
 
-	const auto res = query->SetParametersQuery({ {":idDD", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } });
-	ASSERT_EQ(res.first, false);
+	ASSERT_ANY_THROW(query->SetParametersQuery({ {":idDD", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } }));
 }
 
 TEST(SQLQueryImpl, ExecSuccess)
@@ -96,20 +100,17 @@ TEST(SQLQueryImpl, ExecSuccess)
 	const auto query = connection.GetQuery();
 	query->SetTextQuery("INSERT INTO person (id, forename, surname) VALUES (:id, :forename, :surname)");
 	query->SetParametersQuery({ {":id", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } });
-	const auto res = query->Exec();
-	ASSERT_EQ(res.first, true);
+
+	ASSERT_NO_THROW(query->Exec());
 }
 
 TEST(SQLQueryImpl, ExecFailed)
 {
 	DataBaseFileGuard guard;
 	auto& connection = guard.GetConnection();
-
 	const auto query = connection.GetQuery();
-	query->SetTextQuery("INSERT INTO person (id, forename, surname) VALUES (:id, :forename, :surname)");
-	query->SetParametersQuery({ {":id", 1001}, {":forename", "Bart"}, {":surname", "Simpson" } });
-	const auto res = query->Exec();
-	ASSERT_EQ(res.first, false);
+
+	ASSERT_ANY_THROW(query->Exec());
 }
 
 TEST(SQLQueryImpl, IndexOfCorrect)
@@ -216,7 +217,7 @@ TEST(SQLQueryImpl, NextValid)
 	query->SetTextQuery("SELECT * FROM person");
 	query->Exec();
 
-	ASSERT_EQ(query->Next().first, true);
+	ASSERT_EQ(query->Next(), true);
 }
 
 TEST(SQLQueryImpl, NextInValid)
@@ -238,5 +239,5 @@ TEST(SQLQueryImpl, NextInValid)
 	query->Exec();
 	query->Next();
 
-	ASSERT_EQ(query->Next().first, false);
+	ASSERT_EQ(query->Next(), false);
 }

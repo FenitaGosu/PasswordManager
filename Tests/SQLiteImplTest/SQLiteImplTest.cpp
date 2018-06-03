@@ -11,7 +11,7 @@
 TEST(SQLiteImpl, OpenTrue)
 {
 	DataBase::SQLiteImpl connection("Test.db");
-	ASSERT_EQ(connection.OpenConnection(), true);
+	ASSERT_NO_THROW(connection.OpenConnection());
 
 	QFile file ("Test.db");
 	file.remove();
@@ -20,7 +20,7 @@ TEST(SQLiteImpl, OpenTrue)
 TEST(SQLiteImpl, OpenFalse)
 {
 	DataBase::SQLiteImpl connection("?");
-	ASSERT_EQ(connection.OpenConnection(), false);
+	ASSERT_ANY_THROW(connection.OpenConnection());
 }
 
 TEST(SQLiteImpl, GetQuery)
