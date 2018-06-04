@@ -9,10 +9,10 @@ namespace DataBase {
 /**
  * QSqlQuery implementation of the interface IQuery.
  */
-class Query : public IQuery
+class QuerySQL : public IQuery
 {
 public:
-	Query(const QSqlDatabase& db);
+	QuerySQL(const QSqlDatabase& db);
 
 	void Exec() override;
 	void Exec(const QString& textQuery, const Parameters& values = {}) override;

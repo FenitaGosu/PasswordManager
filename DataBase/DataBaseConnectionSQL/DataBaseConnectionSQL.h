@@ -8,11 +8,11 @@ class QString;
 
 namespace DataBase {
 
-class SQLiteImpl : public IDataBaseConnection
+class DataBaseConnectionSQL : public IDataBaseConnection
 {
 public:
-	SQLiteImpl(const QString& path);
-	~SQLiteImpl();
+	DataBaseConnectionSQL(const QString& path);
+	~DataBaseConnectionSQL();
 
 public:
 	void OpenConnection() override;

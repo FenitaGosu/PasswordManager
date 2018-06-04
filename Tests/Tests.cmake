@@ -16,31 +16,31 @@ AddTarget(EXECUTABLE
 add_test(NAME QJsonImplTest COMMAND QJsonImplTest)
 
 AddTarget(EXECUTABLE
-	NAME SQLiteImplTest
+	NAME DataBaseConnectionSQLTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h *.qrc
 	QT_USE Core Widgets
 	SUBDIRS
-	SQLiteImplTest
+	DataBaseConnectionSQLTest
 	DEPS
 	gtest
 	gmock_main
 	DataBase
 	)
 
-add_test(NAME SQLiteImplTest COMMAND SQLiteImplTest)
+add_test(NAME DataBaseConnectionSQLTest COMMAND DataBaseConnectionSQLTest)
 
 AddTarget(EXECUTABLE
-	NAME SQLQueryImplTest
+	NAME QuerySQLTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h *.qrc
 	QT_USE Core Widgets
 	SUBDIRS
-	SQLQueryImplTest
+	QuerySQLTest
 	DEPS
 	gtest
 	gmock_main
 	DataBase
 	)
 
-add_test(NAME SQLQueryImplTest COMMAND SQLQueryImplTest)
+add_test(NAME QuerySQLTest COMMAND QuerySQLTest)

@@ -6,8 +6,8 @@
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
-#include "DataBase/SQLiteImpl/SQLiteImpl.h"
-#include "DataBase/SQLQueryImpl/Query.h"
+#include "DataBase/DataBaseConnectionSQL/DataBaseConnectionSQL.h"
+#include "DataBase/QuerySQL/QuerySQL.h"
 
 namespace {
 
@@ -28,14 +28,14 @@ public:
 		file.remove();
 	}
 
-	DataBase::SQLiteImpl& GetConnection()
+	DataBase::DataBaseConnectionSQL& GetConnection()
 	{
 		return m_connection;
 	}
 
 private:
 	QString m_filename;
-	DataBase::SQLiteImpl m_connection;
+	DataBase::DataBaseConnectionSQL m_connection;
 };
 
 }

@@ -5,9 +5,9 @@
 #include <QUuid>
 #include <QSqlError>
 
-#include "SQLQueryImpl/Query.h"
+#include "QuerySQL/QuerySQL.h"
 
-#include "SQLiteImpl.h"
+#include "DataBaseConnectionSQL.h"
 
 namespace {
 const QString DATABASE_TYPE = "QSQLITE";
@@ -15,7 +15,7 @@ const QString DATABASE_TYPE = "QSQLITE";
 
 using namespace DataBase;
 
-struct SQLiteImpl::Impl
+struct DataBaseConnectionSQL::Impl
 {
 	Impl(const QString& Path, const QString& ConnectionName)
 		: path(Path)
@@ -27,33 +27,33 @@ struct SQLiteImpl::Impl
 	QString connectionName;
 };
 
-SQLiteImpl::SQLiteImpl(const QString& path)
+DataBaseConnectionSQL::DataBaseConnectionSQL(const QString& path)
 	: m_impl(std::make_unique<Impl>(path, QUuid::createUuid().toString()))
 {
 }
 
-SQLiteImpl::~SQLiteImpl()
+DataBaseConnectionSQL::~DataBaseConnectionSQL()
 {
 	CloseConnection();
 }
 
-void SQLiteImpl::OpenConnection()
+void DataBaseConnectionSQL::OpenConnection()
 {
 	OpenDataBase();
 }
 
-void SQLiteImpl::CloseConnection()
+void DataBaseConnectionSQL::CloseConnection()
 {
 	QSqlDatabase::database(m_impl->connectionName).close();
 	QSqlDatabase::removeDatabase(m_impl->connectionName);
 }
 
-std::shared_ptr<IQuery> SQLiteImpl::GetQuery() const
+std::shared_ptr<IQuery> DataBaseConnectionSQL::GetQuery() const
 {
-	return std::make_shared<Query>(QSqlDatabase::database(m_impl->connectionName));
+	return std::make_shared<QuerySQL>(QSqlDatabase::database(m_impl->connectionName));
 }
 
-void SQLiteImpl::OpenDataBase()
+void DataBaseConnectionSQL::OpenDataBase()
 {
 	auto db = QSqlDatabase::addDatabase(DATABASE_TYPE, m_impl->connectionName);
 	db.setDatabaseName(m_impl->path);
