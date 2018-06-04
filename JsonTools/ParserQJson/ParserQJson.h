@@ -11,14 +11,14 @@ namespace JsonTools {
 /**
  * Qt implementation of the interface IParserJson.
  */
-class QJsonImpl : public IParserJson
+class ParserQJson : public IParserJson
 {
 public:
-	QJsonImpl(const std::string& filePath);
-	~QJsonImpl();
+	ParserQJson(const std::string& filePath);
+	~ParserQJson();
 
 private:
-	QJsonImpl(QJsonObject&& obj);
+	ParserQJson(QJsonObject&& obj);
 
 public:
 	bool GetBool(const std::string& key, const bool defaultValue = false) const override;
