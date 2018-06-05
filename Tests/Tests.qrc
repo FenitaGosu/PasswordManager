@@ -1,8 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>ParserQJsonTest/Empty.json</file>
-		<file>ParserQJsonTest/Values.json</file>
-		<file>ParserQJsonTest/NotMainSection.json</file>
-		<file>ParserQJsonTest/Incorrect.json</file>
+        <file>JsonToolsTest/Empty.json</file>
+		<file>JsonToolsTest/Values.json</file>
+		<file>JsonToolsTest/NotMainSection.json</file>
+		<file>JsonToolsTest/Incorrect.json</file>
     </qresource>
 </RCC>
