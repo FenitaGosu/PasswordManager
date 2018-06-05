@@ -6,7 +6,7 @@ class QSqlDatabase;
 
 namespace DataBase {
 
-class IQuery;
+class ITransactionManager;
 
 /**
  * Database connection interface
@@ -18,7 +18,7 @@ public:
 
 	virtual void OpenConnection() = 0;
 	virtual void CloseConnection() = 0;
-	virtual std::shared_ptr<IQuery> GetQuery() const = 0;
+	virtual std::shared_ptr<ITransactionManager> GetTransactionManager() const = 0;
 };
 
 }

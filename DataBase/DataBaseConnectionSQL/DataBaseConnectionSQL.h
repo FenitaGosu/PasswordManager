@@ -17,7 +17,7 @@ public:
 public:
 	void OpenConnection() override;
 	void CloseConnection() override;
-	std::shared_ptr<IQuery> GetQuery() const override;
+	std::shared_ptr<ITransactionManager> GetTransactionManager() const override;
 
 private:
 	void OpenDataBase();

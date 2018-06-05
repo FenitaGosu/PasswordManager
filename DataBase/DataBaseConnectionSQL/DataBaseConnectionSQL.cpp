@@ -5,7 +5,7 @@
 #include <QUuid>
 #include <QSqlError>
 
-#include "QuerySQL/QuerySQL.h"
+#include "TransactionManagerSQL/TransactionManagerSQL.h"
 
 #include "DataBaseConnectionSQL.h"
 
@@ -48,9 +48,9 @@ void DataBaseConnectionSQL::CloseConnection()
 	QSqlDatabase::removeDatabase(m_impl->connectionName);
 }
 
-std::shared_ptr<IQuery> DataBaseConnectionSQL::GetQuery() const
+std::shared_ptr<ITransactionManager> DataBaseConnectionSQL::GetTransactionManager() const
 {
-	return std::make_shared<QuerySQL>(QSqlDatabase::database(m_impl->connectionName));
+	return std::make_shared<TransactionManagerSQL>(QSqlDatabase::database(m_impl->connectionName));
 }
 
 void DataBaseConnectionSQL::OpenDataBase()
