@@ -7,7 +7,7 @@ class QSqlDatabase;
 namespace DataBase {
 
 /**
- * QSqlQuery implementation of the interface IQuery.
+ * QSqlQuery implementation of the interface IQuery
  */
 class QuerySQL : public IQuery
 {
