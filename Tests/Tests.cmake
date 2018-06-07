@@ -1,46 +1,31 @@
 cmake_minimum_required(VERSION 3.10)
 
 AddTarget(EXECUTABLE
-	NAME QJsonImplTest
+	NAME JsonToolsTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h *.qrc
 	QT_USE Core Widgets
 	SUBDIRS
-	QJsonImplTest
+	JsonToolsTest
 	DEPS
 	gtest
 	gmock_main
 	JsonTools
 	)
 
-add_test(NAME QJsonImplTest COMMAND QJsonImplTest)
+add_test(NAME JsonToolsTest COMMAND JsonToolsTest)
 
 AddTarget(EXECUTABLE
-	NAME SQLiteImplTest
+	NAME DataBaseTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h *.qrc
 	QT_USE Core Widgets
 	SUBDIRS
-	SQLiteImplTest
+	DataBaseTest
 	DEPS
 	gtest
 	gmock_main
 	DataBase
 	)
 
-add_test(NAME SQLiteImplTest COMMAND SQLiteImplTest)
-
-AddTarget(EXECUTABLE
-	NAME SQLQueryImplTest
-	SOURCE_DIR Tests/
-	SRC *.cpp *.h *.qrc
-	QT_USE Core Widgets
-	SUBDIRS
-	SQLQueryImplTest
-	DEPS
-	gtest
-	gmock_main
-	DataBase
-	)
-
-add_test(NAME SQLQueryImplTest COMMAND SQLQueryImplTest)
+add_test(NAME DataBaseTest COMMAND DataBaseTest)

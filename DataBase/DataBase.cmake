@@ -5,6 +5,7 @@ AddTarget(
 	QT_USE Core Sql
 	SUBDIRS
 	Interfaces
-	SQLiteImpl
-	SQLQueryImpl
+	DataBaseConnectionSQL
+	QuerySQL
+	TransactionManagerSQL
 	)

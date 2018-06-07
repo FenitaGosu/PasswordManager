@@ -5,11 +5,11 @@
 #include <QSqlResult>
 #include <QSqlQuery>
 
-#include "Query.h"
+#include "QuerySQL.h"
 
 using namespace DataBase;
 
-struct Query::Impl
+struct QuerySQL::Impl
 {
 	Impl(const QSqlDatabase& db)
 		: query(db)
@@ -21,12 +21,12 @@ struct Query::Impl
 	std::map<QString, int> fieldIndex;
 };
 
-Query::Query(const QSqlDatabase& db)
+QuerySQL::QuerySQL(const QSqlDatabase& db)
 	: m_impl(std::make_unique<Impl>(db))
 {
 }
 
-void Query::Exec()
+void QuerySQL::Exec()
 {
 	if (!m_impl->query.exec())
 		throw std::logic_error("Request could not be completed: " + GetError());
@@ -38,20 +38,20 @@ void Query::Exec()
 
 }
 
-void Query::Exec(const QString& textQuery, const IQuery::Parameters& values)
+void QuerySQL::Exec(const QString& textQuery, const IQuery::Parameters& values)
 {
 	SetTextQuery(textQuery);
 	SetParametersQuery(values);
 	Exec();
 }
 
-void Query::SetTextQuery(const QString& textQuery)
+void QuerySQL::SetTextQuery(const QString& textQuery)
 {
 	if (!m_impl->query.prepare(textQuery))
 		throw std::logic_error("Request preparation failed: " + GetError());
 }
 
-void Query::SetParametersQuery(const IQuery::Parameters& values)
+void QuerySQL::SetParametersQuery(const IQuery::Parameters& values)
 {
 	for (const auto& value : values)
 		m_impl->query.bindValue(value.first, value.second);
@@ -64,23 +64,23 @@ void Query::SetParametersQuery(const IQuery::Parameters& values)
 		throw std::logic_error("Failed to add parameters");
 }
 
-bool Query::Next()
+bool QuerySQL::Next()
 {
 	return m_impl->query.next();
 }
 
-QVariant Query::Value(int index) const
+QVariant QuerySQL::Value(int index) const
 {
 	return m_impl->query.value(index);
 }
 
-std::optional<int> Query::IndexOf(const QString& name) const
+std::optional<int> QuerySQL::IndexOf(const QString& name) const
 {
 	const auto it = m_impl->fieldIndex.find(name);
 	return (it == m_impl->fieldIndex.cend()) ? std::nullopt : std::optional<int>(it->second);
 }
 
-std::string Query::GetError() const
+std::string QuerySQL::GetError() const
 {
 	return m_impl->query.lastError().text().toStdString();
 }

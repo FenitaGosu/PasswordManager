@@ -1,5 +1,5 @@
 #include "JsonTools/Interfaces/IParserJson.h"
-#include "JsonTools/QJsonImpl/QJsonImpl.h"
+#include "JsonTools/ParserQJson/ParserQJson.h"
 
 #include "ApplicatonSettingsJsonImpl.h"
 
@@ -13,7 +13,7 @@ const std::string KEY_APPLICATION_NAME = "APPLICATION_NAME";
 }
 
 ApplicatonSettingsJsonImpl::ApplicatonSettingsJsonImpl()
-	: m_parser(std::make_unique<QJsonImpl>(CONFIG_PATH))
+	: m_parser(std::make_unique<ParserQJson>(CONFIG_PATH))
 {
 }
 
