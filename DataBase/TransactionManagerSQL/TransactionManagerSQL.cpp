@@ -24,7 +24,7 @@ TransactionManagerSQL::TransactionManagerSQL(const QSqlDatabase& db)
 
 void TransactionManagerSQL::Start()
 {
-	if (m_impl->dbConnection.transaction())
+	if (!m_impl->dbConnection.transaction())
 		throw std::logic_error("Transaction could not be started: " + m_impl->dbConnection.lastError().text().toStdString());
 }
 
@@ -32,12 +32,12 @@ void TransactionManagerSQL::Stop(bool success)
 {
 	if (success)
 	{
-		if (m_impl->dbConnection.commit())
+		if (!m_impl->dbConnection.commit())
 			throw std::logic_error("Transaction could not be comited: " + m_impl->dbConnection.lastError().text().toStdString());
 	}
 	else
 	{
-		if (m_impl->dbConnection.rollback())
+		if (!m_impl->dbConnection.rollback())
 			throw std::logic_error("Transaction could not be rollbacked: " + m_impl->dbConnection.lastError().text().toStdString());
 	}
 }
