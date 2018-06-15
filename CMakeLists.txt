@@ -41,5 +41,6 @@ include(addTaget.cmake)
 include(PasswordKit/PasswordKit.cmake)
 include(JsonTools/JsonTools.cmake)
 include(DataBase/DataBase.cmake)
+include(PasswordGenerator/PasswordGenerator.cmake)
 include(Tests/Tests.cmake)
 

@@ -4,7 +4,7 @@ AddTarget(EXECUTABLE
 	NAME JsonToolsTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h *.qrc
-	QT_USE Core Widgets
+	QT_USE Core
 	SUBDIRS
 	JsonToolsTest
 	DEPS
@@ -18,8 +18,8 @@ add_test(NAME JsonToolsTest COMMAND JsonToolsTest)
 AddTarget(EXECUTABLE
 	NAME DataBaseTest
 	SOURCE_DIR Tests/
-	SRC *.cpp *.h *.qrc
-	QT_USE Core Widgets
+	SRC *.cpp *.h
+	QT_USE Core
 	SUBDIRS
 	DataBaseTest
 	DEPS
@@ -29,3 +29,18 @@ AddTarget(EXECUTABLE
 	)
 
 add_test(NAME DataBaseTest COMMAND DataBaseTest)
+
+AddTarget(EXECUTABLE
+	NAME PasswordGeneratorTest
+	SOURCE_DIR Tests/
+	SRC *.cpp *.h
+	QT_USE Core
+	SUBDIRS
+	PasswordGeneratorTest
+	DEPS
+	gtest
+	gmock_main
+	PasswordGenerator
+	)
+
+add_test(NAME PasswordGeneratorTest COMMAND PasswordGeneratorTest)
