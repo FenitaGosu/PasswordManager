@@ -5,7 +5,7 @@
 
 namespace PasswordGenerator {
 
-struct СomponentsOfPassword;
+enum class СomponentsOfPassword;
 
 /**
  * Password generator interface

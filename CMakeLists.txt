@@ -42,5 +42,6 @@ include(PasswordKit/PasswordKit.cmake)
 include(JsonTools/JsonTools.cmake)
 include(DataBase/DataBase.cmake)
 include(PasswordGenerator/PasswordGenerator.cmake)
+include(Tools/Tools.cmake)
 include(Tests/Tests.cmake)
 
