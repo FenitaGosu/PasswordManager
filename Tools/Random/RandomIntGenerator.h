@@ -10,6 +10,7 @@ class RandomIntGenerator
 public:
 	RandomIntGenerator();
 	RandomIntGenerator(int a, int b);
+	~RandomIntGenerator();
 
 	void SetParams(int a, int b);
 

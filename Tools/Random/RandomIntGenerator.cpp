@@ -29,6 +29,8 @@ RandomIntGenerator::RandomIntGenerator(int a, int b)
 	SetParams(a, b);
 }
 
+RandomIntGenerator::~RandomIntGenerator() = default;
+
 void RandomIntGenerator::SetParams(int a, int b)
 {
 	decltype (m_impl->dis)::param_type newParams(a, b);

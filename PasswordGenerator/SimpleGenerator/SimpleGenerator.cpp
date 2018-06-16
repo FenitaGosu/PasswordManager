@@ -1,4 +1,8 @@
 #include <vector>
+#include <algorithm>
+#include <functional>
+
+#include "Tools/Random/RandomIntGenerator.h"
 
 #include "Enums/ComponentsOfPassword.h"
 
@@ -14,7 +18,19 @@ SimpleGenerator::SimpleGenerator()
 
 SimpleGenerator::~SimpleGenerator() = default;
 
-std::vector<std::string> SimpleGenerator::Generate(const std::vector<СomponentsOfPassword>& settings, size_t length, size_t count) const
+std::vector<std::string> SimpleGenerator::Generate(const std::vector<ComponentsOfPassword>& settings, size_t length, size_t count) const
 {
-	return std::vector<std::string>();
+	Tools::RandomIntGenerator genInt;
+	std::vector<std::string> res;
+	res.reserve(count);
+
+	const auto generate = [&genInt, &settings, length]() -> std::string
+	{
+		return std::string();
+	};
+
+
+	std::generate_n(std::back_inserter(res), count, generate);
+
+	return res;
 }

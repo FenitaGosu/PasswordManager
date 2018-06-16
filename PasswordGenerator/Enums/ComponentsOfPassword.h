@@ -2,7 +2,7 @@
 
 namespace PasswordGenerator {
 
-enum class СomponentsOfPassword
+enum class ComponentsOfPassword
 {
 	Numerals,
 	UpperCase,

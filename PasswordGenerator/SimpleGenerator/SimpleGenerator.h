@@ -14,7 +14,7 @@ public:
 	SimpleGenerator();
 	~SimpleGenerator();
 
-	std::vector<std::string> Generate(const std::vector<СomponentsOfPassword>& settings, size_t length, size_t count) const override;
+	std::vector<std::string> Generate(const std::vector<ComponentsOfPassword>& settings, size_t length, size_t count) const override;
 
 private:
 	std::unique_ptr<PasswordComponents> m_components;

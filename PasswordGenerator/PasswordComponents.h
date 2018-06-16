@@ -13,14 +13,14 @@ struct PasswordComponents
 	{
 		components =
 		{
-			{ СomponentsOfPassword::Numerals,		"0123456789" },
-			{ СomponentsOfPassword::UpperCase,		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" },
-			{ СomponentsOfPassword::LowerCase,		"abcdefghijklmnopqrstuvwxyz" },
-			{ СomponentsOfPassword::SpecialSymbols,	"!\"#$%&'()*+,-./:;<=>?@[]^_{|}~" }
+			{ ComponentsOfPassword::Numerals,		"0123456789" },
+			{ ComponentsOfPassword::UpperCase,		"ABCDEFGHIJKLMNOPQRSTUVWXYZ" },
+			{ ComponentsOfPassword::LowerCase,		"abcdefghijklmnopqrstuvwxyz" },
+			{ ComponentsOfPassword::SpecialSymbols,	"!\"#$%&'()*+,-./:;<=>?@[]^_{|}~" }
 		};
 	}
 
-	std::map<СomponentsOfPassword, std::string> components;
+	std::map<ComponentsOfPassword, std::string> components;
 };
 
 }
