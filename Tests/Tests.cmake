@@ -34,7 +34,6 @@ AddTarget(EXECUTABLE
 	NAME PasswordGeneratorTest
 	SOURCE_DIR Tests/
 	SRC *.cpp *.h
-	QT_USE Core
 	SUBDIRS
 	PasswordGeneratorTest
 	DEPS
