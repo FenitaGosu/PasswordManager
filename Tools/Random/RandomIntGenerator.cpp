@@ -7,7 +7,8 @@
 
 using namespace Tools;
 
-struct RandomIntGenerator::Impl
+template <class T>
+struct RandomIntGenerator<T>::Impl
 {
 	Impl()
 		: gen(std::random_device()())
@@ -15,39 +16,48 @@ struct RandomIntGenerator::Impl
 	}
 
 	std::mt19937 gen;
-	std::uniform_int_distribution<int> dis;
+	std::uniform_int_distribution<T> dis;
 };
 
-RandomIntGenerator::RandomIntGenerator()
+template <class T>
+RandomIntGenerator<T>::RandomIntGenerator()
 	: m_impl(std::make_unique<Impl>())
 {
 }
 
-RandomIntGenerator::RandomIntGenerator(int a, int b)
+template <class T>
+RandomIntGenerator<T>::RandomIntGenerator(T a, T b)
 	: m_impl(std::make_unique<Impl>())
 {
 	SetParams(a, b);
 }
 
-RandomIntGenerator::~RandomIntGenerator() = default;
+template <class T>
+RandomIntGenerator<T>::~RandomIntGenerator() = default;
 
-void RandomIntGenerator::SetParams(int a, int b)
+template <class T>
+void RandomIntGenerator<T>::SetParams(T a, T b)
 {
-	decltype (m_impl->dis)::param_type newParams(a, b);
+	typename decltype (m_impl->dis)::param_type newParams(a, b);
 	m_impl->dis.param(newParams);
 }
 
-int RandomIntGenerator::Get()
+template <class T>
+T RandomIntGenerator<T>::Get()
 {
 	return m_impl->dis(m_impl->gen);
 }
 
-std::vector<int> RandomIntGenerator::GetVector(size_t size)
+template <class T>
+std::vector<T> RandomIntGenerator<T>::GetVector(size_t size)
 {
-	std::vector<int> res;
+	std::vector<T> res;
 	res.reserve(size);
 
 	std::generate_n(std::back_inserter(res), size, std::bind(m_impl->dis, std::ref(m_impl->gen)));
 
 	return res;
 }
+
+template class Tools::RandomIntGenerator<int>;
+template class Tools::RandomIntGenerator<size_t>;
