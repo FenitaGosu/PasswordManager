@@ -5,17 +5,18 @@
 
 namespace Tools {
 
+template<class T>
 class RandomIntGenerator
 {
 public:
 	RandomIntGenerator();
-	RandomIntGenerator(int a, int b);
+	RandomIntGenerator(T a, T b);
 	~RandomIntGenerator();
 
-	void SetParams(int a, int b);
+	void SetParams(T a, T b);
 
-	int Get();
-	std::vector<int> GetVector(size_t size);
+	T Get();
+	std::vector<T> GetVector(size_t size);
 
 private:
 	struct Impl;

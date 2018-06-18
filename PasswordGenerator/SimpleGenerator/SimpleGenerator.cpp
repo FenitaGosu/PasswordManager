@@ -39,7 +39,7 @@ std::vector<std::string> SimpleGenerator::Generate(const std::vector<ComponentsO
 	if (settings.size() > length)
 		throw std::invalid_argument("length must be >= settings.size()");
 
-	Tools::RandomIntGenerator genInt;
+	Tools::RandomIntGenerator<size_t> genInt;
 	std::vector<std::string> res;
 	res.reserve(count);
 
@@ -53,16 +53,16 @@ std::vector<std::string> SimpleGenerator::Generate(const std::vector<ComponentsO
 			const auto it = comp->components.find(conponentsType);
 			assert(it != comp->components.cend());
 
-			genInt.SetParams(0, static_cast<int>(it->second.size()) - 1);
-			res += it->second[static_cast<size_t>(genInt.Get())];
+			genInt.SetParams(0, it->second.size() - 1);
+			res += it->second[genInt.Get()];
 		};
 
 		std::for_each(settings.cbegin(), settings.cend(), addSymbol);
 
 		for (size_t i = 0, sz = length - settings.size(); i < sz; ++i)
 		{
-			genInt.SetParams(0, static_cast<int>(settings.size()) - 1);
-			addSymbol(settings[static_cast<size_t>(genInt.Get())]);
+			genInt.SetParams(0, settings.size() - 1);
+			addSymbol(settings[genInt.Get()]);
 		}
 
 		assert(res.size() == length);
