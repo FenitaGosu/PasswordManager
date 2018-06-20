@@ -12,8 +12,9 @@ MainWindow::MainWindow(QPointer<Mediator> mediator, QWidget *parent)
 {
 	m_ui->setupUi(this);
 
-	connect(m_ui->actionExit_, &QAction::triggered, this,		&QMainWindow::close);
-	connect(m_ui->actionAbout, &QAction::triggered, m_mediator,	&Mediator::OnAboutClicked);
+	connect(m_ui->actionExit_,				&QAction::triggered, this,			&QMainWindow::close);
+	connect(m_ui->actionAbout,				&QAction::triggered, m_mediator,	&Mediator::OnAboutClicked);
+	connect(m_ui->actionGeneratePassword,	&QAction::triggered, m_mediator,	&Mediator::OnShowIndependentPasswordGeneratorDialog);
 }
 
 MainWindow::~MainWindow() = default;
