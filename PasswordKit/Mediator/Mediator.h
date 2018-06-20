@@ -16,7 +16,8 @@ public:
 
 public slots:
 	void OnAboutClicked();
-
+	void OnShowIndependentPasswordGeneratorDialog();
+	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas);
 };
 
 }

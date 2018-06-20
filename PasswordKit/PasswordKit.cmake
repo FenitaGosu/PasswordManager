@@ -12,4 +12,5 @@ AddTarget(EXECUTABLE
 	Mediator
 	DEPS
 	JsonTools
+	PasswordUI
 	)

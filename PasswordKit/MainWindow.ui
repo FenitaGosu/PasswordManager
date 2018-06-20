@@ -30,6 +30,7 @@
      <string>Menu</string>
     </property>
     <addaction name="actionAbout"/>
+    <addaction name="actionGeneratePassword"/>
     <addaction name="actionExit_"/>
    </widget>
    <addaction name="menuMenu"/>
@@ -47,6 +48,11 @@
   <action name="actionExit_">
    <property name="text">
     <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionGeneratePassword">
+   <property name="text">
+    <string>Generate password</string>
    </property>
   </action>
  </widget>
