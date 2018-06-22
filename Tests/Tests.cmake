@@ -43,3 +43,17 @@ AddTarget(EXECUTABLE
 	)
 
 add_test(NAME PasswordGeneratorTest COMMAND PasswordGeneratorTest)
+
+AddTarget(EXECUTABLE
+	NAME EncryptionTest
+	SOURCE_DIR Tests/
+	SRC *.cpp *.h
+	SUBDIRS
+	EncryptionTest
+	DEPS
+	gtest
+	gmock_main
+	Encryption
+	)
+
+add_test(NAME EncryptionTest COMMAND EncryptionTest)
