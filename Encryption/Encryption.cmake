@@ -7,4 +7,5 @@ AddTarget(
 	Interfaces
 	XOREncryptor
 	SimpleKeyProvider
+	CryptoHashQt
 	)

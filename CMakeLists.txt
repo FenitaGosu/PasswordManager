@@ -45,4 +45,3 @@ include(Tools/Tools.cmake)
 include(PasswordUI/PasswordUI.cmake)
 include(Encryption/Encryption.cmake)
 include(Tests/Tests.cmake)
-
