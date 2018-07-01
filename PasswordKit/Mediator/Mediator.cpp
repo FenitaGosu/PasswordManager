@@ -6,6 +6,7 @@
 
 #include "PasswordUI/Dialogs/PasswordGeneratorDialog.h"
 #include "PasswordUI/Dialogs/AboutDialog.h"
+#include "PasswordUI/Dialogs/LoginDialog.h"
 
 #include "Mediator.h"
 
@@ -17,7 +18,13 @@ Mediator::Mediator(QObject* parent)
 {
 }
 
-void PasswordKit::Mediator::OnAboutClicked()
+bool Mediator::ShowLoginDialog()
+{
+	LoginDialog loginDialog;
+	return static_cast<bool>(loginDialog.exec());
+}
+
+void PasswordKit::Mediator::OnShowAbout()
 {
 	AboutDialog aboutDialog(GetApp->GetMainWindow());
 	aboutDialog.exec();

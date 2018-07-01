@@ -13,9 +13,10 @@ class Mediator : public QObject
 
 public:
 	Mediator(QObject* parent = nullptr);
+	bool ShowLoginDialog();
 
 public slots:
-	void OnAboutClicked();
+	void OnShowAbout();
 	void OnShowIndependentPasswordGeneratorDialog();
 	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas);
 };
