@@ -4,6 +4,8 @@
 
 #include "Application/Application.h"
 
+#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
+
 #include "PasswordUI/Dialogs/PasswordGeneratorDialog.h"
 #include "PasswordUI/Dialogs/AboutDialog.h"
 #include "PasswordUI/Dialogs/LoginDialog.h"
@@ -13,14 +15,15 @@
 using namespace PasswordKit;
 using namespace PasswordUI;
 
-Mediator::Mediator(QObject* parent)
+Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialsInspector, QObject* parent)
 	: QObject(parent)
+	, m_credentialsInspector(std::move(credentialsInspector))
 {
 }
 
 bool Mediator::ShowLoginDialog()
 {
-	LoginDialog loginDialog;
+	LoginDialog loginDialog(m_credentialsInspector.get());
 	return static_cast<bool>(loginDialog.exec());
 }
 

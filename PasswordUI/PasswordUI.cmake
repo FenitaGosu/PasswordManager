@@ -8,4 +8,5 @@ AddTarget(
 	Dialogs
 	DEPS
 	PasswordGenerator
+	PasswordLogic
 	)

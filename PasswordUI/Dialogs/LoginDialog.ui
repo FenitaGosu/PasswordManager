@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>254</height>
+    <height>313</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -89,6 +89,16 @@
         <widget class="QToolButton" name="newPasswordButton">
          <property name="text">
           <string>New password</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="errorLabel">
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
          </property>
         </widget>
        </item>

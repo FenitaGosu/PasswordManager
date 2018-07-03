@@ -3,6 +3,10 @@
 #include <QDialog>
 #include <QScopedPointer>
 
+namespace PasswordLogic {
+class ICredentialsInspector;
+}
+
 namespace Ui {
 class LoginDialog;
 }
@@ -14,7 +18,7 @@ class LoginDialog : public QDialog
 	Q_OBJECT
 
 public:
-	explicit LoginDialog(QWidget* parent = nullptr);
+	explicit LoginDialog(const PasswordLogic::ICredentialsInspector* credentialsInspector, QWidget* parent = nullptr);
 	~LoginDialog();
 
 private:
@@ -26,6 +30,8 @@ private:
 
 private:
 	QScopedPointer<Ui::LoginDialog> m_ui;
+
+	const PasswordLogic::ICredentialsInspector* m_inspector;
 };
 
 }

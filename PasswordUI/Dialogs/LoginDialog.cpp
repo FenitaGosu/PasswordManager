@@ -1,11 +1,18 @@
+#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
+
 #include "LoginDialog.h"
 #include "ui_LoginDialog.h"
 
 using namespace PasswordUI;
 
-LoginDialog::LoginDialog(QWidget* parent)
+namespace {
+const QString INCORRECT_PASSWORD = "Incorrect password.";
+}
+
+LoginDialog::LoginDialog(const PasswordLogic::ICredentialsInspector* credentialsInspector, QWidget* parent)
 	: QDialog(parent)
 	, m_ui(new Ui::LoginDialog())
+	, m_inspector(credentialsInspector)
 {
 	m_ui->setupUi(this);
 	setWindowFlags (windowFlags() | Qt::FramelessWindowHint);
@@ -15,13 +22,19 @@ LoginDialog::LoginDialog(QWidget* parent)
 	connect(m_ui->saveButton,			&QAbstractButton::clicked, this, &LoginDialog::OnSaveClicked);
 	connect(m_ui->cancelButton,			&QAbstractButton::clicked, this, &LoginDialog::OnCancelClicked);
 	connect(m_ui->newPasswordButton,	&QAbstractButton::clicked, this, &LoginDialog::OnNewPasswordClicked);
+
+	m_ui->okButton->setDisabled(true);
+	connect(m_ui->passwordLineEdit, &QLineEdit::textChanged, [btn = m_ui->okButton](const QString& text){ btn->setDisabled(text.isEmpty()); });
 }
 
 LoginDialog::~LoginDialog() = default;
 
 void LoginDialog::OnOkClicked()
 {
-	emit accept();
+	if (m_inspector->CheckPassword(m_ui->passwordLineEdit->text().toStdString()))
+		emit accept();
+	else
+		m_ui->errorLabel->setText(INCORRECT_PASSWORD);
 }
 
 void LoginDialog::OnExitClicked()
