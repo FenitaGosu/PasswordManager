@@ -25,6 +25,7 @@ public slots:
 	void OnShowAbout();
 	void OnShowIndependentPasswordGeneratorDialog();
 	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas);
+	void OnShowSetMainPasswordDialog();
 
 private:
 	std::unique_ptr<PasswordLogic::ICredentialsInspector> m_credentialsInspector;

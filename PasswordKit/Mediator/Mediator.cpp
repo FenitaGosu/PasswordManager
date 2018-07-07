@@ -8,7 +8,7 @@
 
 #include "PasswordUI/Dialogs/PasswordGeneratorDialog.h"
 #include "PasswordUI/Dialogs/AboutDialog.h"
-#include "PasswordUI/Dialogs/LoginDialog.h"
+#include "PasswordUI/Dialogs//LoginDialog/LoginDialog.h"
 
 #include "Mediator.h"
 
@@ -23,7 +23,8 @@ Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& crede
 
 bool Mediator::ShowLoginDialog()
 {
-	LoginDialog loginDialog(m_credentialsInspector.get());
+	LoginDialog loginDialog(m_credentialsInspector->IsFirstStart() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
+							m_credentialsInspector.get());
 	return static_cast<bool>(loginDialog.exec());
 }
 
@@ -44,4 +45,10 @@ void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas)
 	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Embeddable, GetApp->GetMainWindow());
 	if (d.exec())
 		pas = d.GetPassowrd();
+}
+
+void Mediator::OnShowSetMainPasswordDialog()
+{
+	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector.get());
+	loginDialog.exec();
 }

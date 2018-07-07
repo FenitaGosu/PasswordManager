@@ -32,6 +32,7 @@
     <addaction name="actionAbout"/>
     <addaction name="actionGeneratePassword"/>
     <addaction name="actionExit_"/>
+    <addaction name="actionSetPassword"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
@@ -53,6 +54,11 @@
   <action name="actionGeneratePassword">
    <property name="text">
     <string>Generate password</string>
+   </property>
+  </action>
+  <action name="actionSetPassword">
+   <property name="text">
+    <string>Set password</string>
    </property>
   </action>
  </widget>
