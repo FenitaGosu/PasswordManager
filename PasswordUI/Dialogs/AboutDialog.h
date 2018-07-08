@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include <QDialog>
 #include <QScopedPointer>
 

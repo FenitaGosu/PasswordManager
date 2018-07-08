@@ -6,6 +6,9 @@
 #include "Application/Application.h"
 #include "ApplicationSettings/ApplicatonSettingsJsonImpl.h"
 
+#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
+#include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
+
 #include "Mediator/Mediator.h"
 
 #include "MainWindow.h"
@@ -18,12 +21,17 @@ int main(int argc, char *argv[])
 
 		app.СonfiguringApplicationSettings(std::make_unique<PasswordKit::ApplicatonSettingsJsonImpl>());
 
-		PasswordKit::Mediator mediator;
+		PasswordKit::Mediator mediator(std::make_unique<PasswordLogic::CredentialsInspector>());
+
+		if(!mediator.ShowLoginDialog())
+			return EXIT_FAILURE;
+
 		PasswordKit::MainWindow w(&mediator);
 
 		w.setWindowTitle(app.applicationName());
-		app.SetMainWindow(&w);
 		w.show();
+
+		app.SetMainWindow(&w);
 
 		return app.exec();
 	}
