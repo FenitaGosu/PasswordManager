@@ -37,9 +37,9 @@ DataBaseConnectionSQL::~DataBaseConnectionSQL()
 	CloseConnection();
 }
 
-void DataBaseConnectionSQL::OpenConnection()
+IDataBaseConnection::OpenStatus DataBaseConnectionSQL::OpenConnection()
 {
-	OpenDataBase();
+	return OpenDataBase();
 }
 
 void DataBaseConnectionSQL::CloseConnection()
@@ -53,11 +53,14 @@ std::shared_ptr<ITransactionManager> DataBaseConnectionSQL::GetTransactionManage
 	return std::make_shared<TransactionManagerSQL>(QSqlDatabase::database(m_impl->connectionName));
 }
 
-void DataBaseConnectionSQL::OpenDataBase()
+IDataBaseConnection::OpenStatus DataBaseConnectionSQL::OpenDataBase()
 {
+	OpenStatus status =  QFile::exists(m_impl->connectionName) ? OpenStatus::OpenExisting : OpenStatus::OpenNew;
 	auto db = QSqlDatabase::addDatabase(DATABASE_TYPE, m_impl->connectionName);
 	db.setDatabaseName(m_impl->path);
 
 	if (!db.open())
 		throw std::logic_error("Сonnection could not be opened: " + db.lastError().text().toStdString());
+
+	return status;
 }
