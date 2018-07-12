@@ -14,10 +14,18 @@ class ITransactionManager;
 class IDataBaseConnection
 {
 public:
+	enum class OpenStatus
+	{
+		OpenExisting,
+		OpenNew,
+	};
+
+public:
 	virtual ~IDataBaseConnection() = default;
 
-	virtual void OpenConnection() = 0;
+	virtual OpenStatus OpenConnection() = 0;
 	virtual void CloseConnection() = 0;
+	virtual void RemoveStorage() = 0;
 	virtual std::shared_ptr<ITransactionManager> GetTransactionManager() const = 0;
 };
 

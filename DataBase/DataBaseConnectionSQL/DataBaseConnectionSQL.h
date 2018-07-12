@@ -15,12 +15,13 @@ public:
 	~DataBaseConnectionSQL();
 
 public:
-	void OpenConnection() override;
+	OpenStatus OpenConnection() override;
 	void CloseConnection() override;
+	void RemoveStorage() override;
 	std::shared_ptr<ITransactionManager> GetTransactionManager() const override;
 
 private:
-	void OpenDataBase();
+	OpenStatus OpenDataBase();
 
 private:
 	struct Impl;

@@ -13,5 +13,6 @@ AddTarget(EXECUTABLE
 	DEPS
 	JsonTools
 	PasswordUI
-	PasswordLogic
+	PasswordLogic	
+	Encryption
 	)

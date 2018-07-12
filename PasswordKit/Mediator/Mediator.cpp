@@ -23,7 +23,7 @@ Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& crede
 
 bool Mediator::ShowLoginDialog()
 {
-	LoginDialog loginDialog(m_credentialsInspector->IsFirstStart() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
+	LoginDialog loginDialog(m_credentialsInspector->IsNeedSetPassword() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
 							m_credentialsInspector.get());
 	return static_cast<bool>(loginDialog.exec());
 }

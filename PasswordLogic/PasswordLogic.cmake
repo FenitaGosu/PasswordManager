@@ -6,4 +6,8 @@ AddTarget(
 	SUBDIRS
 	Interfaces
 	CredentialsInspector
+	DataSource
+	DEPS
+	DataBase
+	Encryption
 	)

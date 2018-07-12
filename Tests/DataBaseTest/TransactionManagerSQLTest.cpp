@@ -1,6 +1,5 @@
 #include <memory>
 
-#include <QFile>
 #include <QUuid>
 
 #include "gtest/gtest.h"
@@ -25,8 +24,7 @@ public:
 	~DataBaseFileGuard()
 	{
 		m_connection.CloseConnection();
-		QFile file (m_filename);
-		file.remove();
+		m_connection.RemoveStorage();
 	}
 
 	std::shared_ptr<DataBase::ITransactionManager> GetTransactionManager()
