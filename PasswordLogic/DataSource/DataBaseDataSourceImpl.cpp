@@ -14,7 +14,7 @@ struct DataBaseDataSourceImpl::Impl
 		: connection(std::make_unique<DataBaseConnectionSQL>(QString::fromStdString(path)))
 	{
 		const auto status = connection->OpenConnection();
-		/// @TODO нелья завязваться только на наличие файла, нужно проверить, есть ли вообще пароль в бд
+		/// @TODO нельзя завязываться только на наличие файла, нужно проверить, есть ли вообще пароль в бд
 		isNeedSetPassword = status == IDataBaseConnection::OpenStatus::OpenNew;
 	}
 	std::unique_ptr<IDataBaseConnection> connection;
