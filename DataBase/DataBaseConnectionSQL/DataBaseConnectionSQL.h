@@ -17,6 +17,7 @@ public:
 public:
 	OpenStatus OpenConnection() override;
 	void CloseConnection() override;
+	void RemoveStorage() override;
 	std::shared_ptr<ITransactionManager> GetTransactionManager() const override;
 
 private:

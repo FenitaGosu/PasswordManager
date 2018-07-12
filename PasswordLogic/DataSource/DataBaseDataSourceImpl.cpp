@@ -14,10 +14,11 @@ struct DataBaseDataSourceImpl::Impl
 		: connection(std::make_unique<DataBaseConnectionSQL>(QString::fromStdString(path)))
 	{
 		const auto status = connection->OpenConnection();
-		isFirstStart = status == IDataBaseConnection::OpenStatus::OpenNew;
+		/// @TODO нелья завязваться только на наличие файла, нужно проверить, есть ли вообще пароль в бд
+		isNeedSetPassword = status == IDataBaseConnection::OpenStatus::OpenNew;
 	}
 	std::unique_ptr<IDataBaseConnection> connection;
-	bool isFirstStart = false;
+	bool isNeedSetPassword = false;
 };
 
 DataBaseDataSourceImpl::DataBaseDataSourceImpl(const std::string& path)
@@ -25,11 +26,16 @@ DataBaseDataSourceImpl::DataBaseDataSourceImpl(const std::string& path)
 {
 }
 
-DataBaseDataSourceImpl::~DataBaseDataSourceImpl() = default;
-
-bool DataBaseDataSourceImpl::IsFisrstStart() const noexcept
+DataBaseDataSourceImpl::~DataBaseDataSourceImpl()
 {
-	return m_impl->isFirstStart;
+	m_impl->connection->CloseConnection();
+	if (m_impl->isNeedSetPassword)
+		m_impl->connection->RemoveStorage();
+}
+
+bool DataBaseDataSourceImpl::IsNeedSetPassword() const noexcept
+{
+	return m_impl->isNeedSetPassword;
 }
 
 std::string DataBaseDataSourceImpl::GeCurrentMainPassword() const
@@ -39,5 +45,6 @@ std::string DataBaseDataSourceImpl::GeCurrentMainPassword() const
 
 void DataBaseDataSourceImpl::SetCurrentMainPassword(const std::string& password)
 {
-
+	if (m_impl->isNeedSetPassword)
+		m_impl->isNeedSetPassword = false;
 }

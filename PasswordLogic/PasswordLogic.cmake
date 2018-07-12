@@ -9,4 +9,5 @@ AddTarget(
 	DataSource
 	DEPS
 	DataBase
+	Encryption
 	)

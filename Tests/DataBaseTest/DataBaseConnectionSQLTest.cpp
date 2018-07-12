@@ -13,8 +13,17 @@ TEST(DataBaseConnectionSQLTest, OpenTrue)
 	DataBase::DataBaseConnectionSQL connection("Test.db");
 	ASSERT_NO_THROW(connection.OpenConnection());
 
-	QFile file ("Test.db");
-	file.remove();
+	connection.CloseConnection();
+	connection.RemoveStorage();
+}
+
+TEST(DataBaseConnectionSQLTest, OpenNewConnection)
+{
+	DataBase::DataBaseConnectionSQL connection("Test.db");
+	ASSERT_EQ(connection.OpenConnection(), DataBase::IDataBaseConnection::OpenStatus::OpenNew);
+
+	connection.CloseConnection();
+	connection.RemoveStorage();
 }
 
 TEST(DataBaseConnectionSQLTest, OpenFalse)
@@ -23,11 +32,22 @@ TEST(DataBaseConnectionSQLTest, OpenFalse)
 	ASSERT_ANY_THROW(connection.OpenConnection());
 }
 
+TEST(DataBaseConnectionSQLTest, RemoveStorage)
+{
+	DataBase::DataBaseConnectionSQL connection("Test.db");
+	connection.OpenConnection();
+
+	connection.CloseConnection();
+	connection.RemoveStorage();
+
+	ASSERT_EQ(QFile::exists("Test.db"), false);
+}
+
 TEST(DataBaseConnectionSQLTest, GetQuery)
 {
 	DataBase::DataBaseConnectionSQL connection("Test.db");
 	ASSERT_EQ(std::dynamic_pointer_cast<DataBase::TransactionManagerSQL>(connection.GetTransactionManager()) != nullptr, true);
 
-	QFile file ("Test.db");
-	file.remove();
+	connection.CloseConnection();
+	connection.RemoveStorage();
 }

@@ -48,6 +48,11 @@ void DataBaseConnectionSQL::CloseConnection()
 	QSqlDatabase::removeDatabase(m_impl->connectionName);
 }
 
+void DataBaseConnectionSQL::RemoveStorage()
+{
+	QFile::remove(m_impl->path);
+}
+
 std::shared_ptr<ITransactionManager> DataBaseConnectionSQL::GetTransactionManager() const
 {
 	return std::make_shared<TransactionManagerSQL>(QSqlDatabase::database(m_impl->connectionName));
@@ -55,7 +60,7 @@ std::shared_ptr<ITransactionManager> DataBaseConnectionSQL::GetTransactionManage
 
 IDataBaseConnection::OpenStatus DataBaseConnectionSQL::OpenDataBase()
 {
-	OpenStatus status =  QFile::exists(m_impl->connectionName) ? OpenStatus::OpenExisting : OpenStatus::OpenNew;
+	OpenStatus status =  QFile::exists(m_impl->path) ? OpenStatus::OpenExisting : OpenStatus::OpenNew;
 	auto db = QSqlDatabase::addDatabase(DATABASE_TYPE, m_impl->connectionName);
 	db.setDatabaseName(m_impl->path);
 

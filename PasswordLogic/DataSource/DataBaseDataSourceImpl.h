@@ -11,7 +11,7 @@ public:
 	DataBaseDataSourceImpl(const std::string& path);
 	~DataBaseDataSourceImpl();
 
-	bool IsFisrstStart() const noexcept;
+	bool IsNeedSetPassword() const noexcept;
 	std::string GeCurrentMainPassword() const;
 	void SetCurrentMainPassword(const std::string& password);
 

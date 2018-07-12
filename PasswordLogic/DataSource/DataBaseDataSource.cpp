@@ -3,24 +3,24 @@
 
 using namespace PasswordLogic;
 
-DataBaseSource::DataBaseSource(const std::string& path)
+DataBaseDataSource::DataBaseDataSource(const std::string& path)
 	: m_dataBase(std::make_unique<DataBaseDataSourceImpl>(path))
 {
 }
 
-DataBaseSource::~DataBaseSource() = default;
+DataBaseDataSource::~DataBaseDataSource() = default;
 
-bool DataBaseSource::IsFisrstStart() const noexcept
+bool DataBaseDataSource::IsNeedSetPassword() const noexcept
 {
-	return false;
+	return m_dataBase->IsNeedSetPassword();
 }
 
-std::string DataBaseSource::GeCurrentMainPassword() const
+std::string DataBaseDataSource::GeCurrentMainPassword() const
 {
 	return m_dataBase->GeCurrentMainPassword();
 }
 
-void DataBaseSource::SetCurrentMainPassword(const std::string& password)
+void DataBaseDataSource::SetCurrentMainPassword(const std::string& password)
 {
 	m_dataBase->SetCurrentMainPassword(password);
 }

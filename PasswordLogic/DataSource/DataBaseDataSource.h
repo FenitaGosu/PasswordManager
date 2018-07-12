@@ -3,18 +3,21 @@
 #include <memory>
 
 #include "Interfaces/IDataSource.h"
+#include "Interfaces/ICredentialSource.h"
 
 namespace PasswordLogic {
 
 class DataBaseDataSourceImpl;
 
-class DataBaseSource : public IDataSource
+class DataBaseDataSource
+	: public IDataSource
+	, public ICredentialSource
 {
 public:
-	DataBaseSource(const std::string& path);
-	~DataBaseSource();
+	DataBaseDataSource(const std::string& path);
+	~DataBaseDataSource();
 
-	bool IsFisrstStart() const noexcept override;
+	bool IsNeedSetPassword() const noexcept override;
 	std::string GeCurrentMainPassword() const override;
 	void SetCurrentMainPassword(const std::string& password) override;
 

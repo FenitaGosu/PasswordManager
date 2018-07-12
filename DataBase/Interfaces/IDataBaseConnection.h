@@ -25,6 +25,7 @@ public:
 
 	virtual OpenStatus OpenConnection() = 0;
 	virtual void CloseConnection() = 0;
+	virtual void RemoveStorage() = 0;
 	virtual std::shared_ptr<ITransactionManager> GetTransactionManager() const = 0;
 };
 

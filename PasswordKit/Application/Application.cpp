@@ -1,6 +1,8 @@
 #include <cassert>
 
 #include <QFile>
+#include <QDir>
+#include <QStandardPaths>
 #include <QMainWindow>
 
 #include "Interfaces/IApplicationSettings.h"
@@ -34,6 +36,7 @@ void Application::СonfiguringApplicationSettings(std::unique_ptr<IApplicatonSet
 	setApplicationName(settings->GetApplicationName());
 
 	ConfigureStyleSheet();
+	CreateApplicationPath();
 }
 
 void Application::SetMainWindow(QPointer<QMainWindow> mainWindow)
@@ -41,13 +44,25 @@ void Application::SetMainWindow(QPointer<QMainWindow> mainWindow)
 	m_window = mainWindow;
 }
 
-QPointer<QMainWindow> Application::GetMainWindow() const
+QPointer<QMainWindow> Application::GetMainWindow() const noexcept
 {
 	return m_window;
+}
+
+QString Application::GetApplicarionPath() const noexcept
+{
+	return m_applicationPath;
 }
 
 void Application::ConfigureStyleSheet()
 {
 	Q_INIT_RESOURCE(PasswordKit);
 	setStyleSheet(styleSheet() + LoadStyle(STYLE_PATH));
+}
+
+void Application::CreateApplicationPath()
+{
+	QDir folder(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
+	folder.mkpath(QApplication::applicationName());
+	m_applicationPath = folder.path() += "/" + QApplication::applicationName();
 }
