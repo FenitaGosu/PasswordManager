@@ -14,6 +14,7 @@ class TransactionManagerSQL : public ITransactionManager
 public:
 	TransactionManagerSQL(const QSqlDatabase& db);
 
+	std::unique_ptr<TransactionGuard> MakeGuard(const bool& isSuccess) override;
 	void Start() override;
 	void Stop(bool success) override;
 	std::shared_ptr<IQuery> GetQuery() const override;
