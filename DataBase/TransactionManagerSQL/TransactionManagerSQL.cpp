@@ -3,6 +3,7 @@
 
 #include "QuerySQL/QuerySQL.h"
 
+#include "TransactionGuard.h"
 #include "TransactionManagerSQL.h"
 
 using namespace DataBase;
@@ -20,6 +21,11 @@ struct TransactionManagerSQL::Impl
 TransactionManagerSQL::TransactionManagerSQL(const QSqlDatabase& db)
 	: m_impl(std::make_unique<Impl>(db))
 {
+}
+
+std::unique_ptr<TransactionGuard> TransactionManagerSQL::MakeGuard(const bool& isSuccess)
+{
+	return std::make_unique<TransactionGuard>(this, isSuccess);
 }
 
 void TransactionManagerSQL::Start()

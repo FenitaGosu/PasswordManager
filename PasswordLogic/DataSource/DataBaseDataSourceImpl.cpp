@@ -1,8 +1,17 @@
+#include <iostream>
+#include <string>
+
 #include <QString>
 
 #include "DataBase/Interfaces/IDataBaseConnection.h"
-#include "DataBase/DataBaseConnectionSQL/DataBaseConnectionSQL.h"
+#include "DataBase/Interfaces/IQuery.h"
+#include "DataBase/Interfaces/ITransactionManager.h"
 
+#include "DataBase/DataBaseConnectionSQL/DataBaseConnectionSQL.h"
+#include "DataBase/TransactionManagerSQL/TransactionGuard.h"
+
+#include "DataBaseCreator.h"
+#include "DataBaseArtifacts.h"
 #include "DataBaseDataSourceImpl.h"
 
 using namespace PasswordLogic;
@@ -14,9 +23,62 @@ struct DataBaseDataSourceImpl::Impl
 		: connection(std::make_unique<DataBaseConnectionSQL>(QString::fromStdString(path)))
 	{
 		const auto status = connection->OpenConnection();
-		/// @TODO нельзя завязываться только на наличие файла, нужно проверить, есть ли вообще пароль в бд
-		isNeedSetPassword = status == IDataBaseConnection::OpenStatus::OpenNew;
+
+		if (status == IDataBaseConnection::OpenStatus::OpenNew)
+		{
+			DataBaseCreator::FillDataBase(connection);
+			isNeedSetPassword = true;
+		}
+		else
+		{
+			isNeedSetPassword = GetPassword().empty() ? true : false;
+		}
 	}
+
+	std::string GetPassword() const
+	{
+		std::string password;
+		bool success = false;
+		const auto transaction = connection->GetTransactionManager();
+		const auto guard = transaction->MakeGuard(success);
+
+		try
+		{
+			const auto query = transaction->GetQuery();
+			query->SetTextQuery(DataBaseArtifacts::SELECT_MAIN_PASSWORD);
+			query->Exec();
+
+			if (query->Next())
+				password = query->Value(query->IndexOf("password").value()).toString().toStdString();
+
+			success = true;
+		}
+		catch (std::exception& exp)
+		{
+			std::cerr << exp.what();
+		}
+
+		return password;
+	}
+
+	void SetPassword(const std::string& password)
+	{
+		bool success = false;
+		const auto transaction = connection->GetTransactionManager();
+		const auto guard = transaction->MakeGuard(success);
+
+		try
+		{
+			transaction->GetQuery()->Exec(DataBaseArtifacts::UPDATE_MAIN_PASSWORD, { { ":password", QString::fromStdString(password) } });
+			success = true;
+		}
+		catch (std::exception& exp)
+		{
+			std::cerr << exp.what();
+		}
+	}
+
+public:
 	std::unique_ptr<IDataBaseConnection> connection;
 	bool isNeedSetPassword = false;
 };
@@ -26,12 +88,7 @@ DataBaseDataSourceImpl::DataBaseDataSourceImpl(const std::string& path)
 {
 }
 
-DataBaseDataSourceImpl::~DataBaseDataSourceImpl()
-{
-	m_impl->connection->CloseConnection();
-	if (m_impl->isNeedSetPassword)
-		m_impl->connection->RemoveStorage();
-}
+DataBaseDataSourceImpl::~DataBaseDataSourceImpl() = default;
 
 bool DataBaseDataSourceImpl::IsNeedSetPassword() const noexcept
 {
@@ -40,11 +97,13 @@ bool DataBaseDataSourceImpl::IsNeedSetPassword() const noexcept
 
 std::string DataBaseDataSourceImpl::GeCurrentMainPassword() const
 {
-	return std::string();
+	return m_impl->GetPassword();
 }
 
 void DataBaseDataSourceImpl::SetCurrentMainPassword(const std::string& password)
 {
 	if (m_impl->isNeedSetPassword)
 		m_impl->isNeedSetPassword = false;
+
+	m_impl->SetPassword(password);
 }

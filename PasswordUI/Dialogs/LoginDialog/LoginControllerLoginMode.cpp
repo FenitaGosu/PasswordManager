@@ -52,6 +52,7 @@ void LoginControllerLoginMode::OnExitClicked()
 
 void LoginControllerLoginMode::OnSaveClicked()
 {
+		m_dialog->GetUi()->errorLabel->clear();
 	if (m_inspector->CheckPassword(m_dialog->GetUi()->oldPasswordLineEdit->text().toStdString()))
 	{
 		m_inspector->SetPassword(m_dialog->GetUi()->newPasswordLineEdit->text().toStdString());

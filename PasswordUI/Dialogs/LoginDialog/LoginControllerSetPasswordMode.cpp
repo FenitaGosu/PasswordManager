@@ -36,10 +36,19 @@ void LoginControllerSetPasswordMode::Setup()
 
 void LoginControllerSetPasswordMode::OnSaveClicked()
 {
+	m_dialog->GetUi()->errorLabel->clear();
+
 	if (m_inspector->CheckPassword(m_dialog->GetUi()->oldPasswordLineEdit->text().toStdString()))
 	{
-		m_inspector->SetPassword(m_dialog->GetUi()->newPasswordLineEdit->text().toStdString());
-		m_dialog->Accept();
+		if (const auto pass = m_dialog->GetUi()->newPasswordLineEdit->text().toStdString(); pass.size() > ILoginDialog::MIN_PAS_LENGHT)
+		{
+			m_inspector->SetPassword(pass);
+			m_dialog->Accept();
+		}
+		else
+		{
+			m_dialog->GetUi()->errorNewPasswordLabel->setText(ILoginDialog::INCORRECT_PASSWORD_LEGTH);
+		}
 	}
 	else
 	{
