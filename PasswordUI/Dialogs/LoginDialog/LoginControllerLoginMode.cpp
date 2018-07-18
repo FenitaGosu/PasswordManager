@@ -14,11 +14,11 @@ LoginControllerLoginMode::LoginControllerLoginMode(PasswordLogic::ICredentialsIn
 
 void LoginControllerLoginMode::Setup()
 {
+	BaseLoginController::Setup();
+
 	connect(m_dialog->GetUi()->okButton,			&QAbstractButton::clicked, this, &LoginControllerLoginMode::OnOkClicked);
 	connect(m_dialog->GetUi()->exitButton,			&QAbstractButton::clicked, this, &LoginControllerLoginMode::OnExitClicked);
 	connect(m_dialog->GetUi()->newPasswordButton,	&QAbstractButton::clicked, this, &LoginControllerLoginMode::OnNewPasswordClicked);
-	connect(m_dialog->GetUi()->cancelButton,		&QAbstractButton::clicked, this, &LoginControllerLoginMode::OnCancelClicked);
-	connect(m_dialog->GetUi()->saveButton,			&QAbstractButton::clicked, this, &LoginControllerLoginMode::OnSaveClicked);
 
 	m_dialog->GetUi()->okButton->setDisabled(true);
 	connect(m_dialog->GetUi()->passwordLineEdit, &QLineEdit::textChanged, [btn = m_dialog->GetUi()->okButton](const QString& text){ btn->setDisabled(text.isEmpty()); });

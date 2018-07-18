@@ -12,11 +12,9 @@ class ILoginDialog;
 class BaseLoginController : public QObject
 {
 public:
-	BaseLoginController( PasswordLogic::ICredentialsInspector* const inspector, ILoginDialog* const dialog)
-		: m_inspector(inspector)
-		, m_dialog(dialog)
-	{
-	}
+	BaseLoginController( PasswordLogic::ICredentialsInspector* const inspector, ILoginDialog* const dialog);
+
+	void SetDefaultNewPassword(const QString& password);
 
 	virtual ~BaseLoginController() = default;
 	virtual void Setup() = 0;

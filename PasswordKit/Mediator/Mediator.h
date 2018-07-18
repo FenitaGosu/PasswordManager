@@ -24,7 +24,7 @@ public:
 public slots:
 	void OnShowAbout();
 	void OnShowIndependentPasswordGeneratorDialog();
-	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas);
+	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t);
 	void OnShowSetMainPasswordDialog();
 
 private:

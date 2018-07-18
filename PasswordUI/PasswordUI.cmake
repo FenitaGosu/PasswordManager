@@ -7,7 +7,9 @@ AddTarget(
 	SUBDIRS
 	Dialogs
 	Dialogs/LoginDialog
+	Interfaces
 	DEPS
 	PasswordGenerator
 	PasswordLogic
+	QtTools
 	)

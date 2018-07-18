@@ -15,4 +15,5 @@ AddTarget(EXECUTABLE
 	PasswordUI
 	PasswordLogic	
 	Encryption
+	QtTools
 	)

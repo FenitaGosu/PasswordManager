@@ -14,10 +14,7 @@ LoginControllerSetPasswordMode::LoginControllerSetPasswordMode(PasswordLogic::IC
 
 void LoginControllerSetPasswordMode::Setup()
 {
-	connect(m_dialog->GetUi()->cancelButton,		&QAbstractButton::clicked, this, &LoginControllerSetPasswordMode::OnCancelClicked);
-	connect(m_dialog->GetUi()->saveButton,			&QAbstractButton::clicked, this, &LoginControllerSetPasswordMode::OnSaveClicked);
-
-	connect(m_dialog->GetUi()->passwordLineEdit, &QLineEdit::textChanged, [btn = m_dialog->GetUi()->okButton](const QString& text){ btn->setDisabled(text.isEmpty()); });
+	BaseLoginController::Setup();
 
 	const auto checkEnableSaveNewPassword = [this](const QString&)
 	{
@@ -40,7 +37,7 @@ void LoginControllerSetPasswordMode::OnSaveClicked()
 
 	if (m_inspector->CheckPassword(m_dialog->GetUi()->oldPasswordLineEdit->text().toStdString()))
 	{
-		if (const auto pass = m_dialog->GetUi()->newPasswordLineEdit->text().toStdString(); pass.size() > ILoginDialog::MIN_PAS_LENGHT)
+		if (const auto pass = m_dialog->GetUi()->newPasswordLineEdit->text().toStdString(); pass.size() >= ILoginDialog::MIN_PAS_LENGHT)
 		{
 			m_inspector->SetPassword(pass);
 			m_dialog->Accept();
