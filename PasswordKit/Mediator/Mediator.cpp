@@ -10,6 +10,8 @@
 #include "PasswordUI/Dialogs/AboutDialog.h"
 #include "PasswordUI/Dialogs//LoginDialog/LoginDialog.h"
 
+#include "PasswordUI/Interfaces/IObjectsConnector.h"
+
 #include "Mediator.h"
 
 using namespace PasswordKit;
@@ -19,13 +21,14 @@ Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& crede
 	: QObject(parent)
 	, m_credentialsInspector(std::move(credentialsInspector))
 {
+	ObjectsConnector::RegisterReceiver(IObjectsConnector::GENERATE_PASSWORD, this, SLOT(OnShowEmbeddablePasswordGeneratorDialog(QString&, size_t)));
 }
 
 bool Mediator::ShowLoginDialog()
 {
 	LoginDialog loginDialog(m_credentialsInspector->IsNeedSetPassword() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
 							m_credentialsInspector.get());
-	return static_cast<bool>(loginDialog.exec());
+	return loginDialog.Exec();
 }
 
 void PasswordKit::Mediator::OnShowAbout()
@@ -36,13 +39,13 @@ void PasswordKit::Mediator::OnShowAbout()
 
 void Mediator::OnShowIndependentPasswordGeneratorDialog()
 {
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Independent, GetApp->GetMainWindow());
+	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Independent, 0, GetApp->GetMainWindow());
 	d.exec();
 }
 
-void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas)
+void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t minLenght)
 {
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Embeddable, GetApp->GetMainWindow());
+	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Embeddable, minLenght, GetApp->GetMainWindow());
 	if (d.exec())
 		pas = d.GetPassowrd();
 }
@@ -50,5 +53,5 @@ void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas)
 void Mediator::OnShowSetMainPasswordDialog()
 {
 	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector.get());
-	loginDialog.exec();
+	loginDialog.Exec();
 }

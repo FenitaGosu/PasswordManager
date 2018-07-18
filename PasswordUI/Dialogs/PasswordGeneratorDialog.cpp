@@ -13,8 +13,9 @@ using namespace PasswordGenerator;
 
 struct PasswordGeneratorDialog::Impl
 {
-	Impl(PasswordGeneratorDialog::Mode Mode)
+	Impl(PasswordGeneratorDialog::Mode Mode, size_t MinLenght)
 		: mode(Mode)
+		, minLenght(MinLenght)
 		, generator(std::make_unique<SimpleGenerator>())
 	{
 	}
@@ -36,15 +37,16 @@ struct PasswordGeneratorDialog::Impl
 	}
 
 	Mode mode;
+	size_t minLenght;
 	QString password;
 	std::unique_ptr<PasswordGenerator::IPasswordGenerator> generator;
 	std::vector<std::pair<ComponentsOfPassword, QCheckBox*>> parmetersCheckBoxs;
 };
 
-PasswordGeneratorDialog::PasswordGeneratorDialog(Mode mode, QWidget* parent)
+PasswordGeneratorDialog::PasswordGeneratorDialog(Mode mode, size_t minLenght, QWidget* parent)
 	: QDialog(parent)
 	, m_ui(new Ui::PasswordGeneratorDialog())
-	, m_impl(std::make_unique<Impl>(mode))
+	, m_impl(std::make_unique<Impl>(mode, minLenght))
 {
 	m_ui->setupUi(this);
 
@@ -74,16 +76,20 @@ void PasswordGeneratorDialog::Setup()
 	m_ui->passwordBrowser->setVisible(m_impl->mode == Mode::Independent);
 	m_ui->countFrame->setVisible(m_impl->mode == Mode::Independent);
 
+	const auto onClicked = [this]()
+	{
+		const auto count = m_impl->GetCountChecked();
+		m_ui->generateButton->setEnabled(count > 0);
+		m_ui->lengthSpinBox->setValue(std::max({ m_ui->lengthSpinBox->value(), count, static_cast<int>(m_impl->minLenght) }));
+		m_ui->lengthSpinBox->setMinimum(std::max(count, static_cast<int>(m_impl->minLenght)));
+	};
+
+	onClicked();
+
 	connect(m_ui->generateButton, &QAbstractButton::clicked, this, &PasswordGeneratorDialog::OnGenerate);
 
 	for (const auto& item : m_impl->parmetersCheckBoxs)
-		connect(item.second, &QCheckBox::clicked, [this](bool)
-		{
-			const auto count = m_impl->GetCountChecked();
-			m_ui->generateButton->setEnabled(count > 0);
-			m_ui->lengthSpinBox->setValue(m_ui->lengthSpinBox->value() > count ? m_ui->lengthSpinBox->value() : count);
-			m_ui->lengthSpinBox->setMinimum(count);
-		});
+		connect(item.second, &QCheckBox::clicked, onClicked);
 }
 
 void PasswordGeneratorDialog::OnGenerate()

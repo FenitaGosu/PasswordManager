@@ -17,7 +17,7 @@ private:
 	void OnOkClicked() override;
 	void OnExitClicked() override;
 	void OnSaveClicked() override;
-	void OnCancelClicked()override;
+	void OnCancelClicked() override;
 	void OnNewPasswordClicked() override;
 };
 

@@ -27,7 +27,7 @@ public:
 	};
 
 public:
-	explicit PasswordGeneratorDialog(Mode mode = Mode::Independent, QWidget* parent = nullptr);
+	explicit PasswordGeneratorDialog(Mode mode = Mode::Independent, size_t minLenght = 0, QWidget* parent = nullptr);
 	~PasswordGeneratorDialog();
 
 	const QString& GetPassowrd() const noexcept;

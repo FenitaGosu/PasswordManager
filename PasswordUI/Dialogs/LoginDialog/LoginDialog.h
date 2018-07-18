@@ -13,6 +13,8 @@ namespace Ui {
 class LoginDialog;
 }
 
+class QString;
+
 namespace PasswordUI {
 
 class BaseLoginController;
@@ -35,9 +37,15 @@ public:
 	explicit LoginDialog(Mode mode, PasswordLogic::ICredentialsInspector* const credentialsInspector, QWidget* parent = nullptr);
 	~LoginDialog();
 
+	bool Exec();
+
 	void Reject() override;
 	void Accept() override;
+	void Generate() override;
 	Ui::LoginDialog* GetUi() const noexcept override;
+
+signals:
+	void generatePassword(QString& pas, size_t minLenght);
 
 private:
 	std::unique_ptr<BaseLoginController> CreateController(Mode mode, ILoginDialog* loginDialog, PasswordLogic::ICredentialsInspector* credentialsInspector) const;
@@ -45,6 +53,7 @@ private:
 private:
 	QScopedPointer<Ui::LoginDialog> m_ui;
 	std::unique_ptr<BaseLoginController> m_controller;
+	bool m_needGeneratePassword;
 };
 
 }
