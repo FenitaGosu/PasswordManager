@@ -19,8 +19,14 @@ void DataBaseCreator::FillDataBase(const std::unique_ptr<DataBase::IDataBaseConn
 
 	try
 	{
-		transaction->GetQuery()->Exec(DataBaseArtifacts::CREATE_MAIN_PASSWORD_TABLE);
-		transaction->GetQuery()->Exec(DataBaseArtifacts::INSERT_MAIN_PASSWORD, { {":password", ""}});
+		transaction->GetQuery()->Exec(DataBaseArtifacts::CREATE_CONSTANT_TABLE);
+
+		transaction->GetQuery()->Exec(DataBaseArtifacts::INSERT_CONSTANT,
+			{ {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT},		{DataBaseArtifacts::VALUE, ""}});
+
+		transaction->GetQuery()->Exec(DataBaseArtifacts::INSERT_CONSTANT,
+			{ {DataBaseArtifacts::NAME, DataBaseArtifacts::DATABASE_VERSION_CONSTANT},	{DataBaseArtifacts::VALUE, DataBaseArtifacts::DATABASE_VERSION}});
+
 		success = true;
 	}
 	catch (std::exception& exp)
