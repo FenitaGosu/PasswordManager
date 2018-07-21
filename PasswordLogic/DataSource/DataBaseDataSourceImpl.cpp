@@ -11,6 +11,7 @@
 #include "DataBase/TransactionManagerSQL/TransactionGuard.h"
 
 #include "DataBaseCreator.h"
+#include "DataBaseMigrator.h"
 #include "DataBaseArtifacts.h"
 #include "DataBaseDataSourceImpl.h"
 
@@ -32,6 +33,7 @@ struct DataBaseDataSourceImpl::Impl
 		else
 		{
 			isNeedSetPassword = GetPassword().empty() ? true : false;
+			DataBaseMigrator::MigrateDataBase(connection);
 		}
 	}
 
@@ -45,11 +47,11 @@ struct DataBaseDataSourceImpl::Impl
 		try
 		{
 			const auto query = transaction->GetQuery();
-			query->SetTextQuery(DataBaseArtifacts::SELECT_MAIN_PASSWORD);
-			query->Exec();
+
+			query->Exec(DataBaseArtifacts::SELECT_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT} } );
 
 			if (query->Next())
-				password = query->Value(query->IndexOf("password").value()).toString().toStdString();
+				password = query->Value(query->IndexOf(DataBaseArtifacts::VALUE_INDEX).value()).toString().toStdString();
 
 			success = true;
 		}
@@ -69,7 +71,7 @@ struct DataBaseDataSourceImpl::Impl
 
 		try
 		{
-			transaction->GetQuery()->Exec(DataBaseArtifacts::UPDATE_MAIN_PASSWORD, { { ":password", QString::fromStdString(password) } });
+			transaction->GetQuery()->Exec(DataBaseArtifacts::UPDATE_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT}, {DataBaseArtifacts::VALUE, QString::fromStdString(password)} });
 			success = true;
 		}
 		catch (std::exception& exp)

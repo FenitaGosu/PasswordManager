@@ -31,8 +31,8 @@
     </property>
     <addaction name="actionAbout"/>
     <addaction name="actionGeneratePassword"/>
-    <addaction name="actionExit_"/>
     <addaction name="actionSetPassword"/>
+    <addaction name="actionExit_"/>
    </widget>
    <addaction name="menuMenu"/>
   </widget>
