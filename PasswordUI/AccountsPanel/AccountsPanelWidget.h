@@ -3,10 +3,10 @@
 #include <QFrame>
 #include <QScopedPointer>
 
-#include "Interfaces/IPasswordPanel.h"
+#include "Interfaces/IAccountsPanel.h"
 
 namespace Ui {
-class PasswordPanelWidget;
+class AccountsPanelWidget;
 }
 
 class QAbstractItemModel;
@@ -15,17 +15,17 @@ namespace PasswordUI {
 
 class ICallBackPasswordPanel;
 
-class PasswordPanelWidget : public QFrame, public IPasswordPanel
+class AccountsPanelWidget : public QFrame, public IAccountsPanel
 {
 	Q_OBJECT
 
 public:
-	explicit PasswordPanelWidget(QWidget* parent = nullptr);
-	~PasswordPanelWidget();
+	explicit AccountsPanelWidget(QWidget* parent = nullptr);
+	~AccountsPanelWidget();
 
 	void Setup(ICallBackPasswordPanel *callBack);
 
-	/// IPasswordPanel
+	/// IAccountsPanel
 	void Hide() override;
 	void Show() override;
 	void Update() override;
@@ -34,7 +34,7 @@ private:
 	void SetupView();
 
 private:
-	QScopedPointer<Ui::PasswordPanelWidget> m_ui;
+	QScopedPointer<Ui::AccountsPanelWidget> m_ui;
 
 	ICallBackPasswordPanel* m_callBack;
 	QAbstractItemModel* m_model;

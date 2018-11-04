@@ -20,7 +20,7 @@ WorkspaceWidget::WorkspaceWidget(QWidget* parent)
 	m_ui->sidePanelWidget->Setup(m_stateController);
 	m_ui->topPanelWidget->Setup(m_stateController);
 
-	m_stateController->HandleEvent(Event(EventType::ToolPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Passwords)));
+	m_stateController->HandleEvent(Event(EventType::ToolPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
 }
 
 WorkspaceWidget::~WorkspaceWidget() = default;

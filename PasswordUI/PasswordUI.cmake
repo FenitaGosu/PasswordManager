@@ -3,12 +3,12 @@ AddTarget(
 	SOURCE_DIR PasswordUI/
 	SRC *.cpp *.h
 	QT_USE Core Widgets
-	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui PasswordPanel/*.ui WorkspaceWidget/*.ui ToolPanel/*.ui
+	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui AccountsPanel/*.ui WorkspaceWidget/*.ui ToolPanel/*.ui
 	SUBDIRS
 	Dialogs
 	Dialogs/LoginDialog
 	Interfaces
-	PasswordPanel
+	AccountsPanel
 	WorkspaceWidget
 	StateController
 	Event

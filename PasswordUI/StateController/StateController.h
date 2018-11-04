@@ -8,7 +8,7 @@
 
 namespace PasswordUI {
 
-class IPasswordPanel;
+class IAccountsPanel;
 class IToolPanel;
 enum class Tool;
 
@@ -23,7 +23,7 @@ public:
 	explicit StateController(QObject* parent = nullptr);
 	~StateController();
 
-	void Setup(IPasswordPanel* passwordPanel, IToolPanel* toolPanel);
+	void Setup(IAccountsPanel* passwordPanel, IToolPanel* toolPanel);
 
 	/// IEventHandler
 	void HandleEvent(Event& e) override;
@@ -39,12 +39,12 @@ private:
 	void HandleToolPaneleEvent(Tool toolId);
 	void ResetUI();
 
-	void ToViewAllPasswords();
-	void ToAddPassword();
-	void ToDeletePassword();
+	void ToViewAllAccounts();
+	void ToAddAccount();
+	void ToDeleteAccount();
 
 private:
-	IPasswordPanel* m_passwordPanel;
+	IAccountsPanel* m_passwordPanel;
 	IToolPanel* m_toolPanel;
 
 	std::unique_ptr<QAbstractItemModel> m_passwordModel;

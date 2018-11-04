@@ -3,10 +3,10 @@
 
 namespace PasswordUI {
 
-class IPasswordPanel
+class IAccountsPanel
 {
 public:
-	virtual ~IPasswordPanel() = default;
+	virtual ~IAccountsPanel() = default;
 
 	virtual void Hide() = 0;
 	virtual void Show() = 0;
