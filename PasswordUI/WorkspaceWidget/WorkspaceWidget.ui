@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WorkspaceWidget</class>
+ <widget class="QWidget" name="WorkspaceWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>821</width>
+    <height>635</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>16777215</width>
+    <height>16777215</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Password generator</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="PasswordUI::ToolPanelWidget" name="topPanelWidget" native="true"/>
+   </item>
+   <item row="1" column="0" rowspan="2">
+    <widget class="PasswordUI::PasswordPanelWidget" name="sidePanelWidget" native="true"/>
+   </item>
+   <item row="1" column="1" rowspan="2">
+    <widget class="QWidget" name="centralWidget" native="true"/>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>PasswordUI::PasswordPanelWidget</class>
+   <extends>QWidget</extends>
+   <header>PasswordUI/PasswordPanel/PasswordPanelWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PasswordUI::ToolPanelWidget</class>
+   <extends>QWidget</extends>
+   <header>PasswordUI/ToolPanel/ToolPanelWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
