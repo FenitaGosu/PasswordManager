@@ -1,4 +1,19 @@
 QMainWindow
 {
 	background: #A9A9A9;
+
+	min-width: 1280px;
+	min-height: 720px;
+}
+
+PasswordUI--PasswordPanelWidget
+{
+	min-width: 300px;
+	max-width: 300px;
+}
+
+PasswordUI--ToolPanelWidget
+{
+	min-height: 80px;
+	max-height: 80px;
 }

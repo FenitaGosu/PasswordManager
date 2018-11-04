@@ -6,22 +6,41 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>718</width>
-    <height>555</height>
+    <width>301</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>PasswordManager</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout"/>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="PasswordUI::WorkspaceWidget" name="workspaceWidget" native="true"/>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>718</width>
+     <width>301</width>
      <height>26</height>
     </rect>
    </property>
@@ -36,11 +55,6 @@
    </widget>
    <addaction name="menuMenu"/>
   </widget>
-  <action name="actionExit">
-   <property name="text">
-    <string>E&amp;xit</string>
-   </property>
-  </action>
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
@@ -63,6 +77,14 @@
   </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>PasswordUI::WorkspaceWidget</class>
+   <extends>QWidget</extends>
+   <header>PasswordUI/WorkspaceWidget/WorkspaceWidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>
