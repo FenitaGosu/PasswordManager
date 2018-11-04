@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 		PasswordKit::Mediator mediator(std::make_unique<PasswordLogic::CredentialsInspector>(dataSource, std::make_unique<Encryption::CryptoHashQt>()));
 
 		if(!mediator.ShowLoginDialog())
-			return EXIT_FAILURE;
+			return EXIT_SUCCESS;
 
 		PasswordKit::MainWindow w(&mediator);
 		w.setWindowTitle(app.applicationName());

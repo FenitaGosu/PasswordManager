@@ -6,7 +6,7 @@ QMainWindow
 	min-height: 720px;
 }
 
-PasswordUI--PasswordPanelWidget
+PasswordUI--AccountsPanelWidget
 {
 	min-width: 300px;
 	max-width: 300px;

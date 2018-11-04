@@ -36,7 +36,7 @@
     <widget class="PasswordUI::ToolPanelWidget" name="topPanelWidget" native="true"/>
    </item>
    <item row="1" column="0" rowspan="2">
-    <widget class="PasswordUI::PasswordPanelWidget" name="sidePanelWidget" native="true"/>
+    <widget class="PasswordUI::AccountsPanelWidget" name="sidePanelWidget" native="true"/>
    </item>
    <item row="1" column="1" rowspan="2">
     <widget class="QWidget" name="centralWidget" native="true"/>
@@ -45,9 +45,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>PasswordUI::PasswordPanelWidget</class>
+   <class>PasswordUI::AccountsPanelWidget</class>
    <extends>QWidget</extends>
-   <header>PasswordUI/PasswordPanel/PasswordPanelWidget.h</header>
+   <header>PasswordUI/AccountsPanel/AccountsPanelWidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

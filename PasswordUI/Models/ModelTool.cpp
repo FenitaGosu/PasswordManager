@@ -12,9 +12,9 @@ const std::string& GetText(Tool tool)
 {
 	static const std::map<Tool, std::string> s_text =
 	{
-		{ Tool::Passwords,		QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"All passwords")	},
-		{ Tool::AddPassword,	QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"Add password")		},
-		{ Tool::DeletePassword,	QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"Delete password")	},
+		{ Tool::Accounts,		QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"All accounts")		},
+		{ Tool::AddAccount,		QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"Add account")		},
+		{ Tool::DeleteAccount,	QT_TRANSLATE_NOOP("PasswordUI::ModelTool",	"Delete account")	},
 	};
 
 	const auto it = s_text.find(tool);

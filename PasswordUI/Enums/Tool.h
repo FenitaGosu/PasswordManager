@@ -5,9 +5,9 @@ namespace PasswordUI {
 	enum class Tool
 	{
 		None = -1,
-		Passwords,
-		AddPassword,
-		DeletePassword,
+		Accounts,		// all account
+		AddAccount,		// add new account
+		DeleteAccount,	// delete current account
 	};
 
 }

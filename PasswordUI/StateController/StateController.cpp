@@ -4,7 +4,7 @@
 
 #include "Enums/Tool.h"
 
-#include "Interfaces/IPasswordPanel.h"
+#include "Interfaces/IAccountsPanel.h"
 #include "Interfaces/IToolPanel.h"
 
 #include "Models/ModelTool.h"
@@ -22,7 +22,7 @@ StateController::StateController(QObject* parent)
 
 StateController::~StateController() = default;
 
-void StateController::Setup(IPasswordPanel* passwordPanel, IToolPanel* toolPanel)
+void StateController::Setup(IAccountsPanel* passwordPanel, IToolPanel* toolPanel)
 {
 	m_passwordPanel = passwordPanel;
 	m_toolPanel = toolPanel;
@@ -57,9 +57,9 @@ QAbstractItemModel* StateController::GetInstrumentsModel()
 {
 	std::vector<Tool> tools =
 	{
-		Tool::Passwords,
-		Tool::AddPassword,
-		Tool::DeletePassword
+		Tool::Accounts,
+		Tool::AddAccount,
+		Tool::DeleteAccount
 	};
 
 	m_toolModel = std::make_unique<ModelTool>(std::move(tools));
@@ -74,16 +74,16 @@ void StateController::HandleToolPaneleEvent(Tool toolId)
 
 	switch (toolId)
 	{
-		case Tool::Passwords:
-			ToViewAllPasswords();
+		case Tool::Accounts:
+			ToViewAllAccounts();
 		break;
 
-		case Tool::AddPassword:
-			ToAddPassword();
+		case Tool::AddAccount:
+			ToAddAccount();
 		break;
 
-		case Tool::DeletePassword:
-			ToDeletePassword();
+		case Tool::DeleteAccount:
+			ToDeleteAccount();
 		break;
 
 		default:
@@ -96,16 +96,16 @@ void StateController::ResetUI()
 	m_passwordPanel->Hide();
 }
 
-void StateController::ToViewAllPasswords()
+void StateController::ToViewAllAccounts()
 {
 	m_passwordPanel->Show();
 }
 
-void StateController::ToAddPassword()
+void StateController::ToAddAccount()
 {
 }
 
-void StateController::ToDeletePassword()
+void StateController::ToDeleteAccount()
 {
 	m_passwordPanel->Show();
 }
