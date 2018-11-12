@@ -33,7 +33,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QListView" name="shortPasswordDataView">
+    <widget class="QListView" name="previewAccountView">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>

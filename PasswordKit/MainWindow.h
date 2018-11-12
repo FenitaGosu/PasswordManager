@@ -8,6 +8,10 @@ namespace Ui {
 class MainWindow;
 }
 
+namespace PasswordLogic {
+class DataController;
+}
+
 namespace PasswordKit {
 
 class Mediator;
@@ -17,12 +21,12 @@ class MainWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit MainWindow(QPointer<Mediator> mediator, QWidget *parent = nullptr);
+	explicit MainWindow(PasswordKit::Mediator* mediator, PasswordLogic::DataController *controller, QWidget *parent = nullptr);
 	~MainWindow();
 
 private:
 	QScopedPointer<Ui::MainWindow> m_ui;
-	QPointer<Mediator> m_mediator;
+	Mediator* m_mediator;
 };
 
 }

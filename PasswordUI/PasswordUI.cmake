@@ -3,17 +3,17 @@ AddTarget(
 	SOURCE_DIR PasswordUI/
 	SRC *.cpp *.h
 	QT_USE Core Widgets
-	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui AccountsPanel/*.ui WorkspaceWidget/*.ui ToolPanel/*.ui
+	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui AccountsPanel/*.ui WorkspaceWidget/*.ui ToolsPanel/*.ui
 	SUBDIRS
 	Dialogs
 	Dialogs/LoginDialog
 	Interfaces
 	AccountsPanel
 	WorkspaceWidget
-	StateController
+	UIController
 	Event
 	Enums
-	ToolPanel
+	ToolsPanel
 	Models
 	ModelRoles
 	DEPS

@@ -2,7 +2,6 @@
 
 #include <memory>
 
-#include <QPointer>
 #include <QString>
 #include <QApplication>
 
@@ -19,9 +18,9 @@ class Application: public QApplication
 public:
 	Application(int& argc, char** argv);
 	void СonfiguringApplicationSettings(std::unique_ptr<IApplicatonSettings>&& settings);
-	void SetMainWindow(QPointer<QMainWindow> mainWindow);
+	void SetMainWindow(QMainWindow *mainWindow);
 
-	QPointer<QMainWindow> GetMainWindow() const noexcept;
+	QMainWindow* GetMainWindow() const noexcept;
 	QString GetApplicarionPath() const noexcept;
 
 private:
@@ -29,7 +28,7 @@ private:
 	void CreateApplicationPath();
 
 private:
-	QPointer<QMainWindow> m_window;
+	QMainWindow* m_window;
 	QString m_applicationPath;
 };
 

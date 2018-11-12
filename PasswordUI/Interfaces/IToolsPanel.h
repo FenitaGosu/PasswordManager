@@ -4,10 +4,10 @@ namespace PasswordUI {
 
 enum class Tool;
 
-class IToolPanel
+class IToolsPanel
 {
 public:
-	virtual ~IToolPanel() = default;
+	virtual ~IToolsPanel() = default;
 	virtual void ActivateTool(Tool tool) = 0;
 	virtual Tool GetActiveTool() const = 0;
 };

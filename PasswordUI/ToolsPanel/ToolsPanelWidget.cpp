@@ -14,38 +14,38 @@
 
 #include "SystemConstants.h"
 
-#include "ToolPanelWidget.h"
+#include "ToolsPanelWidget.h"
 
-#include "ui_ToolPanelWidget.h"
+#include "ui_ToolsPanelWidget.h"
 
 using namespace PasswordUI;
 
-ToolPanelWidget::ToolPanelWidget(QWidget* parent)
+ToolsPanelWidget::ToolsPanelWidget(QWidget* parent)
 	: QFrame(parent)
-	, m_ui(new Ui::ToolPanelWidget())
+	, m_ui(new Ui::ToolsPanelWidget())
 {
 	m_ui->setupUi(this);
 }
 
-void ToolPanelWidget::ActivateTool(Tool tool)
+void ToolsPanelWidget::ActivateTool(Tool tool)
 {
 	m_btnGroup->button(static_cast<int>(tool))->setChecked(true);
 }
 
-Tool ToolPanelWidget::GetActiveTool() const
+Tool ToolsPanelWidget::GetActiveTool() const
 {
 	return static_cast<Tool>(m_btnGroup->checkedId());
 }
 
-ToolPanelWidget::~ToolPanelWidget() = default;
+ToolsPanelWidget::~ToolsPanelWidget() = default;
 
-void ToolPanelWidget::Setup(ICallBackToolPanel* callBack)
+void ToolsPanelWidget::Setup(ICallBackToolPanel* callBack)
 {
 	m_callBack = callBack;
 	SetupView();
 }
 
-void ToolPanelWidget::SetupView()
+void ToolsPanelWidget::SetupView()
 {
 	m_model = m_callBack->GetInstrumentsModel();
 
@@ -72,6 +72,6 @@ void ToolPanelWidget::SetupView()
 
 	connect(m_btnGroup, QOverload<int>::of(&QButtonGroup::buttonClicked), [callback = m_callBack](int tool)
 	{
-		callback->HandleEvent(Event(EventType::ToolPanel, SystemConstants::ACTIVATE_TOOL, (tool)));
+		callback->HandleEvent(Event(EventType::ToolsPanel, SystemConstants::ACTIVATE_TOOL, tool));
 	});
 }

@@ -12,7 +12,7 @@ PasswordUI--AccountsPanelWidget
 	max-width: 300px;
 }
 
-PasswordUI--ToolPanelWidget
+PasswordUI--ToolsPanelWidget
 {
 	min-height: 80px;
 	max-height: 80px;

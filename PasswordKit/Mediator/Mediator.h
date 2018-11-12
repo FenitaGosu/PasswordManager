@@ -1,7 +1,5 @@
 #pragma once
 
-#include <memory>
-
 #include <QObject>
 
 namespace PasswordLogic {
@@ -18,7 +16,7 @@ class Mediator : public QObject
 	Q_OBJECT
 
 public:
-	Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialsInspector, QObject* parent = nullptr);
+	Mediator(PasswordLogic::ICredentialsInspector* credentialsInspector, QObject* parent = nullptr);
 	bool ShowLoginDialog();
 
 public slots:
@@ -28,7 +26,7 @@ public slots:
 	void OnShowSetMainPasswordDialog();
 
 private:
-	std::unique_ptr<PasswordLogic::ICredentialsInspector> m_credentialsInspector;
+	PasswordLogic::ICredentialsInspector* m_credentialsInspector;
 };
 
 }
