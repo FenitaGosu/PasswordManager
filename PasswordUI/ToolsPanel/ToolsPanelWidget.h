@@ -3,10 +3,10 @@
 #include <QFrame>
 #include <QScopedPointer>
 
-#include "Interfaces/IToolPanel.h"
+#include "Interfaces/IToolsPanel.h"
 
 namespace Ui {
-class ToolPanelWidget;
+class ToolsPanelWidget;
 }
 
 class QAbstractItemModel;
@@ -16,17 +16,17 @@ namespace PasswordUI {
 
 class ICallBackToolPanel;
 
-class ToolPanelWidget : public QFrame, public IToolPanel
+class ToolsPanelWidget : public QFrame, public IToolsPanel
 {
 	Q_OBJECT
 
 public:
-	explicit ToolPanelWidget(QWidget* parent = nullptr);
-	~ToolPanelWidget();
+	explicit ToolsPanelWidget(QWidget* parent = nullptr);
+	~ToolsPanelWidget();
 
 	void Setup(ICallBackToolPanel *callBack);
 
-	/// IToolPanel
+	/// IToolsPanel
 	void ActivateTool(Tool tool) override;
 	Tool GetActiveTool() const override;
 
@@ -34,7 +34,7 @@ private:
 	void SetupView();
 
 private:
-	QScopedPointer<Ui::ToolPanelWidget> m_ui;
+	QScopedPointer<Ui::ToolsPanelWidget> m_ui;
 
 	ICallBackToolPanel* m_callBack;
 	QAbstractItemModel* m_model;

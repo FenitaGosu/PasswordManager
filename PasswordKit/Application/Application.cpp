@@ -39,12 +39,12 @@ void Application::СonfiguringApplicationSettings(std::unique_ptr<IApplicatonSet
 	CreateApplicationPath();
 }
 
-void Application::SetMainWindow(QPointer<QMainWindow> mainWindow)
+void Application::SetMainWindow(QMainWindow* mainWindow)
 {
 	m_window = mainWindow;
 }
 
-QPointer<QMainWindow> Application::GetMainWindow() const noexcept
+QMainWindow* Application::GetMainWindow() const noexcept
 {
 	return m_window;
 }

@@ -1,4 +1,4 @@
-#include "StateController/StateController.h"
+#include "UIController/UIController.h"
 #include "Event/Event.h"
 #include "Enums/Tool.h"
 
@@ -12,15 +12,18 @@ using namespace PasswordUI;
 WorkspaceWidget::WorkspaceWidget(QWidget* parent)
 	: QWidget(parent)
 	, m_ui(new Ui::WorkspaceWidget())
-	, m_stateController(new StateController(this))
+	, m_uiController( std::make_unique<UIController>())
 {
 	m_ui->setupUi(this);
-
-	m_stateController->Setup(m_ui->sidePanelWidget, m_ui->topPanelWidget);
-	m_ui->sidePanelWidget->Setup(m_stateController);
-	m_ui->topPanelWidget->Setup(m_stateController);
-
-	m_stateController->HandleEvent(Event(EventType::ToolPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
 }
 
 WorkspaceWidget::~WorkspaceWidget() = default;
+
+void WorkspaceWidget::Init(PasswordLogic::DataController* controller)
+{
+	m_uiController->Setup(controller, m_ui->sidePanelWidget, m_ui->topPanelWidget);
+	m_ui->sidePanelWidget->Setup(m_uiController.get());
+	m_ui->topPanelWidget->Setup(m_uiController.get());
+
+	m_uiController->HandleEvent(Event(EventType::ToolsPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
+}

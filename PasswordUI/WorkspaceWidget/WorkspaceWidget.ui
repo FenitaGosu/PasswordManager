@@ -33,7 +33,7 @@
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0" colspan="2">
-    <widget class="PasswordUI::ToolPanelWidget" name="topPanelWidget" native="true"/>
+    <widget class="PasswordUI::ToolsPanelWidget" name="topPanelWidget" native="true"/>
    </item>
    <item row="1" column="0" rowspan="2">
     <widget class="PasswordUI::AccountsPanelWidget" name="sidePanelWidget" native="true"/>
@@ -51,9 +51,9 @@
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>PasswordUI::ToolPanelWidget</class>
+   <class>PasswordUI::ToolsPanelWidget</class>
    <extends>QWidget</extends>
-   <header>PasswordUI/ToolPanel/ToolPanelWidget.h</header>
+   <header>PasswordUI/ToolsPanel/ToolsPanelWidget.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

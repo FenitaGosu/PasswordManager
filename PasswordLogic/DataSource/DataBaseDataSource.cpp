@@ -24,3 +24,8 @@ void DataBaseDataSource::SetCurrentMainPassword(const std::string& password)
 {
 	m_dataBase->SetCurrentMainPassword(password);
 }
+
+void DataBaseDataSource::GetPreviewAccountsInfo(IDataContainer& dataContainer)
+{
+	/// @todo
+}

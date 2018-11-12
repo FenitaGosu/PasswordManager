@@ -4,8 +4,8 @@ namespace PasswordUI {
 
 enum class EventType
 {
-	PasswordPanel = 0,
-	ToolPanel,
+	AccountsPanel = 0,
+	ToolsPanel,
 };
 
 }

@@ -7,6 +7,10 @@ AddTarget(
 	Interfaces
 	CredentialsInspector
 	DataSource
+	DataController
+	AccountInfo
+	Enums
+	DataContainer
 	DEPS
 	DataBase
 	Encryption

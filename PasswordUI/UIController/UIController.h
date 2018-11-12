@@ -6,13 +6,17 @@
 #include <QObject>
 #include <QPointer>
 
+namespace PasswordLogic {
+class DataController;
+}
+
 namespace PasswordUI {
 
 class IAccountsPanel;
-class IToolPanel;
+class IToolsPanel;
 enum class Tool;
 
-class StateController
+class UIController
 		: public QObject
 		, public ICallBackPasswordPanel
 		, public ICallBackToolPanel
@@ -20,17 +24,17 @@ class StateController
 	Q_OBJECT
 
 public:
-	explicit StateController(QObject* parent = nullptr);
-	~StateController();
+	explicit UIController(QObject* parent = nullptr);
+	~UIController();
 
-	void Setup(IAccountsPanel* passwordPanel, IToolPanel* toolPanel);
+	void Setup(PasswordLogic::DataController* controller, IAccountsPanel* accountsPanel, IToolsPanel* toolsPanel);
 
-	/// IEventHandler
+	/// IEventHandlers
 	void HandleEvent(Event& e) override;
 	void HandleEvent(Event&& e) override;
 
 	/// ICallBackPasswordPanel
-	QAbstractItemModel* GetShortDataModel() override;
+	QAbstractItemModel* GetPreviewDataModel() override;
 
 	/// ICallBackToolPanel
 	QAbstractItemModel* GetInstrumentsModel() override;
@@ -44,11 +48,12 @@ private:
 	void ToDeleteAccount();
 
 private:
-	IAccountsPanel* m_passwordPanel;
-	IToolPanel* m_toolPanel;
+	IAccountsPanel* m_accountsPanel;
+	IToolsPanel* m_toolsPanel;
+	PasswordLogic::DataController* m_controller;
 
-	std::unique_ptr<QAbstractItemModel> m_passwordModel;
-	std::unique_ptr<QAbstractItemModel> m_toolModel;
+	std::unique_ptr<QAbstractItemModel> m_accountsModel;
+	std::unique_ptr<QAbstractItemModel> m_toolsModel;
 };
 
 }

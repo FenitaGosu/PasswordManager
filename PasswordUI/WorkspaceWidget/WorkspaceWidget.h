@@ -1,16 +1,21 @@
 #pragma once
 
+#include <memory>
+
 #include <QWidget>
 #include <QScopedPointer>
-#include <QPointer>
 
 namespace Ui {
 class WorkspaceWidget;
 }
 
+namespace PasswordLogic {
+class DataController;
+}
+
 namespace PasswordUI {
 
-class StateController;
+class UIController;
 
 class WorkspaceWidget : public QWidget
 {
@@ -20,10 +25,12 @@ public:
 	explicit WorkspaceWidget(QWidget* parent = nullptr);
 	~WorkspaceWidget();
 
+	void Init(PasswordLogic::DataController* controller);
+
 private:
 	QScopedPointer<Ui::WorkspaceWidget> m_ui;
 
-	QPointer<StateController> m_stateController;
+	std::unique_ptr<UIController> m_uiController;
 };
 
 }

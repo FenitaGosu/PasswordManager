@@ -11,7 +11,7 @@ class ICallBackPasswordPanel : virtual public IEventHandler
 public:
 	virtual ~ICallBackPasswordPanel() = default;
 
-	virtual QAbstractItemModel* GetShortDataModel() = 0;
+	virtual QAbstractItemModel* GetPreviewDataModel() = 0;
 };
 
 }

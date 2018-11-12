@@ -5,7 +5,7 @@
 
 using namespace PasswordKit;
 
-MainWindow::MainWindow(QPointer<Mediator> mediator, QWidget *parent)
+MainWindow::MainWindow(Mediator* mediator, PasswordLogic::DataController *controller, QWidget *parent)
 	: QMainWindow(parent)
 	, m_ui(new Ui::MainWindow)
 	, m_mediator(mediator)
@@ -16,6 +16,8 @@ MainWindow::MainWindow(QPointer<Mediator> mediator, QWidget *parent)
 	connect(m_ui->actionAbout,				&QAction::triggered, m_mediator,	&Mediator::OnShowAbout);
 	connect(m_ui->actionGeneratePassword,	&QAction::triggered, m_mediator,	&Mediator::OnShowIndependentPasswordGeneratorDialog);
 	connect(m_ui->actionSetPassword,		&QAction::triggered, m_mediator,	&Mediator::OnShowSetMainPasswordDialog);
+
+	m_ui->workspaceWidget->Init(controller);
 }
 
 MainWindow::~MainWindow() = default;

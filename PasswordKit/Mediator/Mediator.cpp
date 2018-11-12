@@ -17,9 +17,9 @@
 using namespace PasswordKit;
 using namespace PasswordUI;
 
-Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialsInspector, QObject* parent)
+Mediator::Mediator(PasswordLogic::ICredentialsInspector* credentialsInspector, QObject* parent)
 	: QObject(parent)
-	, m_credentialsInspector(std::move(credentialsInspector))
+	, m_credentialsInspector(credentialsInspector)
 {
 	ObjectsConnector::RegisterReceiver(IObjectsConnector::GENERATE_PASSWORD, this, SLOT(OnShowEmbeddablePasswordGeneratorDialog(QString&, size_t)));
 }
@@ -27,7 +27,7 @@ Mediator::Mediator(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& crede
 bool Mediator::ShowLoginDialog()
 {
 	LoginDialog loginDialog(m_credentialsInspector->IsNeedSetPassword() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
-							m_credentialsInspector.get());
+							m_credentialsInspector);
 	return loginDialog.Exec();
 }
 
@@ -52,6 +52,6 @@ void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t minL
 
 void Mediator::OnShowSetMainPasswordDialog()
 {
-	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector.get());
+	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector);
 	loginDialog.Exec();
 }
