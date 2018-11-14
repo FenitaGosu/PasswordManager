@@ -23,7 +23,8 @@ public:
 	void SetCurrentMainPassword(const std::string& password) override;
 
 /// IDataSource
-	void GetPreviewAccountsInfo(IDataContainer& dataContainer) override;
+	void GetPreviewAccountsInfo(IDataContainer& dataContainer) const override;
+	void AddPreviewAccountsInfo(const IDataContainer& dataContainer) override;
 
 private:
 	std::unique_ptr<DataBaseDataSourceImpl> m_dataBase;

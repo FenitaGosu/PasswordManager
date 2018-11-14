@@ -7,6 +7,7 @@
 #include "Event/Event.h"
 
 #include "Enums/Tool.h"
+#include "Enums/AccontType.h"
 
 #include "Interfaces/IAccountsPanel.h"
 #include "Interfaces/IToolsPanel.h"
@@ -31,6 +32,10 @@ void UIController::Setup(PasswordLogic::DataController *controller, IAccountsPan
 	m_controller = controller;
 	m_accountsPanel = accountsPanel;
 	m_toolsPanel = toolsPanel;
+
+	/// @todo for tests
+	const PasswordLogic::PreviewAccoutsInfo accounts{ {"id1", "test1", PasswordLogic::AccountType::Simple}, {"id2", "test2", PasswordLogic::AccountType::Mail}, {"id3", "test3", PasswordLogic::AccountType::Game}};
+	m_controller->AddPreviewAccountsInfo(accounts);
 }
 
 void UIController::HandleEvent(Event&)

@@ -57,3 +57,21 @@ AddTarget(EXECUTABLE
 	)
 
 add_test(NAME EncryptionTest COMMAND EncryptionTest)
+
+
+AddTarget(EXECUTABLE
+	NAME PasswordLogicTest
+	SOURCE_DIR Tests/
+	SRC *.cpp *.h
+	QT_USE Core
+	SUBDIRS
+	PasswordLogicTest
+	DEPS
+	gtest
+	gmock_main
+	Encryption
+	PasswordLogic
+	Tools
+	)
+
+add_test(NAME PasswordLogicTest COMMAND PasswordLogicTest)

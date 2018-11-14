@@ -8,4 +8,5 @@ AddTarget(
 	XOREncryptor
 	SimpleKeyProvider
 	CryptoHashQt
+	EmptyEncryptor
 	)

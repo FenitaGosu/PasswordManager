@@ -1,6 +1,6 @@
 #pragma once
 
-class QVariant;
+#include "SameContainers.h"
 
 namespace PasswordLogic {
 
@@ -9,8 +9,11 @@ class IDataContainer
 public:
 	virtual ~IDataContainer() = default;
 
-	virtual void AddData(QVariant&& data) = 0;
-	virtual QVariant GetData() = 0;
+	virtual void AddDataList(DataList&& data) = 0;
+	virtual const DataList& GetDataList() const = 0;
+
+	virtual void AddData(Data&& data) = 0;
+	virtual const Data& GetData(size_t i = 0) const = 0;
 };
 
 }

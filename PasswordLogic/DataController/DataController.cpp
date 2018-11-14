@@ -30,6 +30,11 @@ std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer()
 	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()));
 }
 
+std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer(const PreviewAccoutsInfo& info)
+{
+	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
+}
+
 }
 
 DataController::DataController(const std::shared_ptr<IDataSource>& dataSource)
@@ -37,13 +42,21 @@ DataController::DataController(const std::shared_ptr<IDataSource>& dataSource)
 {
 }
 
-PreviewAccoutsInfo DataController::GetPreviewAccountsInfo()
+void DataController::AddPreviewAccountInfo(const PreviewAccoutInfo& info)
 {
-	/*auto container = CreateDataContainer();
+	AddPreviewAccountsInfo({ info });
+}
+
+void DataController::AddPreviewAccountsInfo(const PreviewAccoutsInfo& info)
+{
+	auto container = CreateDataContainer(info);
+	m_dataSource->AddPreviewAccountsInfo(*container.get());
+}
+
+PreviewAccoutsInfo DataController::GetPreviewAccountsInfo() const
+{
+	const auto container = CreateDataContainer();
 	m_dataSource->GetPreviewAccountsInfo(*container.get());
 
-	return container->GetInfo();*/
-
-	/// @todo
-	return { {"id1", "test1", AccountType::Simple}, {"id2", "test2", AccountType::Mail}, {"id3", "test3", AccountType::Game}};
+	return container->GetAllInfo();
 }
