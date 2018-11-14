@@ -24,17 +24,25 @@ public:
 	template<typename T>
 	void Set(const T& v)
 	{
-		value = v;
+		m_value = v;
 	}
 
 	template<typename T>
 	T Get() const
 	{
-		return std::any_cast<T>(value);
+		return std::any_cast<T>(m_value);
+	}
+
+	template<typename T>
+	static Same FromValue(const T& v)
+	{
+		Same s;
+		s.Set(v);
+		return s;
 	}
 
 private:
-	std::any value;
+	std::any m_value;
 };
 
 }

@@ -6,7 +6,6 @@
 
 #include "AccountInfo/AccountInfoDec.h"
 
-
 namespace Encryption {
 class IEncryptor;
 }
@@ -20,11 +19,14 @@ public:
 	PreviewAccountsDataContainer(std::unique_ptr<Encryption::IEncryptor>&& encryptor);
 	~PreviewAccountsDataContainer();
 
-	PreviewAccoutsInfo GetInfo();
+	PreviewAccoutsInfo GetAllInfo() const;
 
 /// IDataContainer
-	void AddData(QVariant&& data) override;
-	QVariant GetData() override;
+	void AddDataList(DataList&& data) override;
+	const DataList& GetDataList() const override;
+
+	void AddData(Data&& data) override;
+	const Data& GetData(size_t i = 0) const override;
 
 private:
 	struct Impl;

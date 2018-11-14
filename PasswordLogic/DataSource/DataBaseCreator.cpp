@@ -27,6 +27,8 @@ void DataBaseCreator::FillDataBase(const std::unique_ptr<DataBase::IDataBaseConn
 		transaction->GetQuery()->Exec(DataBaseArtifacts::INSERT_CONSTANT,
 			{ {DataBaseArtifacts::NAME, DataBaseArtifacts::DATABASE_VERSION_CONSTANT},	{DataBaseArtifacts::VALUE, DataBaseArtifacts::DATABASE_VERSION}});
 
+		transaction->GetQuery()->Exec(DataBaseArtifacts::CREATE_ACCOUNT_PREVIEW_TABLE);
+
 		success = true;
 	}
 	catch (std::exception& exp)

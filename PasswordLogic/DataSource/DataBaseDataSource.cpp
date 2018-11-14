@@ -1,3 +1,7 @@
+#include "Tools/Same/Same.h"
+
+#include "DataContainer/PreviewAccountsDataContainer.h"
+
 #include "DataBaseDataSource.h"
 #include "DataBaseDataSourceImpl.h"
 
@@ -25,7 +29,12 @@ void DataBaseDataSource::SetCurrentMainPassword(const std::string& password)
 	m_dataBase->SetCurrentMainPassword(password);
 }
 
-void DataBaseDataSource::GetPreviewAccountsInfo(IDataContainer& dataContainer)
+void DataBaseDataSource::GetPreviewAccountsInfo(IDataContainer& dataContainer) const
 {
-	/// @todo
+	dataContainer.AddDataList(m_dataBase->GetPreviewAccountsInfo());
+}
+
+void DataBaseDataSource::AddPreviewAccountsInfo(const IDataContainer& dataContainer)
+{
+	m_dataBase->AddPreviewAccountsInfo(dataContainer.GetDataList());
 }

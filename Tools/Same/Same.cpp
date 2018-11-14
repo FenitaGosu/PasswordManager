@@ -3,22 +3,22 @@
 using namespace Tools;
 
 Same::Same(int v)
-	: value(v)
+	: m_value(v)
 {
 }
 
 Same::Same(bool v)
-	: value(v)
+	: m_value(v)
 {
 }
 
 Same::Same(double v)
-	: value(v)
+	: m_value(v)
 {
 }
 
 Same::Same(std::string v)
-	: value(v)
+	: m_value(v)
 {
 }
 
