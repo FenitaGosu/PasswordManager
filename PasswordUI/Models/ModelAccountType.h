@@ -4,19 +4,20 @@
 
 #include <QAbstractListModel>
 
-#include "PasswordLogic/AccountInfo/AccountInfoDec.h"
+namespace PasswordLogic {
+	enum class AccountType;
+}
 
 namespace PasswordUI {
 
-class ModelAccount : public QAbstractListModel
+class ModelAccountType : public QAbstractListModel
 {
 public:
-	ModelAccount(PasswordLogic::PreviewAccountsInfo&& data, QObject *parent = nullptr);
-	~ModelAccount();
+	ModelAccountType(std::vector<PasswordLogic::AccountType>&& tools, QObject *parent = nullptr);
+	~ModelAccountType();
 
 	int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
-	bool setData(const QModelIndex &index, const QVariant &value, int role) override;
 
 private:
 	struct Impl;

@@ -1,6 +1,6 @@
 #include <QAbstractItemModel>
 
-#include "PasswordLogic/AccountInfo/PreviewAccoutInfo.h"
+#include "PasswordLogic/AccountInfo/PreviewAccountInfo.h"
 
 #include "PasswordLogic/DataController/DataController.h"
 
@@ -11,9 +11,11 @@
 
 #include "Interfaces/IAccountsPanel.h"
 #include "Interfaces/IToolsPanel.h"
+#include "Interfaces/ICentralView.h"
 
 #include "Models/ModelTool.h"
 #include "Models/ModelAccount.h"
+#include "Models/ModelAccountType.h"
 
 #include "SystemConstants.h"
 #include "UIController.h"
@@ -27,15 +29,12 @@ UIController::UIController(QObject* parent)
 
 UIController::~UIController() = default;
 
-void UIController::Setup(PasswordLogic::DataController *controller, IAccountsPanel* accountsPanel, IToolsPanel* toolsPanel)
+void UIController::Setup(PasswordLogic::DataController *controller, IAccountsPanel* accountsPanel, IToolsPanel* toolsPanel, ICentralView* centralView)
 {
 	m_controller = controller;
 	m_accountsPanel = accountsPanel;
 	m_toolsPanel = toolsPanel;
-
-	/// @todo for tests
-	const PasswordLogic::PreviewAccoutsInfo accounts{ {"id1", "test1", PasswordLogic::AccountType::Simple}, {"id2", "test2", PasswordLogic::AccountType::Mail}, {"id3", "test3", PasswordLogic::AccountType::Game}};
-	m_controller->AddPreviewAccountsInfo(accounts);
+	m_centralView = centralView;
 }
 
 void UIController::HandleEvent(Event&)
@@ -76,6 +75,30 @@ QAbstractItemModel* UIController::GetInstrumentsModel()
 	return m_toolsModel.get();
 }
 
+QAbstractItemModel* UIController::GetAccountTypeModel()
+{
+	std::vector<PasswordLogic::AccountType> types =
+	{
+		PasswordLogic::AccountType::Simple,
+		PasswordLogic::AccountType::Mail,
+		PasswordLogic::AccountType::Game
+	};
+
+	m_accountTypeModel = std::make_unique<ModelAccountType>(std::move(types));
+	return m_accountTypeModel.get();
+}
+
+void UIController::CreateNewAccount(const PasswordLogic::PreviewAccountInfo& previewInfo, const PasswordLogic::AccountInfo& accountInfo)
+{
+	m_controller->AddNewAccount(previewInfo, accountInfo);
+
+	m_accountsPanel->Update();
+	m_accountsPanel->SelectItem(previewInfo.GetId());
+
+	HandleEvent(Event(EventType::ToolsPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
+	HandleEvent(Event(EventType::AccountsPanel, SystemConstants::ACCOUNT_CLICKED, previewInfo.GetId().toStdString()));
+}
+
 void UIController::HandleToolPaneleEvent(Tool toolId)
 {
 	m_toolsPanel->ActivateTool(toolId);
@@ -96,7 +119,7 @@ void UIController::HandleToolPaneleEvent(Tool toolId)
 			ToDeleteAccount();
 		break;
 
-		default:
+			default:
 		break;
 	}
 }
@@ -109,13 +132,16 @@ void UIController::ResetUI()
 void UIController::ToViewAllAccounts()
 {
 	m_accountsPanel->Show();
+	m_centralView->ActivateMode(ICentralView::Mode::ViewAccount);
 }
 
 void UIController::ToAddAccount()
 {
+	m_centralView->ActivateMode(ICentralView::Mode::AddNewAccount);
 }
 
 void UIController::ToDeleteAccount()
 {
 	m_accountsPanel->Show();
+	m_centralView->ActivateMode(ICentralView::Mode::ViewAccount);
 }

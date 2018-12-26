@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>821</width>
-    <height>635</height>
+    <width>663</width>
+    <height>495</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -39,7 +39,7 @@
     <widget class="PasswordUI::AccountsPanelWidget" name="sidePanelWidget" native="true"/>
    </item>
    <item row="1" column="1" rowspan="2">
-    <widget class="QWidget" name="centralWidget" native="true"/>
+    <widget class="PasswordUI::CentralView" name="centralWidget" native="true"/>
    </item>
   </layout>
  </widget>
@@ -54,6 +54,12 @@
    <class>PasswordUI::ToolsPanelWidget</class>
    <extends>QWidget</extends>
    <header>PasswordUI/ToolsPanel/ToolsPanelWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PasswordUI::CentralView</class>
+   <extends>QWidget</extends>
+   <header>PasswordUI/CentralView/CentralView.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

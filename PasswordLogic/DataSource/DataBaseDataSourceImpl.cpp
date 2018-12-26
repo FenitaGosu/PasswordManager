@@ -123,7 +123,7 @@ struct DataBaseDataSourceImpl::Impl
 		return info;
 	}
 
-	void AddPreviewAccountsInfo(const DataList& accountsInfo)
+	void AddNewAccount(const DataList& previewData, const DataList& accountData)
 	{
 		bool success = false;
 		const auto transaction = connection->GetTransactionManager();
@@ -132,8 +132,6 @@ struct DataBaseDataSourceImpl::Impl
 		try
 		{
 			const auto query = transaction->GetQuery();
-			query->SetTextQuery(DataBaseArtifacts::INSERT_ACCOUNT_PREVIEW);
-
 			const auto getValue = [](const Data& data, const std::string& key)
 			{
 				const auto it = data.find(key);
@@ -141,14 +139,23 @@ struct DataBaseDataSourceImpl::Impl
 				return QString::fromStdString(it->second.Get<const std::string&>());
 			};
 
-			for (const auto& info : accountsInfo)
+			/// insert preview account data
 			{
-				query->SetParametersQuery({ {DataBaseArtifacts::ID,		getValue(info, PasswordLogic::Parameters::PARAM_ID)},
-											{DataBaseArtifacts::NAME,	getValue(info, PasswordLogic::Parameters::PARAM_NAME)},
-											{DataBaseArtifacts::TYPE,	getValue(info, PasswordLogic::Parameters::PARAM_TYPE)},
-										  });
+				query->SetTextQuery(DataBaseArtifacts::INSERT_ACCOUNT_PREVIEW);
 
-				query->Exec();
+				for (const auto& info : previewData)
+				{
+					query->SetParametersQuery({ {DataBaseArtifacts::ID,		getValue(info, PasswordLogic::Parameters::PARAM_ID)},
+												{DataBaseArtifacts::NAME,	getValue(info, PasswordLogic::Parameters::PARAM_NAME)},
+												{DataBaseArtifacts::TYPE,	getValue(info, PasswordLogic::Parameters::PARAM_TYPE)},
+											  });
+
+					query->Exec();
+				}
+			}
+
+			/// insert main account data
+			{
 			}
 
 			success = true;
@@ -194,7 +201,7 @@ DataList DataBaseDataSourceImpl::GetPreviewAccountsInfo() const
 	return m_impl->GetPreviewAccountsInfo();
 }
 
-void DataBaseDataSourceImpl::AddPreviewAccountsInfo(const DataList& accountsInfo)
+void DataBaseDataSourceImpl::AddNewAccount(const DataList& previewData, const DataList& accountData)
 {
-	m_impl->AddPreviewAccountsInfo(accountsInfo);
+	m_impl->AddNewAccount(previewData, accountData);
 }

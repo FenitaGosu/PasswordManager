@@ -29,9 +29,13 @@ public:
 	void Hide() override;
 	void Show() override;
 	void Update() override;
+	void SelectItem(const QString& id) override;
 
 private:
 	void SetupView();
+
+private slots:
+	void OnSelecetItem(const QModelIndex& index);
 
 private:
 	QScopedPointer<Ui::AccountsPanelWidget> m_ui;

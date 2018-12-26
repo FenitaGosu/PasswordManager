@@ -29,12 +29,12 @@ void DataBaseDataSource::SetCurrentMainPassword(const std::string& password)
 	m_dataBase->SetCurrentMainPassword(password);
 }
 
+void DataBaseDataSource::AddNewAccount(const IDataContainer& previewData, const IDataContainer& accountData)
+{
+	m_dataBase->AddNewAccount(previewData.GetDataList(), accountData.GetDataList());
+}
+
 void DataBaseDataSource::GetPreviewAccountsInfo(IDataContainer& dataContainer) const
 {
 	dataContainer.AddDataList(m_dataBase->GetPreviewAccountsInfo());
-}
-
-void DataBaseDataSource::AddPreviewAccountsInfo(const IDataContainer& dataContainer)
-{
-	m_dataBase->AddPreviewAccountsInfo(dataContainer.GetDataList());
 }

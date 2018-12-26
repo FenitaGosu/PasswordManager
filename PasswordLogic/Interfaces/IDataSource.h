@@ -14,7 +14,7 @@ public:
 	virtual ~IDataSource() = default;
 
 	virtual void GetPreviewAccountsInfo(IDataContainer& dataContainer) const = 0;
-	virtual void AddPreviewAccountsInfo(const IDataContainer& dataContainer) = 0;
+	virtual void AddNewAccount(const IDataContainer& previewData, const IDataContainer& accountData) = 0;
 };
 
 }

@@ -49,6 +49,11 @@ void AccountsPanelWidget::Update()
 	SetupView();
 }
 
+void AccountsPanelWidget::SelectItem(const QString& id)
+{
+	m_model->setData(QModelIndex(), id, static_cast<int>(ModelAccountRoles::SetSelectedItem));
+}
+
 void AccountsPanelWidget::SetupView()
 {
 	m_model = m_callBack->GetPreviewDataModel();
@@ -64,7 +69,20 @@ void AccountsPanelWidget::SetupView()
 			callBack->HandleEvent(Event(EventType::AccountsPanel, SystemConstants::ACCOUNT_CLICKED, index.data(static_cast<int>(ModelAccountRoles::Id)).toString().toStdString()));
 	});
 
-	const auto index = m_model->index(0, 0);
+	connect(m_model, &QAbstractListModel::dataChanged, [this](const QModelIndex& index, const QModelIndex&, const QVector<int>& roles)
+	{
+		if (!roles.empty() && static_cast<ModelAccountRoles>(roles.front()) == ModelAccountRoles::SetSelectedItem)
+			OnSelecetItem(index);
+	});
+
+	OnSelecetItem(m_model->index(0, 0));
+}
+
+void AccountsPanelWidget::OnSelecetItem(const QModelIndex& index)
+{
 	if (index.isValid())
+	{
+		m_ui->previewAccountView->selectionModel()->clearSelection();
 		m_ui->previewAccountView->selectionModel()->select(index, QItemSelectionModel::Select);
+	}
 }

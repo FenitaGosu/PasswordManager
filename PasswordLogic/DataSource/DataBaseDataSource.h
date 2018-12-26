@@ -24,7 +24,7 @@ public:
 
 /// IDataSource
 	void GetPreviewAccountsInfo(IDataContainer& dataContainer) const override;
-	void AddPreviewAccountsInfo(const IDataContainer& dataContainer) override;
+	void AddNewAccount(const IDataContainer& previewData, const IDataContainer& accountData) override;
 
 private:
 	std::unique_ptr<DataBaseDataSourceImpl> m_dataBase;
