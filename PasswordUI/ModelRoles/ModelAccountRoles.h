@@ -8,7 +8,8 @@ enum class ModelAccountRoles
 {
 	Id = Qt::UserRole,
 	Name,
-	Type
+	Type,
+	SetSelectedItem,
 };
 
 }

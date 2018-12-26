@@ -4,7 +4,6 @@ namespace PasswordLogic {
 
 class AccountInfo
 {
-
 };
 
 }

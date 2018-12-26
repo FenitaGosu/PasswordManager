@@ -20,7 +20,7 @@ public:
 	void SetCurrentMainPassword(const std::string& password);
 
 	DataList GetPreviewAccountsInfo() const;
-	void AddPreviewAccountsInfo(const DataList& accountsInfo);
+	void AddNewAccount(const DataList& previewData, const DataList& accountData);
 
 private:
 	struct Impl;

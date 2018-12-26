@@ -26,7 +26,6 @@ const std::string& GetText(Tool tool)
 
 }
 
-
 struct ModelTool::Impl
 {
 	Impl(std::vector<Tool>&& tools)

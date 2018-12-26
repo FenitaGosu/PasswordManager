@@ -9,7 +9,7 @@
 #include "Encryption/EmptyEncryptor/EmptyEncryptor.h"
 
 #include "PasswordLogic/DataContainer/PreviewAccountsDataContainer.h"
-#include "PasswordLogic/AccountInfo/PreviewAccoutInfo.h"
+#include "PasswordLogic/AccountInfo/PreviewAccountInfo.h"
 #include "PasswordLogic/Enums/AccontType.h"
 #include "PasswordLogic/Parameters.h"
 #include "PasswordLogic/SameContainers.h"
@@ -52,7 +52,7 @@ TEST(PreviewAccountsDataContainer, GetDataListTest)
 	const QString		name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
-	const PreviewAccoutsInfo info{ {id, name, type} };
+	const PreviewAccountsInfo info{ {id, name, type} };
 	const auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
 
 	const auto data = container->GetDataList();
@@ -79,7 +79,7 @@ TEST(PreviewAccountsDataContainer, GetDataTest)
 	const QString		name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
-	const PreviewAccoutsInfo info{ {id, name, type} };
+	const PreviewAccountsInfo info{ {id, name, type} };
 	const auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
 
 	const auto mapData = container->GetData();

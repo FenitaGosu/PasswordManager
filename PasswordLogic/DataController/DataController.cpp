@@ -4,9 +4,11 @@
 #include "Encryption/XOREncryptor/XOREncryptor.h"
 
 #include "Enums/AccontType.h"
-#include "AccountInfo/PreviewAccoutInfo.h"
+#include "AccountInfo/PreviewAccountInfo.h"
+#include "AccountInfo/AccountInfo.h"
 
 #include "DataContainer/PreviewAccountsDataContainer.h"
+#include "DataContainer/AccountsDataContainer.h"
 
 #include "Interfaces/IDataSource.h"
 
@@ -30,9 +32,14 @@ std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer()
 	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()));
 }
 
-std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer(const PreviewAccoutsInfo& info)
+std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer(const PreviewAccountsInfo& info)
 {
 	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
+}
+
+std::unique_ptr<AccountsDataContainer> CreateDataContainer(const AccountsInfo& info)
+{
+	return std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
 }
 
 }
@@ -42,21 +49,18 @@ DataController::DataController(const std::shared_ptr<IDataSource>& dataSource)
 {
 }
 
-void DataController::AddPreviewAccountInfo(const PreviewAccoutInfo& info)
-{
-	AddPreviewAccountsInfo({ info });
-}
-
-void DataController::AddPreviewAccountsInfo(const PreviewAccoutsInfo& info)
-{
-	auto container = CreateDataContainer(info);
-	m_dataSource->AddPreviewAccountsInfo(*container.get());
-}
-
-PreviewAccoutsInfo DataController::GetPreviewAccountsInfo() const
+PreviewAccountsInfo DataController::GetPreviewAccountsInfo() const
 {
 	const auto container = CreateDataContainer();
 	m_dataSource->GetPreviewAccountsInfo(*container.get());
 
 	return container->GetAllInfo();
+}
+
+void DataController::AddNewAccount(const PreviewAccountInfo& previewInfo, const AccountInfo& mainInfo)
+{
+	auto previewContainer = CreateDataContainer({ previewInfo });
+	auto mainContainer = CreateDataContainer({ mainInfo });
+
+	m_dataSource->AddNewAccount(*previewContainer.get(), *mainContainer.get());
 }
