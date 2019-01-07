@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>235</width>
+    <width>508</width>
     <height>198</height>
    </rect>
   </property>
@@ -136,13 +136,13 @@
   <customwidget>
    <class>PasswordUI::AddPreviewAccountInfo</class>
    <extends>QFrame</extends>
-   <header>PasswordUI/CentralView/AddPreviewAccountInfo.h</header>
+   <header>PasswordUI/CentralView/AddNewAccount/AddPreviewAccountInfo.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>PasswordUI::AddMainAccountInfo</class>
    <extends>QWidget</extends>
-   <header>PasswordUI/CentralView/AddMainAccountInfo.h</header>
+   <header>PasswordUI/CentralView/AddNewAccount/AddMainAccountInfo.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

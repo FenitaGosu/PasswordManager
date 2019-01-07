@@ -59,7 +59,7 @@
   <customwidget>
    <class>PasswordUI::AddNewAccount</class>
    <extends>QWidget</extends>
-   <header>PasswordUI/CentralView/AddNewAccount.h</header>
+   <header>PasswordUI/CentralView/AddNewAccount/AddNewAccount.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>
