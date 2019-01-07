@@ -3,7 +3,7 @@ AddTarget(
 	SOURCE_DIR PasswordUI/
 	SRC *.cpp *.h
 	QT_USE Core Widgets
-	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui AccountsPanel/*.ui WorkspaceWidget/*.ui ToolsPanel/*.ui CentralView/*.ui CentralView/AddNewAccount/*.ui
+	UI_FILES *.ui Dialogs/*.ui Dialogs/LoginDialog/*.ui AccountsPanel/*.ui WorkspaceWidget/*.ui ToolsPanel/*.ui CentralView/*.ui CentralView/AddNewAccount/*.ui CentralView/ViewAccount/*.ui
 	SUBDIRS
 	Dialogs
 	Dialogs/LoginDialog
@@ -18,6 +18,7 @@ AddTarget(
 	ModelRoles
 	CentralView
 	CentralView/AddNewAccount
+	CentralView/ViewAccount
 	DEPS
 	PasswordGenerator
 	PasswordLogic

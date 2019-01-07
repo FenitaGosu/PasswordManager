@@ -1,6 +1,7 @@
 #include <QAbstractItemModel>
 
 #include "PasswordLogic/AccountInfo/PreviewAccountInfo.h"
+#include "PasswordLogic/AccountInfo/AccountInfo.h"
 
 #include "PasswordLogic/DataController/DataController.h"
 
@@ -97,6 +98,12 @@ void UIController::CreateNewAccount(const PasswordLogic::PreviewAccountInfo& pre
 
 	HandleEvent(Event(EventType::ToolsPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
 	HandleEvent(Event(EventType::AccountsPanel, SystemConstants::ACCOUNT_CLICKED, previewInfo.GetId().toStdString()));
+}
+
+std::pair<PasswordLogic::PreviewAccountInfo, PasswordLogic::AccountInfo> UIController::GetCurrentAccountInfo()
+{
+	///TODO
+	return std::make_pair(PasswordLogic::PreviewAccountInfo(), PasswordLogic::AccountInfo());
 }
 
 void UIController::HandleToolPaneleEvent(Tool toolId)

@@ -4,6 +4,7 @@
 #include "Interfaces/ICallBackToolPanel.h"
 #include "Interfaces/ICallBackCentralView.h"
 #include "Interfaces/INewAccountCreator.h"
+#include "Interfaces/ICurrentAccountInfoProvider.h"
 
 #include <QObject>
 #include <QPointer>
@@ -25,6 +26,7 @@ class UIController
 		, public ICallBackToolPanel
 		, public ICallBackCentralView
 		, public INewAccountCreator
+		, public ICurrentAccountInfoProvider
 {
 	Q_OBJECT
 
@@ -49,6 +51,9 @@ public:
 
 	/// INewAccountCreator
 	void CreateNewAccount(const PasswordLogic::PreviewAccountInfo& previewInfo, const PasswordLogic::AccountInfo& accountInfo) override;
+
+	/// ICurrentInfoAccountProvider
+	std::pair<PasswordLogic::PreviewAccountInfo, PasswordLogic::AccountInfo> GetCurrentAccountInfo() override;
 
 private:
 	void HandleToolPaneleEvent(Tool toolId);

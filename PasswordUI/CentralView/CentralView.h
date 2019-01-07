@@ -13,6 +13,7 @@ namespace PasswordUI {
 
 class ICallBackCentralView;
 class INewAccountCreator;
+class ICurrentAccountInfoProvider;
 
 class CentralView : public QFrame, public ICentralView
 {
@@ -22,7 +23,7 @@ public:
 	explicit CentralView(QWidget* parent = nullptr);
 	~CentralView();
 
-	void Setup(ICallBackCentralView* callBack, INewAccountCreator* accountCreator);
+	void Setup(ICallBackCentralView* callBack, INewAccountCreator* accountCreator, ICurrentAccountInfoProvider* infoProvider);
 
 	/// ICentralView
 	void ActivateMode(Mode mode) override;
