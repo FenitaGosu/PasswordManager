@@ -2,6 +2,7 @@
 
 #include "Interfaces/ICallBackCentralView.h"
 #include "Interfaces/INewAccountCreator.h"
+#include "Interfaces/ICurrentAccountInfoProvider.h"
 
 #include "CentralView.h"
 
@@ -18,9 +19,11 @@ CentralView::CentralView(QWidget* parent)
 
 CentralView::~CentralView() = default;
 
-void CentralView::Setup(ICallBackCentralView *callBack, INewAccountCreator* accountCreator)
+void CentralView::Setup(ICallBackCentralView *callBack, INewAccountCreator* accountCreator, ICurrentAccountInfoProvider* infoProvider)
 {
-	m_ui->addNewAccountWidget->Setup(callBack->GetAccountTypeModel(), accountCreator);
+	auto model = callBack->GetAccountTypeModel();
+	m_ui->addNewAccountWidget->Setup(model, accountCreator);
+	m_ui->viewAccountWidget->Setup(model, infoProvider);
 }
 
 void CentralView::ActivateMode(ICentralView::Mode mode)

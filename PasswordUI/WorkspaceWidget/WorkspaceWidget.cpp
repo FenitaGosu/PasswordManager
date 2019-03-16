@@ -24,7 +24,7 @@ void WorkspaceWidget::Init(PasswordLogic::DataController* controller)
 	m_uiController->Setup(controller, m_ui->sidePanelWidget, m_ui->topPanelWidget, m_ui->centralWidget);
 	m_ui->sidePanelWidget->Setup(m_uiController.get());
 	m_ui->topPanelWidget->Setup(m_uiController.get());
-	m_ui->centralWidget->Setup(m_uiController.get(), m_uiController.get());
+	m_ui->centralWidget->Setup(m_uiController.get(), m_uiController.get(), m_uiController.get());
 
 	m_uiController->HandleEvent(Event(EventType::ToolsPanel, SystemConstants::ACTIVATE_TOOL, static_cast<int>(Tool::Accounts)));
 }

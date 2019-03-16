@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>CentralView</class>
- <widget class="QFrame" name="CentralView">
+ <class>ViewPreviewAccountInfo</class>
+ <widget class="QFrame" name="ViewPreviewAccountInfo">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>489</width>
-    <height>438</height>
+    <width>508</width>
+    <height>198</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -47,28 +47,8 @@
    <property name="bottomMargin">
     <number>0</number>
    </property>
-   <item>
-    <widget class="QStackedWidget" name="stackedWidget">
-     <widget class="PasswordUI::AddNewAccount" name="addNewAccountWidget"/>
-     <widget class="PasswordUI::ViewAccount" name="viewAccountWidget"/>
-    </widget>
-   </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>PasswordUI::AddNewAccount</class>
-   <extends>QWidget</extends>
-   <header>PasswordUI/CentralView/AddNewAccount/AddNewAccount.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>PasswordUI::ViewAccount</class>
-   <extends>QWidget</extends>
-   <header>PasswordUI/CentralView/ViewAccount/ViewAccount.h</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>
