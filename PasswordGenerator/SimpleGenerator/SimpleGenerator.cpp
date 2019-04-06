@@ -3,6 +3,7 @@
 #include <functional>
 #include <cassert>
 #include <random>
+#include <stdexcept>
 
 #include "Tools/Random/RandomIntGenerator.h"
 

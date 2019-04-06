@@ -1,32 +1,25 @@
 #pragma once
 
-#include <QObject>
-
-namespace PasswordLogic {
-class ICredentialsInspector;
-}
+#include <memory>
 
 namespace PasswordKit {
+
+class IApplicationSettings;
 
 /**
  * Mediator
  */
-class Mediator : public QObject
+class Mediator
 {
-	Q_OBJECT
-
 public:
-	Mediator(PasswordLogic::ICredentialsInspector* credentialsInspector, QObject* parent = nullptr);
-	bool ShowLoginDialog();
+	Mediator(int argc, char* argv[]);
+	~Mediator();
 
-public slots:
-	void OnShowAbout();
-	void OnShowIndependentPasswordGeneratorDialog();
-	void OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t);
-	void OnShowSetMainPasswordDialog();
+	std::unique_ptr<IApplicationSettings> GetApplicationSettings() const;
 
 private:
-	PasswordLogic::ICredentialsInspector* m_credentialsInspector;
+	struct Impl;
+	std::unique_ptr<Impl> m_impl;
 };
 
 }

@@ -1,21 +1,11 @@
 #pragma once
 
-#include <vector>
-
-#include <QString>
-
 namespace PasswordKit {
 
-/**
- * Provider settings interface for application
- */
-class IApplicatonSettings
+class IApplicationSettings
 {
 public:
-	virtual ~IApplicatonSettings() = default;
-
-	virtual QString GetOrganizationName() const = 0;
-	virtual QString GetApplicationName() const = 0;
+	virtual ~IApplicationSettings() = default;
 };
 
 }

@@ -5,10 +5,8 @@
 
 #include "Enums/AccontType.h"
 #include "AccountInfo/PreviewAccountInfo.h"
-#include "AccountInfo/AccountInfo.h"
 
 #include "DataContainer/PreviewAccountsDataContainer.h"
-#include "DataContainer/AccountsDataContainer.h"
 
 #include "Interfaces/IDataSource.h"
 
@@ -37,11 +35,6 @@ std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer(const PreviewA
 	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
 }
 
-std::unique_ptr<AccountsDataContainer> CreateDataContainer(const AccountsInfo& info)
-{
-	return std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
-}
-
 }
 
 DataController::DataController(const std::shared_ptr<IDataSource>& dataSource)
@@ -57,10 +50,9 @@ PreviewAccountsInfo DataController::GetPreviewAccountsInfo() const
 	return container->GetAllInfo();
 }
 
-void DataController::AddNewAccount(const PreviewAccountInfo& previewInfo, const AccountInfo& mainInfo)
+void DataController::AddNewAccount(const PreviewAccountInfo& previewInfo)
 {
 	auto previewContainer = CreateDataContainer({ previewInfo });
-	auto mainContainer = CreateDataContainer({ mainInfo });
 
-	m_dataSource->AddNewAccount(*previewContainer.get(), *mainContainer.get());
+	m_dataSource->AddNewAccount(*previewContainer.get());
 }

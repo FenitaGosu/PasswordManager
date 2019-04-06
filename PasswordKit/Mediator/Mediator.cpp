@@ -1,57 +1,29 @@
-#include <QDialog>
-#include <QMainWindow>
-#include <QPointer>
+#include <QCoreApplication>
 
-#include "Application/Application.h"
-
-#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
-
-#include "PasswordUI/Dialogs/PasswordGeneratorDialog.h"
-#include "PasswordUI/Dialogs/AboutDialog.h"
-#include "PasswordUI/Dialogs//LoginDialog/LoginDialog.h"
-
-#include "PasswordUI/Interfaces/IObjectsConnector.h"
+#include "Interfaces/IApplicationSettings.h"
 
 #include "Mediator.h"
 
 using namespace PasswordKit;
-using namespace PasswordUI;
 
-Mediator::Mediator(PasswordLogic::ICredentialsInspector* credentialsInspector, QObject* parent)
-	: QObject(parent)
-	, m_credentialsInspector(credentialsInspector)
+struct Mediator::Impl
 {
-	ObjectsConnector::RegisterReceiver(IObjectsConnector::GENERATE_PASSWORD, this, SLOT(OnShowEmbeddablePasswordGeneratorDialog(QString&, size_t)));
+	Impl(int argc, char* argv[])
+		: app(argc, argv)
+	{
+	}
+
+	QCoreApplication app;
+};
+
+Mediator::Mediator(int argc, char* argv[])
+	: m_impl(std::make_unique<Impl>(argc, argv))
+{
 }
 
-bool Mediator::ShowLoginDialog()
-{
-	LoginDialog loginDialog(m_credentialsInspector->IsNeedSetPassword() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
-							m_credentialsInspector);
-	return loginDialog.Exec();
-}
+PasswordKit::Mediator::~Mediator() = default;
 
-void PasswordKit::Mediator::OnShowAbout()
+std::unique_ptr<IApplicationSettings> PasswordKit::Mediator::GetApplicationSettings() const
 {
-	AboutDialog aboutDialog(GetApp->GetMainWindow());
-	aboutDialog.exec();
-}
-
-void Mediator::OnShowIndependentPasswordGeneratorDialog()
-{
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Independent, 0, GetApp->GetMainWindow());
-	d.exec();
-}
-
-void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t minLenght)
-{
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Embeddable, minLenght, GetApp->GetMainWindow());
-	if (d.exec())
-		pas = d.GetPassowrd();
-}
-
-void Mediator::OnShowSetMainPasswordDialog()
-{
-	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector);
-	loginDialog.Exec();
+	return std::unique_ptr<IApplicationSettings>();
 }
