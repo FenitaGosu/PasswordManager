@@ -3,19 +3,21 @@
 #include <iostream>
 #include <cstdlib>
 
+#include <QCoreApplication>
 
 #include "Mediator/Mediator.h"
-
-namespace {
-const std::string DATA_SOURCE_NAME = "/PasswordManager.db";
-}
+#include "Interfaces/IApplicationSettings.h"
 
 int main(int argc, char *argv[])
 {
 	try
 	{
-		const auto mediator = std::make_unique<PasswordKit::Mediator>(argc, argv);
-		return 0;
+		QCoreApplication app(argc, argv);
+
+		const auto mediator = std::make_unique<PasswordKit::Mediator>();
+		const auto settings = mediator->GetApplicationSettings();
+
+		return app.exec();
 	}
 	catch(std::exception& exp)
 	{

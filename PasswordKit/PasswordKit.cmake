@@ -7,6 +7,8 @@ AddTarget(EXECUTABLE
 	Interfaces
 	Mediator
 	CommandLineParserQt
+	Enums
+	ApplicationsSettings
 	DEPS	
 	PasswordLogic
 	Tools

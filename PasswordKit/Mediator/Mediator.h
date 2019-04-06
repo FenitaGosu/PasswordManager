@@ -12,10 +12,13 @@ class IApplicationSettings;
 class Mediator
 {
 public:
-	Mediator(int argc, char* argv[]);
+	Mediator();
 	~Mediator();
 
 	std::unique_ptr<IApplicationSettings> GetApplicationSettings() const;
+
+private:
+	void AddCommandLineOptions();
 
 private:
 	struct Impl;
