@@ -14,7 +14,7 @@ public:
 	DataController(const std::shared_ptr<IDataSource>& dataSource);
 
 	PreviewAccountsInfo GetPreviewAccountsInfo() const;
-	void AddNewAccount(const PreviewAccountInfo& previewInfo, const AccountInfo& mainInfo);
+	void AddNewAccount(const PreviewAccountInfo& previewInfo);
 
 private:
 	std::shared_ptr<IDataSource> m_dataSource;

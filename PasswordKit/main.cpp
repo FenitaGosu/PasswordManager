@@ -3,48 +3,26 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "Application/Application.h"
-#include "ApplicationSettings/ApplicatonSettingsJsonImpl.h"
-
-#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
-#include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
-#include "PasswordLogic/Interfaces/IDataSource.h"
-#include "PasswordLogic/DataSource/DataBaseDataSource.h"
-#include "PasswordLogic/DataController/DataController.h"
-
-#include "Encryption/CryptoHashQt/CryptoHashQt.h"
+#include <QCoreApplication>
 
 #include "Mediator/Mediator.h"
 
-#include "MainWindow.h"
+#include "Interfaces/IApplicationSettings.h"
 
-namespace {
-const std::string DATA_SOURCE_NAME = "/PasswordManager.db";
-}
+#include "ApplicationController/ApplicationController.h"
 
 int main(int argc, char *argv[])
 {
 	try
 	{
-		PasswordKit::Application app(argc, argv);
-		app.СonfiguringApplicationSettings(std::make_unique<PasswordKit::ApplicatonSettingsJsonImpl>());
+		QCoreApplication app(argc, argv);
 
-		const auto dataSource	= std::make_shared<PasswordLogic::DataBaseDataSource>(app.GetApplicarionPath().toStdString() + DATA_SOURCE_NAME);
-		const auto incpector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataSource, std::make_unique<Encryption::CryptoHashQt>());
-		const auto mediator		= std::make_unique<PasswordKit::Mediator>(incpector.get());
+		const auto mediator = std::make_unique<PasswordKit::Mediator>();
+		const auto controller = std::make_unique<PasswordKit::ApplicationController>();
 
-		if(!mediator->ShowLoginDialog())
-			return EXIT_SUCCESS;
+		controller->Run(mediator->GetApplicationSettings());
 
-		const auto controller = std::make_unique<PasswordLogic::DataController>(dataSource);
-
-		PasswordKit::MainWindow w(mediator.get(), controller.get());
-		w.setWindowTitle(app.applicationName());
-		w.show();
-
-		app.SetMainWindow(&w);
-
-		return app.exec();
+		return 0;
 	}
 	catch(std::exception& exp)
 	{

@@ -1,19 +1,16 @@
 AddTarget(EXECUTABLE
 	NAME PasswordKit
 	SOURCE_DIR PasswordKit/
-	SRC *.cpp *.h *.qrc
-	ICON resources/icon/icon.ico
-	QT_USE Core Widgets
-	UI_FILES *.ui
+	SRC *.cpp *.h
+	QT_USE Core 
 	SUBDIRS
-	Application
 	Interfaces
-	ApplicationSettings
 	Mediator
-	DEPS
-	JsonTools
-	PasswordUI
-	PasswordLogic	
-	Encryption
-	QtTools
+	CommandLineParserQt
+	Enums
+	ApplicationsSettings
+	ApplicationController
+	DEPS	
+	PasswordLogic
+	Tools
 	)

@@ -16,6 +16,8 @@ public:
 	Same(double v);
 	Same(std::string v);
 
+	bool HasValue() const noexcept;
+
 	int			ToInt() const;
 	bool		ToBool() const;
 	double		ToDouble() const;

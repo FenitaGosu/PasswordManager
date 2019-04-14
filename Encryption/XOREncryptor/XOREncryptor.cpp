@@ -1,5 +1,6 @@
 #include <string>
 #include <algorithm>
+#include <stdexcept>
 
 #include "XOREncryptor.h"
 

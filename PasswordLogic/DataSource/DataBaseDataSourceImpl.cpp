@@ -123,7 +123,7 @@ struct DataBaseDataSourceImpl::Impl
 		return info;
 	}
 
-	void AddNewAccount(const DataList& previewData, const DataList& accountData)
+	void AddNewAccount(const DataList& previewData)
 	{
 		bool success = false;
 		const auto transaction = connection->GetTransactionManager();
@@ -152,10 +152,6 @@ struct DataBaseDataSourceImpl::Impl
 
 					query->Exec();
 				}
-			}
-
-			/// insert main account data
-			{
 			}
 
 			success = true;
@@ -201,7 +197,7 @@ DataList DataBaseDataSourceImpl::GetPreviewAccountsInfo() const
 	return m_impl->GetPreviewAccountsInfo();
 }
 
-void DataBaseDataSourceImpl::AddNewAccount(const DataList& previewData, const DataList& accountData)
+void DataBaseDataSourceImpl::AddNewAccount(const DataList& previewData)
 {
-	m_impl->AddNewAccount(previewData, accountData);
+	m_impl->AddNewAccount(previewData);
 }

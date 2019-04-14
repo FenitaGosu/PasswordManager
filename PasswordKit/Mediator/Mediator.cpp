@@ -1,57 +1,59 @@
-#include <QDialog>
-#include <QMainWindow>
-#include <QPointer>
+#include <functional>
+#include <vector>
 
-#include "Application/Application.h"
+#include <QCoreApplication>
 
-#include "PasswordLogic/Interfaces/ICredentialsInspector.h"
+#include "Tools/Same/Same.h"
 
-#include "PasswordUI/Dialogs/PasswordGeneratorDialog.h"
-#include "PasswordUI/Dialogs/AboutDialog.h"
-#include "PasswordUI/Dialogs//LoginDialog/LoginDialog.h"
+#include "Interfaces/IApplicationSettings.h"
+#include "Interfaces/ICommandLineParser.h"
 
-#include "PasswordUI/Interfaces/IObjectsConnector.h"
+#include "CommandLineParserQt/CommandLineParserQt.h"
+#include "ApplicationsSettings/ApplicationSettings.h"
 
 #include "Mediator.h"
 
 using namespace PasswordKit;
-using namespace PasswordUI;
 
-Mediator::Mediator(PasswordLogic::ICredentialsInspector* credentialsInspector, QObject* parent)
-	: QObject(parent)
-	, m_credentialsInspector(credentialsInspector)
+struct Mediator::Impl
 {
-	ObjectsConnector::RegisterReceiver(IObjectsConnector::GENERATE_PASSWORD, this, SLOT(OnShowEmbeddablePasswordGeneratorDialog(QString&, size_t)));
+	Impl()	
+		: commandLineParser(std::make_unique<CommandLineParserQt>())
+	{
+	}
+	
+	std::unique_ptr<ICommandLineParser> commandLineParser;
+	std::vector <std::pair<std::string, std::function<Tools::Same()>>> getters;
+};
+
+Mediator::Mediator()
+	: m_impl(std::make_unique<Impl>())
+{
+	AddCommandLineOptions();
 }
 
-bool Mediator::ShowLoginDialog()
+Mediator::~Mediator() = default;
+
+std::unique_ptr<IApplicationSettings> Mediator::GetApplicationSettings() const
 {
-	LoginDialog loginDialog(m_credentialsInspector->IsNeedSetPassword() ? LoginDialog::Mode::FisrtStart : LoginDialog::Mode::Login,
-							m_credentialsInspector);
-	return loginDialog.Exec();
+	m_impl->commandLineParser->Parse();
+
+	std::map<std::string, Tools::Same> values;
+
+	for (const auto& [key, getter] : m_impl->getters)
+		if (m_impl->commandLineParser->Contains(key))
+			values[key] = getter();
+
+	return std::make_unique<ApplicationSettings>(values);
 }
 
-void PasswordKit::Mediator::OnShowAbout()
+void Mediator::AddCommandLineOptions()
 {
-	AboutDialog aboutDialog(GetApp->GetMainWindow());
-	aboutDialog.exec();
-}
+	m_impl->commandLineParser->AddHelp();
 
-void Mediator::OnShowIndependentPasswordGeneratorDialog()
-{
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Independent, 0, GetApp->GetMainWindow());
-	d.exec();
-}
+	m_impl->commandLineParser->AddOption(IApplicationSettings::KEY_ACTION, IApplicationSettings::DESCRIPTION_ACTION);
+	m_impl->getters.push_back(std::make_pair(IApplicationSettings::KEY_ACTION, std::bind(&ICommandLineParser::GetInt, std::cref(m_impl->commandLineParser), IApplicationSettings::KEY_ACTION)));
 
-void Mediator::OnShowEmbeddablePasswordGeneratorDialog(QString& pas, size_t minLenght)
-{
-	PasswordGeneratorDialog d(PasswordGeneratorDialog::Mode::Embeddable, minLenght, GetApp->GetMainWindow());
-	if (d.exec())
-		pas = d.GetPassowrd();
-}
-
-void Mediator::OnShowSetMainPasswordDialog()
-{
-	LoginDialog loginDialog(LoginDialog::Mode::SetPassword, m_credentialsInspector);
-	loginDialog.Exec();
+	m_impl->commandLineParser->AddOption(IApplicationSettings::KEY_MASTER_PASSWORD, IApplicationSettings::DESCRIPTION_MASTER_PASSWORD);
+	m_impl->getters.push_back(std::make_pair(IApplicationSettings::KEY_MASTER_PASSWORD, std::bind(&ICommandLineParser::GetString, std::cref(m_impl->commandLineParser), IApplicationSettings::KEY_MASTER_PASSWORD)));
 }

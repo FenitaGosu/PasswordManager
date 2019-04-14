@@ -58,6 +58,8 @@ Thumbs.db
 *.opensdf
 *.vcxproj
 *vcxproj.*
+.vs*
+CMakeSettings.json
 
 # MinGW generated files
 *.Debug
