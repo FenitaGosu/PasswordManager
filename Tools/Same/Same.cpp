@@ -1,4 +1,5 @@
 #include "Same.h"
+#include "Same.h"
 
 using namespace Tools;
 
@@ -20,6 +21,11 @@ Same::Same(double v)
 Same::Same(std::string v)
 	: m_value(v)
 {
+}
+
+bool Same::HasValue() const noexcept
+{
+	return m_value.has_value();
 }
 
 int Same::ToInt() const

@@ -9,6 +9,7 @@ AddTarget(EXECUTABLE
 	CommandLineParserQt
 	Enums
 	ApplicationsSettings
+	ApplicationController
 	DEPS	
 	PasswordLogic
 	Tools

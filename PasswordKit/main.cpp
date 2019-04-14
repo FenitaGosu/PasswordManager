@@ -6,7 +6,10 @@
 #include <QCoreApplication>
 
 #include "Mediator/Mediator.h"
+
 #include "Interfaces/IApplicationSettings.h"
+
+#include "ApplicationController/ApplicationController.h"
 
 int main(int argc, char *argv[])
 {
@@ -15,9 +18,11 @@ int main(int argc, char *argv[])
 		QCoreApplication app(argc, argv);
 
 		const auto mediator = std::make_unique<PasswordKit::Mediator>();
-		const auto settings = mediator->GetApplicationSettings();
+		const auto controller = std::make_unique<PasswordKit::ApplicationController>();
 
-		return app.exec();
+		controller->Run(mediator->GetApplicationSettings());
+
+		return 0;
 	}
 	catch(std::exception& exp)
 	{
