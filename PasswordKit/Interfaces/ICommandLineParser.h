@@ -15,6 +15,8 @@ public:
 
 	virtual void Parse() = 0;
 
+	virtual std::string GetCurretDir() const = 0;
+
 	virtual bool Contains(const std::string& key) const = 0;
 
 	virtual int GetInt(const std::string& name) const = 0;

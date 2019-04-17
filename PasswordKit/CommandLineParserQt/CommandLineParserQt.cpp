@@ -32,6 +32,11 @@ void CommandLineParserQt::Parse()
 	m_impl->parser.process(*QCoreApplication::instance());
 }
 
+std::string CommandLineParserQt::GetCurretDir() const
+{
+	return QCoreApplication::applicationDirPath().toStdString();
+}
+
 bool CommandLineParserQt::Contains(const std::string& name) const
 {	
 	return m_impl->parser.isSet(QString::fromStdString(name));
