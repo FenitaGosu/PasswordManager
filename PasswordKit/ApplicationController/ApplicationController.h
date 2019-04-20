@@ -2,6 +2,10 @@
 
 #include <memory>
 
+namespace PasswordLogic {
+class ICredentialsInspector;
+}
+
 namespace PasswordKit {
 
 class IApplicationSettings;
@@ -12,11 +16,13 @@ public:
 	ApplicationController();
 	~ApplicationController();
 
+	void Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector);
+
 	void Run(std::unique_ptr<IApplicationSettings>&& settings);
 
 private:
 	struct Impl;
-	std::unique_ptr<Impl> _impl;
+	std::unique_ptr<Impl> m_impl;
 };
 
 }

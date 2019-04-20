@@ -18,8 +18,10 @@ class ApplicationSettings : public IApplicationSettings
 public:
 	ApplicationSettings(const std::map<std::string, Tools::Same>& values);
 	~ApplicationSettings();
-
+	
 	std::string GetMasterPassword() const override;
+	std::string GetDataBasePath() const override;
+
 	Action GetAction() const override;
 
 private:

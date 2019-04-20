@@ -19,6 +19,8 @@ public:
 
 	void Parse() override;
 
+	std::string GetCurretDir() const override;
+
 	bool Contains(const std::string& name) const override;
 
 	int GetInt(const std::string& name) const override;

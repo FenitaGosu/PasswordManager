@@ -19,7 +19,7 @@ public:
 	std::string GeCurrentMainPassword() const;
 	void SetCurrentMainPassword(const std::string& password);
 
-	DataList GetPreviewAccountsInfo() const;
+	DataList GetAccountsInfo() const;
 	void AddNewAccount(const DataList& previewData);
 
 private:

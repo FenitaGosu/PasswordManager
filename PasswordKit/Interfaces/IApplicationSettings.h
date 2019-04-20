@@ -15,10 +15,15 @@ public:
 	inline static const std::string KEY_MASTER_PASSWORD = "mpassword";
 	inline static const std::string DESCRIPTION_MASTER_PASSWORD = "Master password string.";
 
+	inline static const std::string KEY_DATABASE_PATH = "path";
+	inline static const std::string DESCRIPTION_KEY_DATABASE_PATH = "Path to database.";
+
 public:
 	virtual ~IApplicationSettings() = default;
 
 	virtual std::string GetMasterPassword() const = 0;
+	virtual std::string GetDataBasePath() const = 0;
+
 	virtual Action GetAction() const = 0;
 };
 

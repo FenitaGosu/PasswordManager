@@ -1,6 +1,6 @@
 #include "Tools/Same/Same.h"
 
-#include "DataContainer/PreviewAccountsDataContainer.h"
+#include "DataContainer/AccountsDataContainer.h"
 
 #include "DataBaseDataSource.h"
 #include "DataBaseDataSourceImpl.h"
@@ -34,7 +34,7 @@ void DataBaseDataSource::AddNewAccount(const IDataContainer& previewData)
 	m_dataBase->AddNewAccount(previewData.GetDataList());
 }
 
-void DataBaseDataSource::GetPreviewAccountsInfo(IDataContainer& dataContainer) const
+void DataBaseDataSource::GetAccountsInfo(IDataContainer& dataContainer) const
 {
-	dataContainer.AddDataList(m_dataBase->GetPreviewAccountsInfo());
+	dataContainer.AddDataList(m_dataBase->GetAccountsInfo());
 }

@@ -8,8 +8,8 @@
 #include "Tools/Same/Same.h"
 #include "Encryption/EmptyEncryptor/EmptyEncryptor.h"
 
-#include "PasswordLogic/DataContainer/PreviewAccountsDataContainer.h"
-#include "PasswordLogic/AccountInfo/PreviewAccountInfo.h"
+#include "PasswordLogic/DataContainer/AccountsDataContainer.h"
+#include "PasswordLogic/AccountInfo/AccountInfo.h"
 #include "PasswordLogic/Enums/AccontType.h"
 #include "PasswordLogic/Parameters.h"
 #include "PasswordLogic/SameContainers.h"
@@ -17,9 +17,9 @@
 using namespace PasswordLogic;
 using namespace Encryption;
 
-TEST(PreviewAccountsDataContainer, GetAllInfoAndAddDataListTest)
+TEST(AccountsDataContainer, GetAllInfoAndAddDataListTest)
 {
-	auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>());
+	auto container = std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>());
 
 	const std::string id	= "e403d007-5791-4c5b-b745-cdc2d55039b9";
 	const std::string name	= "TestName";
@@ -46,14 +46,14 @@ TEST(PreviewAccountsDataContainer, GetAllInfoAndAddDataListTest)
 	ASSERT_EQ(info.front().GetType(), type);
 }
 
-TEST(PreviewAccountsDataContainer, GetDataListTest)
+TEST(AccountsDataContainer, GetDataListTest)
 {
 	const QString		id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
 	const QString		name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
-	const PreviewAccountsInfo info{ {id, name, type} };
-	const auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
+	const AccountsInfo info{ {id, name, type} };
+	const auto container = std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
 
 	const auto data = container->GetDataList();
 	ASSERT_EQ(data.size(), 1);
@@ -73,14 +73,14 @@ TEST(PreviewAccountsDataContainer, GetDataListTest)
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, QString::number(static_cast<int>(type)));
 }
 
-TEST(PreviewAccountsDataContainer, GetDataTest)
+TEST(AccountsDataContainer, GetDataTest)
 {
 	const QString		id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
 	const QString		name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
-	const PreviewAccountsInfo info{ {id, name, type} };
-	const auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
+	const AccountsInfo info{ {id, name, type} };
+	const auto container = std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>(), info);
 
 	const auto mapData = container->GetData();
 
@@ -98,9 +98,9 @@ TEST(PreviewAccountsDataContainer, GetDataTest)
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, QString::number(static_cast<int>(type)));
 }
 
-TEST(PreviewAccountsDataContainer, GetAllInfoAndAddDataTest)
+TEST(AccountsDataContainer, GetAllInfoAndAddDataTest)
 {
-	auto container = std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>());
+	auto container = std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::EmptyEncryptor>());
 
 	const std::string id	= "e403d007-5791-4c5b-b745-cdc2d55039b9";
 	const std::string name	= "TestName";

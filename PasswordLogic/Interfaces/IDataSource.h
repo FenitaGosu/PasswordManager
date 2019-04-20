@@ -13,7 +13,7 @@ class IDataSource
 public:
 	virtual ~IDataSource() = default;
 
-	virtual void GetPreviewAccountsInfo(IDataContainer& dataContainer) const = 0;
+	virtual void GetAccountsInfo(IDataContainer& dataContainer) const = 0;
 	virtual void AddNewAccount(const IDataContainer& previewData) = 0;
 };
 

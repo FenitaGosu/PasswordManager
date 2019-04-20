@@ -4,8 +4,8 @@
 
 namespace PasswordLogic {
 
-class PreviewAccountInfo;
+class AccountInfo;
 
-using PreviewAccountsInfo = std::vector<PreviewAccountInfo>;
+using AccountsInfo = std::vector<AccountInfo>;
 
 }
