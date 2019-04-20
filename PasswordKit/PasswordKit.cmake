@@ -7,10 +7,11 @@ AddTarget(EXECUTABLE
 	Interfaces
 	Mediator
 	CommandLineParserQt
-	Enums
+	Enums	
 	ApplicationsSettings
 	ApplicationController
 	DEPS	
 	PasswordLogic
 	Tools
+	Encryption
 	)

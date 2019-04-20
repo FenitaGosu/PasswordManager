@@ -37,6 +37,12 @@ std::string ApplicationSettings::GetMasterPassword() const
 	return value.has_value() ? value.value().ToString() : std::string();
 }
 
+std::string PasswordKit::ApplicationSettings::GetDataBasePath() const
+{
+	const auto value = m_impl->Find(KEY_DATABASE_PATH);
+	return value.has_value() ? value.value().ToString() : std::string();
+}
+
 Action PasswordKit::ApplicationSettings::GetAction() const
 {
 	const auto value = m_impl->Find(KEY_ACTION);

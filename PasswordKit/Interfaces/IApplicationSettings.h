@@ -22,6 +22,8 @@ public:
 	virtual ~IApplicationSettings() = default;
 
 	virtual std::string GetMasterPassword() const = 0;
+	virtual std::string GetDataBasePath() const = 0;
+
 	virtual Action GetAction() const = 0;
 };
 
