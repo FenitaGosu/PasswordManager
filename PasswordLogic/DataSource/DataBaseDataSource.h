@@ -23,7 +23,7 @@ public:
 	void SetCurrentMainPassword(const std::string& password) override;
 
 /// IDataSource
-	void GetPreviewAccountsInfo(IDataContainer& dataContainer) const override;
+	void GetAccountsInfo(IDataContainer& dataContainer) const override;
 	void AddNewAccount(const IDataContainer& previewData) override;
 
 private:

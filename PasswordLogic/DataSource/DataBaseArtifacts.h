@@ -31,11 +31,10 @@ public:
 	inline static const QString MAIN_PASSWORD_CONSTANT		= "MainPassword";
 	inline static const QString DATABASE_VERSION_CONSTANT	= "DataBaseVersion";
 
-	/// Table of AccountsPreview
-	inline static const QString CREATE_ACCOUNT_PREVIEW_TABLE	= "CREATE TABLE ACCOUNT_PREVIEW (id varchar(255) NOT NULL PRIMARY KEY, name string, type string);";
-	inline static const QString INSERT_ACCOUNT_PREVIEW			= "INSERT INTO ACCOUNT_PREVIEW (id, name, type) VALUES (:id, :name, :type);";
-	inline static const QString SELECT_ACCOUNT_PREVIEW			= "SELECT * FROM ACCOUNT_PREVIEW;";
-
+	/// Table of Accounts
+	inline static const QString CREATE_ACCOUNT_TABLE	= "CREATE TABLE ACCOUNT (id varchar(255) NOT NULL PRIMARY KEY, name string, type string);";
+	inline static const QString INSERT_ACCOUNT			= "INSERT INTO ACCOUNT (id, name, type) VALUES (:id, :name, :type);";
+	inline static const QString SELECT_ACCOUNT			= "SELECT * FROM ACCOUNT;";
 };
 
 }

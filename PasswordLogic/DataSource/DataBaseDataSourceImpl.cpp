@@ -84,7 +84,7 @@ struct DataBaseDataSourceImpl::Impl
 		}
 	}
 
-	DataList GetPreviewAccountsInfo() const
+	DataList GetAccountsInfo() const
 	{
 		DataList info;
 
@@ -96,7 +96,7 @@ struct DataBaseDataSourceImpl::Impl
 		{
 			const auto query = transaction->GetQuery();
 
-			query->Exec(DataBaseArtifacts::SELECT_ACCOUNT_PREVIEW);
+			query->Exec(DataBaseArtifacts::SELECT_ACCOUNT);
 
 			const auto indexId		= query->IndexOf(DataBaseArtifacts::ID_INDEX).value();
 			const auto indexName	= query->IndexOf(DataBaseArtifacts::NAME_INDEX).value();
@@ -139,9 +139,9 @@ struct DataBaseDataSourceImpl::Impl
 				return QString::fromStdString(it->second.Get<const std::string&>());
 			};
 
-			/// insert preview account data
+			/// insert account data
 			{
-				query->SetTextQuery(DataBaseArtifacts::INSERT_ACCOUNT_PREVIEW);
+				query->SetTextQuery(DataBaseArtifacts::INSERT_ACCOUNT);
 
 				for (const auto& info : previewData)
 				{
@@ -192,9 +192,9 @@ void DataBaseDataSourceImpl::SetCurrentMainPassword(const std::string& password)
 	m_impl->SetPassword(password);
 }
 
-DataList DataBaseDataSourceImpl::GetPreviewAccountsInfo() const
+DataList DataBaseDataSourceImpl::GetAccountsInfo() const
 {
-	return m_impl->GetPreviewAccountsInfo();
+	return m_impl->GetAccountsInfo();
 }
 
 void DataBaseDataSourceImpl::AddNewAccount(const DataList& previewData)

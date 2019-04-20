@@ -4,15 +4,15 @@
 
 #include "Encryption/Interfaces/IEncryptor.h"
 
-#include "AccountInfo/PreviewAccountInfo.h"
+#include "AccountInfo/AccountInfo.h"
 
 #include "Parameters.h"
 
-#include "PreviewAccountsDataContainer.h"
+#include "AccountsDataContainer.h"
 
 using namespace PasswordLogic;
 
-PreviewAccountsDataContainer::PreviewAccountsDataContainer(std::unique_ptr<Encryption::IEncryptor>&& encryptor, const PreviewAccountsInfo& info)
+AccountsDataContainer::AccountsDataContainer(std::unique_ptr<Encryption::IEncryptor>&& encryptor, const AccountsInfo& info)
 	: EncryptedDataContainer(std::move(encryptor))
 {
 	DataList dataList;
@@ -30,16 +30,16 @@ PreviewAccountsDataContainer::PreviewAccountsDataContainer(std::unique_ptr<Encry
 	AddDataList(std::move(dataList));
 }
 
-PreviewAccountsDataContainer::PreviewAccountsDataContainer(std::unique_ptr<Encryption::IEncryptor>&& encryptor)
+AccountsDataContainer::AccountsDataContainer(std::unique_ptr<Encryption::IEncryptor>&& encryptor)
 	: EncryptedDataContainer(std::move(encryptor))
 {
 }
 
-PreviewAccountsDataContainer::~PreviewAccountsDataContainer() = default;
+AccountsDataContainer::~AccountsDataContainer() = default;
 
-PreviewAccountsInfo PreviewAccountsDataContainer::GetAllInfo() const
+AccountsInfo AccountsDataContainer::GetAllInfo() const
 {
-	PreviewAccountsInfo info;
+	AccountsInfo info;
 
 	const auto& data = GetDataList();
 	info.reserve(static_cast<size_t>(data.size()));

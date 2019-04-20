@@ -4,9 +4,9 @@
 #include "Encryption/XOREncryptor/XOREncryptor.h"
 
 #include "Enums/AccontType.h"
-#include "AccountInfo/PreviewAccountInfo.h"
+#include "AccountInfo/AccountInfo.h"
 
-#include "DataContainer/PreviewAccountsDataContainer.h"
+#include "DataContainer/AccountsDataContainer.h"
 
 #include "Interfaces/IDataSource.h"
 
@@ -25,14 +25,14 @@ public:
 	}
 };
 
-std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer()
+std::unique_ptr<AccountsDataContainer> CreateDataContainer()
 {
-	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()));
+	return std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()));
 }
 
-std::unique_ptr<PreviewAccountsDataContainer> CreateDataContainer(const PreviewAccountsInfo& info)
+std::unique_ptr<AccountsDataContainer> CreateDataContainer(const AccountsInfo& info)
 {
-	return std::make_unique<PreviewAccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
+	return std::make_unique<AccountsDataContainer>(std::make_unique<Encryption::XOREncryptor>(std::make_unique<KeyProvider>()), info);
 }
 
 }
@@ -42,15 +42,15 @@ DataController::DataController(const std::shared_ptr<IDataSource>& dataSource)
 {
 }
 
-PreviewAccountsInfo DataController::GetPreviewAccountsInfo() const
+AccountsInfo DataController::GetAccountsInfo() const
 {
 	const auto container = CreateDataContainer();
-	m_dataSource->GetPreviewAccountsInfo(*container.get());
+	m_dataSource->GetAccountsInfo(*container.get());
 
 	return container->GetAllInfo();
 }
 
-void DataController::AddNewAccount(const PreviewAccountInfo& previewInfo)
+void DataController::AddNewAccount(const AccountInfo& previewInfo)
 {
 	auto previewContainer = CreateDataContainer({ previewInfo });
 
