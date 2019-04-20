@@ -4,6 +4,7 @@
 
 namespace PasswordLogic {
 class ICredentialsInspector;
+class IDataController;
 }
 
 namespace PasswordKit {
@@ -16,7 +17,7 @@ public:
 	ApplicationController();
 	~ApplicationController();
 
-	void Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector);
+	void Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector, std::unique_ptr<PasswordLogic::IDataController>&& dataController);
 
 	void Run(std::unique_ptr<IApplicationSettings>&& settings);
 

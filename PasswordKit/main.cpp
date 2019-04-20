@@ -13,6 +13,7 @@
 
 #include "PasswordLogic/DataSource/DataBaseDataSource.h"
 #include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
+#include "PasswordLogic/DataController/DataController.h"
 
 #include "ApplicationController/ApplicationController.h"
 
@@ -33,11 +34,11 @@ int main(int argc, char *argv[])
 
 		auto settings = mediator->GetApplicationSettings();
 
-		const auto dataBase															= std::make_shared<PasswordLogic::DataBaseDataSource>(settings->GetDataBasePath() + DATABASE_NAME);
-		std::unique_ptr<PasswordLogic::ICredentialsInspector> credentialsInspector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataBase, std::make_unique<Encryption::CryptoHashQt>());
+		const auto												dataBase				= std::make_shared<PasswordLogic::DataBaseDataSource>(settings->GetDataBasePath() + DATABASE_NAME);
+		std::unique_ptr<PasswordLogic::ICredentialsInspector>	credentialsInspector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataBase, std::make_unique<Encryption::CryptoHashQt>());
+		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
 
-		controller->Setup(std::move(credentialsInspector));
-
+		controller->Setup(std::move(credentialsInspector), std::move(dataController));
 		controller->Run(std::move(settings));
 
 		return 0;

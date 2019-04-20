@@ -50,9 +50,9 @@ AccountsInfo DataController::GetAccountsInfo() const
 	return container->GetAllInfo();
 }
 
-void DataController::AddNewAccount(const AccountInfo& previewInfo)
+void DataController::AddNewAccount(const AccountInfo& info)
 {
-	auto previewContainer = CreateDataContainer({ previewInfo });
+	auto container = CreateDataContainer({ info });
 
-	m_dataSource->AddNewAccount(*previewContainer.get());
+	m_dataSource->AddNewAccount(*container.get());
 }
