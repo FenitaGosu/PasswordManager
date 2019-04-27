@@ -11,6 +11,7 @@ AddTarget(EXECUTABLE
 	PasswordGeneratorTest
 	EncryptionTest
 	PasswordLogicTest
+	Tools
 	DEPS
 	gtest
 	gmock_main
