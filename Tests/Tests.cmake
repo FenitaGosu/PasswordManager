@@ -75,3 +75,18 @@ AddTarget(EXECUTABLE
 	)
 
 add_test(NAME PasswordLogicTest COMMAND PasswordLogicTest)
+
+
+AddTarget(EXECUTABLE
+	NAME ToolsTest
+	SOURCE_DIR Tests/
+	SRC *.cpp *.h
+	SUBDIRS
+	ToolsTest
+	DEPS
+	gtest
+	gmock_main
+	Tools
+	)
+
+add_test(NAME ToolsTest COMMAND ToolsTest)

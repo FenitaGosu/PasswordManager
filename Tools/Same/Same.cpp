@@ -1,5 +1,4 @@
 #include "Same.h"
-#include "Same.h"
 
 using namespace Tools;
 
