@@ -1,3 +1,3 @@
 # PasswordManager
 
-Simple password manager written in С++ with Qt
+Simple command line interface password manager written in С++ with Qt
