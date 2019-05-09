@@ -24,7 +24,7 @@ void CommandLineParserQt::AddHelp()
 
 void CommandLineParserQt::AddOption(const std::string& name, const std::string& description)
 {
-	m_impl->parser.addOption(QCommandLineOption({ QString(QString::fromStdString(name).front()), QString::fromStdString(name)},  QString::fromStdString(description)));
+	m_impl->parser.addOption(QCommandLineOption({ QString(QString::fromStdString(name).front()), QString::fromStdString(name)},  QString::fromStdString(description), QString::fromStdString(name)));
 }
 
 void CommandLineParserQt::Parse()
