@@ -3,5 +3,5 @@ AddTarget(
 	SOURCE_DIR Tools/
 	SRC *.cpp *.h
 	QT_USE Core
-	SUBDIRS	Random Same StreamWrapper
+	SUBDIRS	Random Same StreamWrapper StringFormat
 	)
