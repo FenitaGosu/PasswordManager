@@ -12,6 +12,7 @@ AddTarget(EXECUTABLE
 	ApplicationController
 	DEPS	
 	PasswordLogic
+	PasswordGenerator
 	Tools
 	Encryption
 	)
