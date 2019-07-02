@@ -38,7 +38,7 @@ std::string CommandLineParserQt::GetCurretDir() const
 }
 
 bool CommandLineParserQt::Contains(const std::string& name) const
-{	
+{
 	return m_impl->parser.isSet(QString::fromStdString(name));
 }
 

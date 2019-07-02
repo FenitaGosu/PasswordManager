@@ -74,12 +74,12 @@ bool ApplicationController::CheckMasterPassword(IApplicationSettings* settings) 
 		if (settings->GetAction() == Action::SetMasterPassword)
 		{
 			return true;
-		}			
+		}
 		else
 		{
 			m_impl->streamWrpper->Write(" ", MASTER_PASSWORD_NOT_SET);
 			return false;
-		}	
+		}
 	else	
 		if (m_impl->credentialIncpector->CheckPassword(settings->GetMasterPassword()))
 		{
@@ -89,7 +89,7 @@ bool ApplicationController::CheckMasterPassword(IApplicationSettings* settings) 
 		{
 			m_impl->streamWrpper->Write(" ", MASTER_PASSWORD_INVALID);
 			return false;
-		}	
+		}
 }
 
 std::string ApplicationController::GeneratePassword() const
@@ -127,7 +127,7 @@ void ApplicationController::HandleImpl(IApplicationSettings* settings)
 	{
 		m_impl->streamWrpper->Write(" ", ACTION_NOT_FOUND);
 		return;
-	}		
+	}
 
 	it->second(settings);
 }
