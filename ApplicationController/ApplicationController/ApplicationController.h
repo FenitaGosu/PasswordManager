@@ -15,7 +15,7 @@ namespace Tools {
 class StreamWrapper;
 }
 
-namespace PasswordKit {
+namespace Controller {
 
 class IApplicationSettings;
 

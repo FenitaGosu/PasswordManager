@@ -5,19 +5,21 @@
 
 #include "Tools/Same/Same.h"
 
-#include "Interfaces/IApplicationSettings.h"
+#include "ApplicationController/ApplicationsSettings/ApplicationSettings.h"
+#include "ApplicationController/Interfaces/IApplicationSettings.h"
+
 #include "Interfaces/ICommandLineParser.h"
 
 #include "CommandLineParserQt/CommandLineParserQt.h"
-#include "ApplicationsSettings/ApplicationSettings.h"
 
 #include "Mediator.h"
 
 using namespace PasswordKit;
+using namespace Controller;
 
 struct Mediator::Impl
 {
-	Impl()	
+	Impl()
 		: commandLineParser(std::make_unique<CommandLineParserQt>())
 	{
 	}
@@ -44,7 +46,7 @@ Mediator::Mediator()
 
 Mediator::~Mediator() = default;
 
-std::unique_ptr<IApplicationSettings> Mediator::GetApplicationSettings() const
+std::unique_ptr<Controller::IApplicationSettings> Mediator::GetApplicationSettings() const
 {
 	m_impl->commandLineParser->Parse();
 

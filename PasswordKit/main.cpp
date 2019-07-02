@@ -7,7 +7,7 @@
 
 #include "Mediator/Mediator.h"
 
-#include "Interfaces/IApplicationSettings.h"
+#include "ApplicationController/Interfaces/IApplicationSettings.h"
 
 #include "Encryption/CryptoHashQt/CryptoHashQt.h"
 
@@ -19,7 +19,7 @@
 #include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
 #include "PasswordLogic/DataController/DataController.h"
 
-#include "ApplicationController/ApplicationController.h"
+#include "ApplicationController/ApplicationController/ApplicationController.h"
 
 namespace {
 
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		QCoreApplication app(argc, argv); // for commandline parser
 
 		const auto mediator		= std::make_unique<PasswordKit::Mediator>();
-		const auto controller	= std::make_unique<PasswordKit::ApplicationController>();
+		const auto controller	= std::make_unique<Controller::ApplicationController>();
 
 		auto settings = mediator->GetApplicationSettings();
 

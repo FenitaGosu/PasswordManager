@@ -4,14 +4,14 @@
 #include <string>
 #include <map>
 
-#include "Enums/Action.h"
-#include "Interfaces/IApplicationSettings.h"
+#include "ApplicationController/Enums/Action.h"
+#include "ApplicationController/Interfaces/IApplicationSettings.h"
 
 namespace Tools {
 class Same;
 }
 
-namespace PasswordKit {
+namespace Controller {
 
 class ApplicationSettings : public IApplicationSettings
 {

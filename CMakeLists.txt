@@ -36,6 +36,7 @@ add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
 
 include(addTaget.cmake)
+include(ApplicationController/ApplicationController.cmake)
 include(PasswordKit/PasswordKit.cmake)
 include(JsonTools/JsonTools.cmake)
 include(DataBase/DataBase.cmake)

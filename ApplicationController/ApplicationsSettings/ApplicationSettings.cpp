@@ -6,7 +6,7 @@
 
 #include "ApplicationSettings.h"
 
-using namespace PasswordKit;
+using namespace Controller;
 
 struct ApplicationSettings::Impl
 {

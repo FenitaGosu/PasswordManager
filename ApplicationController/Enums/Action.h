@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PasswordKit {
+namespace Controller {
 
 enum class Action
 {

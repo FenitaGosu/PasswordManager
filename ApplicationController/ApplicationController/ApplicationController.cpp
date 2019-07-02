@@ -19,7 +19,7 @@
 
 #include "ApplicationController.h"
 
-using namespace PasswordKit;
+using namespace Controller;
 
 namespace {
 constexpr int MIN_PASSWORD_SIZE = 4;
@@ -158,6 +158,6 @@ void ApplicationController::HandleSetMasterPassword(IApplicationSettings* settin
 		return;
 	}	
 
-	m_impl->credentialIncpector->SetPassword(newPassword);		
+	m_impl->credentialIncpector->SetPassword(newPassword);
 	m_impl->streamWrpper->Write(" ", PASSWORD_CHANGED);
 }

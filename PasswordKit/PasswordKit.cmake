@@ -7,10 +7,9 @@ AddTarget(EXECUTABLE
 	Interfaces
 	Mediator
 	CommandLineParserQt
-	Enums	
-	ApplicationsSettings
+	Enums
+	DEPS
 	ApplicationController
-	DEPS	
 	PasswordLogic
 	PasswordGenerator
 	Tools
