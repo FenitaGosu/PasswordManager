@@ -1,13 +1,13 @@
 {
-  "version": "0.2.1",
-  "defaults": {},
   "configurations": [
     {
       "type": "default",
       "project": "CMakeLists.txt",
       "projectTarget": "PasswordKit.exe",
       "name": "PasswordKit.exe",
-      "args": ["-a", "0", "-p", "privet" ]
+      "args": [ "-a", "0" ]
     }
-  ]
+  ],
+  "defaults": {},
+  "version": "0.2.1"
 }

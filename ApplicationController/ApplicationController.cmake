@@ -12,4 +12,5 @@ AddTarget(
 	PasswordGenerator
 	Tools
 	Encryption
+	PasswordUI
 	)
