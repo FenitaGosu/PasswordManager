@@ -19,6 +19,8 @@
 #include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
 #include "PasswordLogic/DataController/DataController.h"
 
+#include "PasswordUI/UIController/UIController.h"
+
 #include "ApplicationController/ApplicationController/ApplicationController.h"
 
 namespace {
@@ -43,8 +45,9 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
 		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
+		std::unique_ptr<PasswordUI::IUIController>				uiController			= std::make_unique<PasswordUI::UIController>();
 
-		controller->Setup(std::move(credentialsInspector), std::move(dataController), std::move(streamWrapper), std::move(passwordGenerator));
+		controller->Setup(std::move(credentialsInspector), std::move(dataController), std::move(streamWrapper), std::move(passwordGenerator), std::move(uiController));
 		controller->Run(std::move(settings));
 
 		return 0;
