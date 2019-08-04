@@ -17,7 +17,7 @@ Same::Same(double v)
 {
 }
 
-Same::Same(std::string v)
+Same::Same(const std::string& v)
 	: m_value(v)
 {
 }
@@ -42,7 +42,7 @@ double Same::ToDouble() const
 	return Get<double>();
 }
 
-std::string Same::ToString() const
+const std::string& Same::ToString() const
 {
-	return Get<std::string>();
+	return Get<const std::string&>();
 }

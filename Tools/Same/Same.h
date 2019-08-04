@@ -14,14 +14,14 @@ public:
 	Same(int v);
 	Same(bool v);
 	Same(double v);
-	Same(std::string v);
+	Same(const std::string& v);
 
 	bool HasValue() const noexcept;
 
-	int			ToInt() const;
-	bool		ToBool() const;
-	double		ToDouble() const;
-	std::string	ToString() const;
+	int					ToInt() const;
+	bool				ToBool() const;
+	double				ToDouble() const;
+	const std::string&	ToString() const;
 
 	template<typename T>
 	void Set(const T& v)
@@ -30,9 +30,15 @@ public:
 	}
 
 	template<typename T>
-	T Get() const
+	const T& Get() const
 	{
-		return std::any_cast<T>(m_value);
+		return std::any_cast<const T&>(m_value);
+	}
+
+	template<typename T>
+	T& GetRef()
+	{
+		return std::any_cast<T&>(m_value);
 	}
 
 	template<typename T>
