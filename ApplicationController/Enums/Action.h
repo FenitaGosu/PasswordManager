@@ -1,10 +1,14 @@
 #pragma once
 
+#include <string>
+
+
 namespace Controller {
 
-enum class Action
+class Action
 {
-	SetMasterPassword = 0,
+public:
+	inline static std::string SET_MASTER_PASSWORD = "set-masterpassword";
 };
 
 }

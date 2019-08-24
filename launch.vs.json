@@ -5,7 +5,7 @@
       "project": "CMakeLists.txt",
       "projectTarget": "PasswordKit.exe",
       "name": "PasswordKit.exe",
-      "args": [ "-a", "0" ]
+      "args": [ "-a", "set-masterpassword" ]
     }
   ],
   "defaults": {},

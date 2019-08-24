@@ -29,6 +29,7 @@ public:
 	static inline const std::string ACTION_NOT_FOUND			= "Action not found.\n";
 	static inline const std::string MASTER_PASSWORD_NOT_SET		= "Master password not set.\n";
 	static inline const std::string MASTER_PASSWORD_INVALID		= "Master password invalid.\n";
+
 public:
 	ApplicationController();
 	~ApplicationController();

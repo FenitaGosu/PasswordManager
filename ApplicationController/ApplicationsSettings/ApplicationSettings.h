@@ -22,7 +22,7 @@ public:
 	std::string GetMasterPassword() const override;
 	std::string GetDataBasePath() const override;
 
-	Action GetAction() const override;
+	std::string GetAction() const override;
 
 private:
 	struct Impl;

@@ -4,10 +4,12 @@
 
 namespace PasswordUI {
 
-	class UIController : public IUIController
-	{
-	public:
-		void ShowSetMasterPasswordDialog() const override;
-	};
+class IUIProtocolDataTransfer;
+
+class UIController : public IUIController
+{
+public:
+	void ShowSetMasterPasswordDialog(std::unique_ptr<IUIProtocolDataTransfer>&& protocol) const override;
+};
 
 }
