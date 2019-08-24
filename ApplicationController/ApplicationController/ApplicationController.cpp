@@ -24,7 +24,7 @@ using namespace Controller;
 
 struct ApplicationController::Impl
 {
-	std::map<Action, std::function<void(IApplicationSettings*)>> actionHandles;
+	std::map<std::string, std::function<void(IApplicationSettings*)>> actionHandles;
 };
 
 ApplicationController::ApplicationController()
@@ -57,14 +57,14 @@ void ApplicationController::SetupActionHandles()
 {
 	m_impl->actionHandles =
 	{
-		{ Action::SetMasterPassword, std::bind(&ApplicationController::HandleSetMasterPassword, this, std::placeholders::_1)}
+		{ Action::SET_MASTER_PASSWORD, std::bind(&ApplicationController::HandleSetMasterPassword, this, std::placeholders::_1)}
 	};
 }
 
 bool ApplicationController::CheckMasterPassword(IApplicationSettings* settings) const
 {
 	if (m_credentialIncpector->IsNeedSetPassword())
-		if (settings->GetAction() == Action::SetMasterPassword)
+		if (settings->GetAction() == Action::SET_MASTER_PASSWORD)
 		{
 			return true;
 		}

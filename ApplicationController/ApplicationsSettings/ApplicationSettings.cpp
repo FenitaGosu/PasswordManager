@@ -43,12 +43,12 @@ std::string ApplicationSettings::GetDataBasePath() const
 	return value.has_value() ? value.value().ToString() : std::string();
 }
 
-Action ApplicationSettings::GetAction() const
+std::string ApplicationSettings::GetAction() const
 {
 	const auto value = m_impl->Find(KEY_ACTION);
 
 	if (value.has_value())
-		return static_cast<Action>(value.value().ToInt());
+		return value.value().ToString();
 
 	 throw std::logic_error("Action cannot be empty");
 }

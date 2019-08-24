@@ -1,3 +1,4 @@
+#include "PasswordUI/Interfaces/IUIProtocolDataTransfer.h"
 
 #include "PasswordUI/UIController/UIController.h"
 
@@ -9,5 +10,5 @@ using namespace Controller;
 
 void ApplicationController::HandleSetMasterPassword(IApplicationSettings* settings)
 {
-	m_uiController->ShowSetMasterPasswordDialog();
+	m_uiController->ShowSetMasterPasswordDialog(nullptr);
 }

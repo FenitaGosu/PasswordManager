@@ -4,8 +4,6 @@
 
 namespace Controller {
 
-enum class Action;
-
 class IApplicationSettings
 {
 public:
@@ -24,7 +22,7 @@ public:
 	virtual std::string GetMasterPassword() const = 0;
 	virtual std::string GetDataBasePath() const = 0;
 
-	virtual Action GetAction() const = 0;
+	virtual std::string GetAction() const = 0;
 };
 
 }
