@@ -1,14 +1,20 @@
-#include "PasswordUI/Interfaces/IUIProtocolDataTransfer.h"
+#include "UIProtocol/Interfaces/IUIProtocol.h"
+#include "UIProtocol/Interfaces/IUIProtocolClient.h"
 
-#include "PasswordUI/UIController/UIController.h"
+#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
+
+#include "PasswordUI/Interfaces/IUIController.h"
 
 #include "Interfaces/IApplicationSettings.h"
 
 #include "ApplicationController.h"
 
 using namespace Controller;
+using namespace UIProtocol;
 
 void ApplicationController::HandleSetMasterPassword(IApplicationSettings* settings)
 {
-	m_uiController->ShowSetMasterPasswordDialog(nullptr);
+	const auto protocol = m_uiProtocolFactory->CreateProtorol();
+
+	m_uiController->ShowSetMasterPasswordDialog(protocol->ToUIProtocol());
 }

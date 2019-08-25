@@ -7,4 +7,5 @@ AddTarget(
 	Interfaces
 	UIController
 	DEPS
+	UIProtocol
 	)

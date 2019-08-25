@@ -2,16 +2,18 @@
 
 #include <memory>
 
-namespace PasswordUI {
+namespace UIProtocol {
+class IUIProtocol;
+}
 
-class IUIProtocolDataTransfer;
+namespace PasswordUI {
 
 class IUIController
 {
 public:
 	virtual ~IUIController() = default;
 
-	virtual void ShowSetMasterPasswordDialog(std::unique_ptr<IUIProtocolDataTransfer>&& protocol) const = 0;
+	virtual void ShowSetMasterPasswordDialog(UIProtocol::IUIProtocol& protocol) const = 0;
 };
 
 }

@@ -13,4 +13,5 @@ AddTarget(
 	Tools
 	Encryption
 	PasswordUI
+	UIProtocol
 	)

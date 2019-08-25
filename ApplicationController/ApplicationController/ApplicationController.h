@@ -19,6 +19,10 @@ namespace PasswordUI {
 class IUIController;
 }
 
+namespace UIProtocol {
+class UIProtocolFactory;
+}
+
 namespace Controller {
 
 class IApplicationSettings;
@@ -38,7 +42,8 @@ public:
 				std::unique_ptr<PasswordLogic::IDataController>&& dataController,
 				std::unique_ptr<Tools::StreamWrapper>&& streamWrpper,
 				std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator,
-				std::unique_ptr<PasswordUI::IUIController>&& uiController
+				std::unique_ptr<PasswordUI::IUIController>&& uiController,
+				std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory
 			  );
 
 	void Run(std::unique_ptr<IApplicationSettings>&& settings);
@@ -59,6 +64,7 @@ private:
 	std::unique_ptr<Tools::StreamWrapper> m_streamWrpper;
 	std::unique_ptr<PasswordGenerator::IPasswordGenerator> m_passwordGenerator;
 	std::unique_ptr<PasswordUI::IUIController> m_uiController;
+	std::unique_ptr<UIProtocol::UIProtocolFactory> m_uiProtocolFactory;
 };
 
 }

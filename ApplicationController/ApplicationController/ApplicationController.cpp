@@ -12,7 +12,9 @@
 
 #include "PasswordLogic/Interfaces/IDataController.h"
 
-#include "PasswordUI/UIController/UIController.h"
+#include "PasswordUI/Interfaces/IUIController.h"
+
+#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
 
 #include "Interfaces/IApplicationSettings.h"
 
@@ -34,13 +36,14 @@ ApplicationController::ApplicationController()
 
 ApplicationController::~ApplicationController() = default;
 
-void ApplicationController::Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector, std::unique_ptr<PasswordLogic::IDataController>&& dataController, std::unique_ptr<Tools::StreamWrapper>&& streamWrpper, std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator, std::unique_ptr<PasswordUI::IUIController>&& uiController)
+void ApplicationController::Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector, std::unique_ptr<PasswordLogic::IDataController>&& dataController, std::unique_ptr<Tools::StreamWrapper>&& streamWrpper, std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator, std::unique_ptr<PasswordUI::IUIController>&& uiController, std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory)
 {
-	m_credentialIncpector		= std::move(credentialIncpector);
-	m_dataController			= std::move(dataController);
+	m_credentialIncpector	= std::move(credentialIncpector);
+	m_dataController		= std::move(dataController);
 	m_streamWrpper			= std::move(streamWrpper);
 	m_passwordGenerator		= std::move(passwordGenerator);
 	m_uiController			= std::move(uiController);
+	m_uiProtocolFactory		= std::move(uiProtocolFactory);
 
 	SetupActionHandles();
 }

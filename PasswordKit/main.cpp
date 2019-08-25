@@ -21,6 +21,9 @@
 
 #include "PasswordUI/UIController/UIController.h"
 
+#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
+#include "UIProtocol/Protocol/Protocol.h"
+
 #include "ApplicationController/ApplicationController/ApplicationController.h"
 
 namespace {
@@ -46,8 +49,16 @@ int main(int argc, char *argv[])
 		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
 		std::unique_ptr<PasswordUI::IUIController>				uiController			= std::make_unique<PasswordUI::UIController>();
+		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>([]() { return std::make_unique<UIProtocol::Protocol>(); });
 
-		controller->Setup(std::move(credentialsInspector), std::move(dataController), std::move(streamWrapper), std::move(passwordGenerator), std::move(uiController));
+		controller->Setup(	std::move(credentialsInspector),
+							std::move(dataController),
+							std::move(streamWrapper),
+							std::move(passwordGenerator),
+							std::move(uiController),
+							std::move(uiProtocolFactory)
+						);
+
 		controller->Run(std::move(settings));
 
 		return 0;

@@ -36,6 +36,7 @@ add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 include_directories(${CMAKE_SOURCE_DIR})
 
 include(addTaget.cmake)
+include(UIProtocol/UIProtocol.cmake)
 include(PasswordUI/PasswordUI.cmake)
 include(ApplicationController/ApplicationController.cmake)
 include(PasswordKit/PasswordKit.cmake)

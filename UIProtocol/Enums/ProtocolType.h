@@ -1,6 +1,6 @@
 #pragma once
 
-namespace PasswordUI {
+namespace UIProtocol {
 
 enum class ProtocolType
 {
