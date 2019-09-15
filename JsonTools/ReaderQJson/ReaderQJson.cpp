@@ -7,7 +7,7 @@
 #include <QJsonObject>
 #include <QJsonValue>
 
-#include "ParserQJson.h"
+#include "ReaderQJson.h"
 
 using namespace JsonTools;
 
@@ -15,7 +15,7 @@ namespace {
 const QString MAIN_TAG = "MAIN";
 }
 
-ParserQJson::ParserQJson(const std::string& filePath)
+ReaderQJson::ReaderQJson(const std::string& filePath)
 {
 	QFile file(QString::fromStdString(filePath));
 	if (!file.open(QFile::ReadOnly))
@@ -32,47 +32,47 @@ ParserQJson::ParserQJson(const std::string& filePath)
 	m_obj = std::make_shared<QJsonObject>(doc.value(MAIN_TAG).toObject());
 }
 
-ParserQJson::ParserQJson(QJsonObject&& obj)
+ReaderQJson::ReaderQJson(QJsonObject&& obj)
 	: m_obj(std::make_shared<QJsonObject>(std::move(obj)))
 {
 }
 
-ParserQJson::~ParserQJson() = default;
+ReaderQJson::~ReaderQJson() = default;
 
-bool ParserQJson::GetBool(const std::string& key, const bool defaultValue) const
+bool ReaderQJson::GetBool(const std::string& key, const bool defaultValue) const
 {
 	return m_obj->value(QString::fromStdString(key)).toBool(defaultValue);
 }
 
-double ParserQJson::GetDouble(const std::string& key, const double defaultValue) const
+double ReaderQJson::GetDouble(const std::string& key, const double defaultValue) const
 {
 	return m_obj->value(QString::fromStdString(key)).toDouble(defaultValue);
 }
 
-int ParserQJson::GetInt(const std::string& key, const int defaultValue) const
+int ReaderQJson::GetInt(const std::string& key, const int defaultValue) const
 {
 	return m_obj->value(QString::fromStdString(key)).toInt(defaultValue);
 }
 
-std::string ParserQJson::GetString(const std::string& key, const std::string& defaultValue) const
+std::string ReaderQJson::GetString(const std::string& key, const std::string& defaultValue) const
 {
 	const auto res = m_obj->value(QString::fromStdString(key)).toString().toStdString();
 	return res.empty() ? defaultValue : res;
 }
 
-std::shared_ptr<IParserJson> ParserQJson::GetObject(const std::string& key) const
+std::shared_ptr<IReaderJson> ReaderQJson::GetObject(const std::string& key) const
 {
 	const auto value = m_obj->value(QString::fromStdString(key));
 	assert(value.isObject());
-	return std::shared_ptr<IParserJson>(new ParserQJson(value.toObject()));
+	return std::shared_ptr<IReaderJson>(new ReaderQJson(value.toObject()));
 }
 
-bool ParserQJson::IsContains(const std::string& key) const
+bool ReaderQJson::IsContains(const std::string& key) const
 {
 	return m_obj->contains(QString::fromStdString(key));
 }
 
-bool ParserQJson::IsEmpty() const
+bool ReaderQJson::IsEmpty() const
 {
 	return m_obj->empty();
 }

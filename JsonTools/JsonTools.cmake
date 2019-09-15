@@ -5,5 +5,5 @@ AddTarget(
 	QT_USE Core
 	SUBDIRS
 	Interfaces
-	ParserQJson
+	ReaderQJson
 	)

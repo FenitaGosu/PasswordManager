@@ -2,30 +2,30 @@
 
 #include <memory>
 
-#include "Interfaces/IParserJson.h"
+#include "Interfaces/IReaderJson.h"
 
 class QJsonObject;
 
 namespace JsonTools {
 
 /**
- * Qt implementation of the interface IParserJson.
+ * Qt implementation of the interface IReaderJson.
  */
-class ParserQJson : public IParserJson
+class ReaderQJson : public IReaderJson
 {
 public:
-	ParserQJson(const std::string& filePath);
-	~ParserQJson();
+	ReaderQJson(const std::string& filePath);
+	~ReaderQJson();
 
 private:
-	ParserQJson(QJsonObject&& obj);
+	ReaderQJson(QJsonObject&& obj);
 
 public:
 	bool GetBool(const std::string& key, const bool defaultValue = false) const override;
 	double GetDouble(const std::string& key, const double defaultValue = 0.) const override;
 	int GetInt(const std::string& key, const int defaultValue = 0.) const override;
 	std::string GetString(const std::string& key, const std::string& defaultValue = std::string()) const override;
-	std::shared_ptr<IParserJson> GetObject(const std::string& key) const override;
+	std::shared_ptr<IReaderJson> GetObject(const std::string& key) const override;
 
 	bool IsContains(const std::string& key) const override;
 	bool IsEmpty() const override;
