@@ -4,6 +4,7 @@
 
 #include "UIProtocol/Interfaces/IUIProtocol.h"
 #include "UIProtocol/Interfaces/IUIProtocolClient.h"
+#include "UIProtocol/Enums/ProtocolType.h"
 
 namespace UIProtocol {
 
@@ -11,7 +12,6 @@ class Protocol
 	: public IUIProtocol
 	, public IUIProtocolClient
 {
-
 public:
 	Protocol();
 	~Protocol();

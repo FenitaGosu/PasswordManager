@@ -11,7 +11,8 @@ AddTarget(EXECUTABLE
 	PasswordGeneratorTest
 	EncryptionTest
 	PasswordLogicTest
-	Tools
+	ToolsTest
+	UIProtocolTest
 	DEPS
 	gtest
 	gmock_main
@@ -21,6 +22,7 @@ AddTarget(EXECUTABLE
 	Encryption
 	PasswordLogic
 	Tools
+	UIProtocol
 	)
 
 add_test(NAME AllTests COMMAND AllTests)
