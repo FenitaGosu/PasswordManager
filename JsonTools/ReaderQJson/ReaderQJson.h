@@ -14,7 +14,7 @@ namespace JsonTools {
 class ReaderQJson : public IReaderJson
 {
 public:
-	ReaderQJson(const std::string& filePath);
+	ReaderQJson(const std::string& jsonStr);
 	~ReaderQJson();
 
 private:

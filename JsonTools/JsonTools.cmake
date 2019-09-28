@@ -6,4 +6,7 @@ AddTarget(
 	SUBDIRS
 	Interfaces
 	ReaderQJson
+	WriterQJson
+	DEPS
+	Tools
 	)

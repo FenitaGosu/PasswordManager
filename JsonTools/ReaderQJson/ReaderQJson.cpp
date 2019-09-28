@@ -15,17 +15,12 @@ namespace {
 const QString MAIN_TAG = "MAIN";
 }
 
-ReaderQJson::ReaderQJson(const std::string& filePath)
+ReaderQJson::ReaderQJson(const std::string& jsonStr)
 {
-	QFile file(QString::fromStdString(filePath));
-	if (!file.open(QFile::ReadOnly))
-		throw std::logic_error("File not opened");
-
-	QString str = file.readAll();
-	if (str.isEmpty())
+	if (jsonStr.empty())
 		throw std::logic_error("Json file is empty");
 
-	const auto doc = QJsonDocument::fromJson(str.toUtf8()).object();
+	const auto doc = QJsonDocument::fromJson(jsonStr.c_str()).object();
 	if (doc.isEmpty() || !doc.contains(MAIN_TAG))
 		throw std::logic_error("Invalid json file or not contains main section \"MAIN\"");
 

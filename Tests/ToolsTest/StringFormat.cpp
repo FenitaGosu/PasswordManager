@@ -8,7 +8,7 @@ TEST(StringFormatTest, StringArguments)
 	const std::string str = "Hello %s %s world!";
 	const std::string res = "Hello my new world!";
 
-	ASSERT_EQ(Tools::StringFormat::Format(str, "my", "new"), res);
+	ASSERT_EQ(Tools::StringFormat::Format(str, std::string("my").c_str(), "new"), res);
 }
 
 TEST(StringFormatTest, IntegerArguments)
