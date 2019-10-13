@@ -14,4 +14,5 @@ AddTarget(
 	Encryption
 	PasswordUI
 	UIProtocol
+	JsonTools
 	)

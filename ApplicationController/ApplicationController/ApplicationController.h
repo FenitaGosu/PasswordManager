@@ -23,6 +23,10 @@ namespace UIProtocol {
 class UIProtocolFactory;
 }
 
+namespace JsonTools {
+class JsonFactory;
+}
+
 namespace Controller {
 
 class IApplicationSettings;
@@ -30,9 +34,9 @@ class IApplicationSettings;
 class ApplicationController
 {
 public:
-	static inline const std::string ACTION_NOT_FOUND			= "Action not found.\n";
-	static inline const std::string MASTER_PASSWORD_NOT_SET		= "Master password not set.\n";
-	static inline const std::string MASTER_PASSWORD_INVALID		= "Master password invalid.\n";
+	inline static const std::string ACTION_NOT_FOUND			= "Action not found.\n";
+	inline static const std::string MASTER_PASSWORD_NOT_SET		= "Master password not set.\n";
+	inline static const std::string MASTER_PASSWORD_INVALID		= "Master password invalid.\n";
 
 public:
 	ApplicationController();
@@ -43,7 +47,8 @@ public:
 				std::unique_ptr<Tools::StreamWrapper>&& streamWrpper,
 				std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator,
 				std::unique_ptr<PasswordUI::IUIController>&& uiController,
-				std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory
+				std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory,
+				std::unique_ptr<JsonTools::JsonFactory>&& jsonFactory
 			  );
 
 	void Run(std::unique_ptr<IApplicationSettings>&& settings);
@@ -65,6 +70,7 @@ private:
 	std::unique_ptr<PasswordGenerator::IPasswordGenerator> m_passwordGenerator;
 	std::unique_ptr<PasswordUI::IUIController> m_uiController;
 	std::unique_ptr<UIProtocol::UIProtocolFactory> m_uiProtocolFactory;
+	std::unique_ptr<JsonTools::JsonFactory> m_jsonFactory;
 };
 
 }

@@ -7,16 +7,17 @@
 namespace UIProtocol {
 
 class IUIProtocolClient;
+enum class ProtocolType;
 
 class UIProtocolFactory
 {
 public:
-	UIProtocolFactory(std::function<std::unique_ptr<IUIProtocolClient>()> creator);
+	UIProtocolFactory(std::function<std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>>()> creator);
 
-	std::unique_ptr<IUIProtocolClient> CreateProtorol() const;
+	std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>> CreateProtorol() const;
 
 private:
-	std::function <std::unique_ptr<IUIProtocolClient>()> m_creator;
+	std::function <std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>>()> m_creator;
 };
 
 }

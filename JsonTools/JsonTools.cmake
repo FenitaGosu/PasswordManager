@@ -7,6 +7,7 @@ AddTarget(
 	Interfaces
 	ReaderQJson
 	WriterQJson
+	JsonFactory
 	DEPS
 	Tools
 	)

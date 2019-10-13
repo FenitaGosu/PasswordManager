@@ -16,6 +16,8 @@
 
 #include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
 
+#include "JsonTools/JsonFactory/JsonFactory.h"
+
 #include "Interfaces/IApplicationSettings.h"
 
 #include "Enums/Action.h"
@@ -36,7 +38,7 @@ ApplicationController::ApplicationController()
 
 ApplicationController::~ApplicationController() = default;
 
-void ApplicationController::Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector, std::unique_ptr<PasswordLogic::IDataController>&& dataController, std::unique_ptr<Tools::StreamWrapper>&& streamWrpper, std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator, std::unique_ptr<PasswordUI::IUIController>&& uiController, std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory)
+void ApplicationController::Setup(std::unique_ptr<PasswordLogic::ICredentialsInspector>&& credentialIncpector, std::unique_ptr<PasswordLogic::IDataController>&& dataController, std::unique_ptr<Tools::StreamWrapper>&& streamWrpper, std::unique_ptr<PasswordGenerator::IPasswordGenerator>&& passwordGenerator, std::unique_ptr<PasswordUI::IUIController>&& uiController, std::unique_ptr<UIProtocol::UIProtocolFactory>&& uiProtocolFactory, std::unique_ptr<JsonTools::JsonFactory>&& jsonFactory)
 {
 	m_credentialIncpector	= std::move(credentialIncpector);
 	m_dataController		= std::move(dataController);
@@ -44,6 +46,7 @@ void ApplicationController::Setup(std::unique_ptr<PasswordLogic::ICredentialsIns
 	m_passwordGenerator		= std::move(passwordGenerator);
 	m_uiController			= std::move(uiController);
 	m_uiProtocolFactory		= std::move(uiProtocolFactory);
+	m_jsonFactory			= std::move(jsonFactory);
 
 	SetupActionHandles();
 }

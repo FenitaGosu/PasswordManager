@@ -4,12 +4,12 @@
 
 using namespace UIProtocol;
 
-UIProtocolFactory::UIProtocolFactory(std::function<std::unique_ptr<IUIProtocolClient>()> creator)
+UIProtocolFactory::UIProtocolFactory(std::function<std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>>()> creator)
 	: m_creator(creator)
 {
 }
 
-std::unique_ptr<IUIProtocolClient> UIProtocolFactory::CreateProtorol() const
+std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>> UIProtocolFactory::CreateProtorol() const
 {
 	return m_creator();
 }

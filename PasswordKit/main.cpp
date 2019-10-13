@@ -2,6 +2,7 @@
 #include <execution>
 #include <iostream>
 #include <cstdlib>
+#include <utility>
 
 #include <QCoreApplication>
 
@@ -23,6 +24,10 @@
 
 #include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
 #include "UIProtocol/Protocol/Protocol.h"
+
+#include "JsonTools/JsonFactory/JsonFactory.h"
+#include "JsonTools/ReaderQJson/ReaderQJson.h"
+#include "JsonTools/WriterQJson/WriterQJson.h"
 
 #include "ApplicationController/ApplicationController/ApplicationController.h"
 
@@ -49,14 +54,16 @@ int main(int argc, char *argv[])
 		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
 		std::unique_ptr<PasswordUI::IUIController>				uiController			= std::make_unique<PasswordUI::UIController>();
-		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>([]() { return std::make_unique<UIProtocol::Protocol>(); });
+		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>([]{ return std::make_pair(UIProtocol::ProtocolType::JSON, std::make_unique<UIProtocol::Protocol>()); });
+		std::unique_ptr<JsonTools::JsonFactory>					jsonFactory				= std::make_unique<JsonTools::JsonFactory>([](const std::string& str) { return std::make_unique<JsonTools::ReaderQJson>(str); }, []{ return std::make_unique<JsonTools::WriterQJson>(); });
 
 		controller->Setup(	std::move(credentialsInspector),
 							std::move(dataController),
 							std::move(streamWrapper),
 							std::move(passwordGenerator),
 							std::move(uiController),
-							std::move(uiProtocolFactory)
+							std::move(uiProtocolFactory),
+							std::move(jsonFactory)
 						);
 
 		controller->Run(std::move(settings));

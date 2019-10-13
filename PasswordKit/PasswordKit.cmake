@@ -14,5 +14,6 @@ AddTarget(EXECUTABLE
 	PasswordGenerator
 	Tools
 	Encryption
+	JsonTools
 	PasswordUI
 	)
