@@ -1,6 +1,7 @@
 #include <map>
 #include <functional>
 #include <string>
+#include <exception>
 
 #include "Tools/StreamWrapper/StreamWrapper.h"
 
@@ -15,6 +16,7 @@
 #include "PasswordUI/Interfaces/IUIController.h"
 
 #include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
+#include "UIProtocol/Interfaces/IUIProtocolClient.h"
 
 #include "JsonTools/JsonFactory/JsonFactory.h"
 
@@ -102,4 +104,20 @@ void ApplicationController::HandleImpl(IApplicationSettings* settings)
 	}
 
 	it->second(settings);
+}
+
+std::unique_ptr<UIProtocol::IUIProtocolClient> ApplicationController::CreateProtocol(const UIProtocol::ProtocolType type, const std::string& message, const std::vector<UIProtocol::MessageHandler>& handlers) const
+{
+	if (type != m_uiProtocolFactory->GetProtocolType())
+		throw std::logic_error("Invalid protocol type");
+
+	auto protocol = m_uiProtocolFactory->CreateProtorol();
+
+	protocol->SetType(type);
+	protocol->SetMessage(message);
+
+	for (const auto& handler : handlers)
+		protocol->AddMessageHandler(handler);
+
+	return protocol;
 }

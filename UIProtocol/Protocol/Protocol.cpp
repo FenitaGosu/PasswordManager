@@ -61,9 +61,9 @@ void Protocol::SetMessage(const std::string& message)
 	m_impl->message = message;
 }
 
-void Protocol::AddMessageHandler(const std::string& messageType, std::function<std::string(const std::string&)> handler)
+void Protocol::AddMessageHandler(const MessageHandler& handler)
 {
-	if (!m_impl->handlers.emplace(messageType, handler).second)
+	if (!m_impl->handlers.insert(handler).second)
 		throw std::runtime_error("Handler alredy exist");
 }
 

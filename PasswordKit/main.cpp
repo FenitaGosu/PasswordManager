@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
 		std::unique_ptr<PasswordUI::IUIController>				uiController			= std::make_unique<PasswordUI::UIController>();
-		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>([]{ return std::make_pair(UIProtocol::ProtocolType::JSON, std::make_unique<UIProtocol::Protocol>()); });
+		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>(UIProtocol::ProtocolType::JSON, []{ return std::make_unique<UIProtocol::Protocol>(); });
 		std::unique_ptr<JsonTools::JsonFactory>					jsonFactory				= std::make_unique<JsonTools::JsonFactory>([](const std::string& str) { return std::make_unique<JsonTools::ReaderQJson>(str); }, []{ return std::make_unique<JsonTools::WriterQJson>(); });
 
 		controller->Setup(	std::move(credentialsInspector),

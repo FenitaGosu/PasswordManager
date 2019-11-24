@@ -7,4 +7,3 @@ using namespace PasswordUI;
 void UIController::ShowSetMasterPasswordDialog(UIProtocol::IUIProtocol& protocol) const
 {
 }
-

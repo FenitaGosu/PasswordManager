@@ -26,7 +26,7 @@ public:
 	IUIProtocol& ToUIProtocol() override;
 	void SetType(ProtocolType type) override;
 	void SetMessage(const std::string& message)override;
-	void AddMessageHandler(const std::string& messageType, std::function<std::string(const std::string&)> handler) override;
+	void AddMessageHandler(const MessageHandler& handler) override;
 	const std::string& GetResult() const noexcept override;
 
 private:

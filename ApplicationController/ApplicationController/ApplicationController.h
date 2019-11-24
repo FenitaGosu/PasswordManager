@@ -2,6 +2,8 @@
 
 #include <memory>
 
+#include "UIProtocol/Interfaces/ProtocolDefines.h"
+
 namespace PasswordGenerator {
 class IPasswordGenerator;
 }
@@ -21,6 +23,7 @@ class IUIController;
 
 namespace UIProtocol {
 class UIProtocolFactory;
+class IUIProtocolClient;
 }
 
 namespace JsonTools {
@@ -60,6 +63,10 @@ private:
 
 	void HandleImpl(IApplicationSettings* settings);
 	void HandleSetMasterPassword(IApplicationSettings* settings);
+
+	std::unique_ptr<UIProtocol::IUIProtocolClient> CreateProtocol(const UIProtocol::ProtocolType type
+																, const std::string& message
+																, const std::vector<UIProtocol::MessageHandler>& handlers) const;
 
 private:
 	struct Impl;

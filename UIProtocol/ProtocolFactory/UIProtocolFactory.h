@@ -12,12 +12,14 @@ enum class ProtocolType;
 class UIProtocolFactory
 {
 public:
-	UIProtocolFactory(std::function<std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>>()> creator);
+	UIProtocolFactory(const UIProtocol::ProtocolType type, const std::function<std::unique_ptr<IUIProtocolClient>()> creator);
 
-	std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>> CreateProtorol() const;
+	UIProtocol::ProtocolType GetProtocolType() const;
+	std::unique_ptr<IUIProtocolClient> CreateProtorol() const;
 
 private:
-	std::function <std::pair<UIProtocol::ProtocolType, std::unique_ptr<IUIProtocolClient>>()> m_creator;
+	UIProtocol::ProtocolType m_ptorocolType;
+	const std::function<std::unique_ptr<IUIProtocolClient>()> m_creator;
 };
 
 }

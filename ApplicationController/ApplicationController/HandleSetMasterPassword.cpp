@@ -5,11 +5,7 @@
 
 #include "UIProtocol/Enums/ProtocolType.h"
 
-#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
-
 #include "PasswordUI/Interfaces/IUIController.h"
-
-#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
 
 #include "Interfaces/IApplicationSettings.h"
 
@@ -21,28 +17,17 @@ using namespace UIProtocol;
 namespace {
 	std::string SettingsToJson(IApplicationSettings* settings)
 	{
+		/// @todo
 		return std::string();
-	}
-
-	void ProtocolBuilder(const std::unique_ptr<IUIProtocolClient>& protocol, UIProtocol::ProtocolType type, IApplicationSettings* settings)
-	{
-		protocol->SetType(type);
-
-		switch (type)
-		{
-			case UIProtocol::ProtocolType::JSON:
-				protocol->SetMessage(SettingsToJson(settings));
-			default:
-				break;
-		}
 	}
 }
 
 void ApplicationController::HandleSetMasterPassword(IApplicationSettings* settings)
 {
-	const auto[type, protocol] = m_uiProtocolFactory->CreateProtorol();
-
-	ProtocolBuilder(protocol, type, settings);
+	const auto protocol = CreateProtocol(ProtocolType::JSON, SettingsToJson(settings), {});
 
 	m_uiController->ShowSetMasterPasswordDialog(protocol->ToUIProtocol());
+
+	/// @todo
+	///protocol->GetResult()
 }
