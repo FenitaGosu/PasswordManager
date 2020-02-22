@@ -3,7 +3,7 @@
 #include <memory>
 #include <string>
 
-#include "Interfaces/ICommandLineParser.h"
+#include "PasswordKit/Interfaces/ICommandLineParser.h"
 
 class QCoreApplication;
 

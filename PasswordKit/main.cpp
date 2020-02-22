@@ -8,28 +8,22 @@
 
 #include "Mediator/Mediator.h"
 
-#include "ApplicationController/Interfaces/IApplicationSettings.h"
+#include "ApplicationControllerLib/Interfaces/IApplicationSettings.h"
+#include "ApplicationControllerLib/ApplicationController/ApplicationController.h"
 
-#include "Encryption/CryptoHashQt/CryptoHashQt.h"
+#include "EncryptionLib/CryptoHashQt/CryptoHashQt.h"
 
-#include "Tools/StreamWrapper/StreamWrapper.h"
+#include "ToolsLib/StreamWrapper/StreamWrapper.h"
 
-#include "PasswordGenerator/SimpleGenerator/SimpleGenerator.h"
+#include "PasswordGeneratorLib/SimpleGenerator/SimpleGenerator.h"
 
-#include "PasswordLogic/DataSource/DataBaseDataSource.h"
-#include "PasswordLogic/CredentialsInspector/CredentialsInspector.h"
-#include "PasswordLogic/DataController/DataController.h"
+#include "PasswordLogicLib/DataSource/DataBaseDataSource.h"
+#include "PasswordLogicLib/CredentialsInspector/CredentialsInspector.h"
+#include "PasswordLogicLib/DataController/DataController.h"
 
-#include "PasswordUI/UIController/UIController.h"
-
-#include "UIProtocol/ProtocolFactory/UIProtocolFactory.h"
-#include "UIProtocol/Protocol/Protocol.h"
-
-#include "JsonTools/JsonFactory/JsonFactory.h"
-#include "JsonTools/ReaderQJson/ReaderQJson.h"
-#include "JsonTools/WriterQJson/WriterQJson.h"
-
-#include "ApplicationController/ApplicationController/ApplicationController.h"
+#include "JsonToolsLib/JsonFactory/JsonFactory.h"
+#include "JsonToolsLib/ReaderQJson/ReaderQJson.h"
+#include "JsonToolsLib/WriterQJson/WriterQJson.h"
 
 namespace {
 
@@ -53,16 +47,12 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
 		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
-		std::unique_ptr<PasswordUI::IUIController>				uiController			= std::make_unique<PasswordUI::UIController>();
-		std::unique_ptr<UIProtocol::UIProtocolFactory>			uiProtocolFactory		= std::make_unique<UIProtocol::UIProtocolFactory>(UIProtocol::ProtocolType::JSON, []{ return std::make_unique<UIProtocol::Protocol>(); });
 		std::unique_ptr<JsonTools::JsonFactory>					jsonFactory				= std::make_unique<JsonTools::JsonFactory>([](const std::string& str) { return std::make_unique<JsonTools::ReaderQJson>(str); }, []{ return std::make_unique<JsonTools::WriterQJson>(); });
 
 		controller->Setup(	std::move(credentialsInspector),
 							std::move(dataController),
 							std::move(streamWrapper),
 							std::move(passwordGenerator),
-							std::move(uiController),
-							std::move(uiProtocolFactory),
 							std::move(jsonFactory)
 						);
 

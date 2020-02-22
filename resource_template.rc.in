@@ -1,4 +1,0 @@
-#include "WinResrc.h"
-#define IDI_ICON1 106
-IDI_ICON1 ICON "@APP_ICON@"
-

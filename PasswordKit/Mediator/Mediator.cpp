@@ -3,14 +3,14 @@
 
 #include <QCoreApplication>
 
-#include "Tools/Same/Same.h"
+#include "ToolsLib/Same/Same.h"
 
-#include "ApplicationController/ApplicationsSettings/ApplicationSettings.h"
-#include "ApplicationController/Interfaces/IApplicationSettings.h"
+#include "ApplicationControllerLib/ApplicationSettings/ApplicationSettings.h"
+#include "ApplicationControllerLib/Interfaces/IApplicationSettings.h"
 
-#include "Interfaces/ICommandLineParser.h"
+#include "PasswordKit/Interfaces/ICommandLineParser.h"
 
-#include "CommandLineParserQt/CommandLineParserQt.h"
+#include "PasswordKit/CommandLineParserQt/CommandLineParserQt.h"
 
 #include "Mediator.h"
 

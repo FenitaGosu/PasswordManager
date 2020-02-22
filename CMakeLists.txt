@@ -1,13 +1,7 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 project("PassworgManager")
 
-find_package(Qt5Core)
-find_package(Qt5PrintSupport)
-find_package(Qt5Sql)
-
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
-set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install/")
 set(CMAKE_CXX_FLAGS_DEBUG "/D_DEBUG /MDd /Zi /Ob0 /Od")
 
 if (MSVC_VERSION GREATER_EQUAL "1900")
@@ -18,32 +12,28 @@ if (MSVC_VERSION GREATER_EQUAL "1900")
 	endif()
 endif()
 
-include(CTest)
+enable_testing()
 
-set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
+find_package(Qt5Core REQUIRED)
+find_package(Qt5Sql REQUIRED)
+find_package(GTest REQUIRED)
 
-include(DownloadProject.cmake)
-download_project(PROJ                googletest
-				 GIT_REPOSITORY      https://github.com/google/googletest.git
-				 GIT_TAG             master
-				 ${UPDATE_DISCONNECTED_IF_AVAILABLE}
-)
+#libs
+add_subdirectory(DataBaseLib)
+add_subdirectory(EncryptionLib)
+add_subdirectory(ToolsLib)
+add_subdirectory(JsonToolsLib)
+add_subdirectory(PasswordGeneratorLib)
+add_subdirectory(PasswordLogicLib)
+add_subdirectory(ApplicationControllerLib)
 
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
+#tests
+add_subdirectory(DataBaseLibTest)
+add_subdirectory(EncryptionLibTest)
+add_subdirectory(ToolsLibTest)
+add_subdirectory(JsonToolsLibTest)
+add_subdirectory(PasswordGeneratorLibTest)
+add_subdirectory(PasswordLogicLibTest)
 
-add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
-
-include_directories(${CMAKE_SOURCE_DIR})
-
-include(addTaget.cmake)
-include(UIProtocol/UIProtocol.cmake)
-include(PasswordUI/PasswordUI.cmake)
-include(ApplicationController/ApplicationController.cmake)
-include(PasswordKit/PasswordKit.cmake)
-include(JsonTools/JsonTools.cmake)
-include(DataBase/DataBase.cmake)
-include(PasswordGenerator/PasswordGenerator.cmake)
-include(Tools/Tools.cmake)
-include(Encryption/Encryption.cmake)
-include(PasswordLogic/PasswordLogic.cmake)
-include(Tests/AllTests.cmake)
+#bin
+add_subdirectory(PasswordKit)

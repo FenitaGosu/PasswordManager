@@ -74,3 +74,4 @@ CMakeSettings.json
 *.exe
 
 build*
+out
