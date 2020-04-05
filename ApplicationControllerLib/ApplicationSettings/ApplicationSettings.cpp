@@ -31,24 +31,8 @@ ApplicationSettings::ApplicationSettings(const std::map<std::string, Tools::Same
 
 ApplicationSettings::~ApplicationSettings() = default;
 
-std::string ApplicationSettings::GetMasterPassword() const
-{
-	const auto value = m_impl->Find(KEY_MASTER_PASSWORD);
-	return value.has_value() ? value.value().ToString() : std::string();
-}
-
 std::string ApplicationSettings::GetDataBasePath() const
 {
 	const auto value = m_impl->Find(KEY_DATABASE_PATH);
 	return value.has_value() ? value.value().ToString() : std::string();
-}
-
-std::string ApplicationSettings::GetAction() const
-{
-	const auto value = m_impl->Find(KEY_ACTION);
-
-	if (value.has_value())
-		return value.value().ToString();
-
-	 throw std::logic_error("Action cannot be empty");
 }

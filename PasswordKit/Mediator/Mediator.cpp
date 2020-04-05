@@ -65,12 +65,6 @@ void Mediator::AddCommandLineOptions()
 {
 	m_impl->commandLineParser->AddHelp();
 
-	m_impl->commandLineParser->AddOption(IApplicationSettings::KEY_ACTION, IApplicationSettings::DESCRIPTION_ACTION);
-	m_impl->getters.push_back(std::make_pair(IApplicationSettings::KEY_ACTION, std::bind(&ICommandLineParser::GetString, std::cref(m_impl->commandLineParser), IApplicationSettings::KEY_ACTION)));
-
-	m_impl->commandLineParser->AddOption(IApplicationSettings::KEY_MASTER_PASSWORD, IApplicationSettings::DESCRIPTION_MASTER_PASSWORD);
-	m_impl->getters.push_back(std::make_pair(IApplicationSettings::KEY_MASTER_PASSWORD, std::bind(&ICommandLineParser::GetString, std::cref(m_impl->commandLineParser), IApplicationSettings::KEY_MASTER_PASSWORD)));
-
 	m_impl->commandLineParser->AddOption(IApplicationSettings::KEY_DATABASE_PATH, IApplicationSettings::DESCRIPTION_KEY_DATABASE_PATH);
 	m_impl->getters.push_back(std::make_pair(IApplicationSettings::KEY_DATABASE_PATH, std::bind(&ICommandLineParser::GetString, std::cref(m_impl->commandLineParser), IApplicationSettings::KEY_DATABASE_PATH)));
 }

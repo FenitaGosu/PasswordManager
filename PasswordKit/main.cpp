@@ -13,22 +13,17 @@
 
 #include "EncryptionLib/CryptoHashQt/CryptoHashQt.h"
 
-#include "ToolsLib/StreamWrapper/StreamWrapper.h"
-
 #include "PasswordGeneratorLib/SimpleGenerator/SimpleGenerator.h"
 
 #include "PasswordLogicLib/DataSource/DataBaseDataSource.h"
 #include "PasswordLogicLib/CredentialsInspector/CredentialsInspector.h"
 #include "PasswordLogicLib/DataController/DataController.h"
+#include "PasswordLogicLib/PasswordApi/PasswordApi.h"
 
-#include "JsonToolsLib/JsonFactory/JsonFactory.h"
-#include "JsonToolsLib/ReaderQJson/ReaderQJson.h"
-#include "JsonToolsLib/WriterQJson/WriterQJson.h"
+#include "PasswordKit/Streams/StandartStreamsWrapper.h"
 
 namespace {
-
-const std::string DATABASE_NAME = std::string("/PasswordManager.db");
-
+const std::string DATABASE_NAME = "/PasswordManager.db";
 }
 
 int main(int argc, char *argv[])
@@ -45,16 +40,11 @@ int main(int argc, char *argv[])
 		const auto												dataBase				= std::make_shared<PasswordLogic::DataBaseDataSource>(settings->GetDataBasePath() + DATABASE_NAME);
 		std::unique_ptr<PasswordLogic::ICredentialsInspector>	credentialsInspector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataBase, std::make_unique<Encryption::CryptoHashQt>());
 		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
-		std::unique_ptr<Tools::StreamWrapper>					streamWrapper			= std::make_unique<Tools::StreamWrapper>(std::cin, std::cout);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
-		std::unique_ptr<JsonTools::JsonFactory>					jsonFactory				= std::make_unique<JsonTools::JsonFactory>([](const std::string& str) { return std::make_unique<JsonTools::ReaderQJson>(str); }, []{ return std::make_unique<JsonTools::WriterQJson>(); });
+		std::unique_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
+		std::unique_ptr<Controller::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
 
-		controller->Setup(	std::move(credentialsInspector),
-							std::move(dataController),
-							std::move(streamWrapper),
-							std::move(passwordGenerator),
-							std::move(jsonFactory)
-						);
+		controller->Setup(std::move(passwordApi), std::move(dataStream));
 
 		controller->Run(std::move(settings));
 

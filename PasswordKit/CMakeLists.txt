@@ -1,5 +1,4 @@
 set(SRC_LIST
-	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IApplicationSettings.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/ICommandLineParser.h
 
 	${CMAKE_CURRENT_LIST_DIR}/CommandLineParserQt/CommandLineParserQt.h
@@ -7,6 +6,9 @@ set(SRC_LIST
 
 	${CMAKE_CURRENT_LIST_DIR}/Mediator/Mediator.h
 	${CMAKE_CURRENT_LIST_DIR}/Mediator/Mediator.cpp
+
+	${CMAKE_CURRENT_LIST_DIR}/Streams/StandartStreamsWrapper.h
+	${CMAKE_CURRENT_LIST_DIR}/Streams/StandartStreamsWrapper.cpp
 
 	${CMAKE_CURRENT_LIST_DIR}/main.cpp
 	)

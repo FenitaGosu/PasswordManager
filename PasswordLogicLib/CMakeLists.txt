@@ -4,6 +4,7 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IDataContainer.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IDataController.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IDataSource.h
+	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IPasswordApi.h
 
 	${CMAKE_CURRENT_LIST_DIR}/AccountInfo/AccountInfo.h
 	${CMAKE_CURRENT_LIST_DIR}/AccountInfo/AccountInfo.cpp
@@ -30,6 +31,9 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/DataSource/DataBaseMigrator.h
 	${CMAKE_CURRENT_LIST_DIR}/DataSource/DataBaseMigrator.cpp
 
+	${CMAKE_CURRENT_LIST_DIR}/PasswordApi/PasswordApi.h
+	${CMAKE_CURRENT_LIST_DIR}/PasswordApi/PasswordApi.cpp
+
 	${CMAKE_CURRENT_LIST_DIR}/Enums/AccontType.h
 
 	${CMAKE_CURRENT_LIST_DIR}/Parameters.h
@@ -48,3 +52,4 @@ target_include_directories(PasswordLogicLib PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..
 
 target_link_libraries(PasswordLogicLib PRIVATE DataBaseLib)
 target_link_libraries(PasswordLogicLib PRIVATE EncryptionLib)
+target_link_libraries(PasswordLogicLib PRIVATE PasswordGeneratorLib)
