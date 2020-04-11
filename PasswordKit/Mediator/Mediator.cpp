@@ -5,12 +5,11 @@
 
 #include "ToolsLib/Same/Same.h"
 
-#include "ApplicationControllerLib/ApplicationSettings/ApplicationSettings.h"
 #include "ApplicationControllerLib/Interfaces/IApplicationSettings.h"
-
-#include "PasswordKit/Interfaces/ICommandLineParser.h"
+#include "ApplicationControllerLib/Interfaces/ICommandLineParser.h"
 
 #include "PasswordKit/CommandLineParserQt/CommandLineParserQt.h"
+#include "PasswordKit/ApplicationSettings/ApplicationSettings.h"
 
 #include "Mediator.h"
 
@@ -31,7 +30,7 @@ struct Mediator::Impl
 		if (it != values.end())
 			return;
 
-		values[IApplicationSettings::KEY_DATABASE_PATH] = commandLineParser->GetCurretDir();
+		values[IApplicationSettings::KEY_DATABASE_PATH] = commandLineParser->GetCurrentDir();
 	}
 	
 	std::unique_ptr<ICommandLineParser> commandLineParser;

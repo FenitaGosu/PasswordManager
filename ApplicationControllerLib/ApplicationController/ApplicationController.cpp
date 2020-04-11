@@ -7,18 +7,7 @@
 
 using namespace Controller;
 
-struct ApplicationController::Impl
-{
-};
-
-ApplicationController::ApplicationController()
-	: m_impl(std::make_unique<Impl>())
-{
-}
-
-ApplicationController::~ApplicationController() = default;
-
-void ApplicationController::Setup(std::unique_ptr<PasswordLogic::IPasswordApi>&& passwordApi, std::unique_ptr<IDataStream>&& dataStream)
+void ApplicationController::Setup(std::unique_ptr<IApiProxy>&& passwordApi, std::unique_ptr<IDataStream>&& dataStream)
 {
 	m_passwordApi	= std::move(passwordApi);
 	m_dataStream	= std::move(dataStream);
@@ -38,6 +27,6 @@ void ApplicationController::RunActionLoop()
 		if (data == m_dataStream->GetFinishStatus())
 			return;
 
-		/// todo parse data
+		m_dataStream->PushData(m_passwordApi->HandleMessage(data));
 	}
 }

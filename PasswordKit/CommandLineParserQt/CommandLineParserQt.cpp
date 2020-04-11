@@ -32,7 +32,7 @@ void CommandLineParserQt::Parse()
 	m_impl->parser.process(*QCoreApplication::instance());
 }
 
-std::string CommandLineParserQt::GetCurretDir() const
+std::string CommandLineParserQt::GetCurrentDir() const
 {
 	return QCoreApplication::applicationDirPath().toStdString();
 }

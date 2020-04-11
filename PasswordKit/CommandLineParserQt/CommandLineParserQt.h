@@ -3,13 +3,13 @@
 #include <memory>
 #include <string>
 
-#include "PasswordKit/Interfaces/ICommandLineParser.h"
+#include "ApplicationControllerLib/Interfaces/ICommandLineParser.h"
 
 class QCoreApplication;
 
 namespace PasswordKit {
 
-class CommandLineParserQt : public ICommandLineParser
+class CommandLineParserQt : public Controller::ICommandLineParser
 {
 public:
 	CommandLineParserQt();
@@ -19,7 +19,7 @@ public:
 
 	void Parse() override;
 
-	std::string GetCurretDir() const override;
+	std::string GetCurrentDir() const override;
 
 	bool Contains(const std::string& name) const override;
 

@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-namespace PasswordKit {
+namespace Controller {
 
 class ICommandLineParser
 {
@@ -15,7 +15,7 @@ public:
 
 	virtual void Parse() = 0;
 
-	virtual std::string GetCurretDir() const = 0;
+	virtual std::string GetCurrentDir() const = 0;
 
 	virtual bool Contains(const std::string& key) const = 0;
 

@@ -1,6 +1,4 @@
 set(SRC_LIST
-	${CMAKE_CURRENT_LIST_DIR}/Interfaces/ICommandLineParser.h
-
 	${CMAKE_CURRENT_LIST_DIR}/CommandLineParserQt/CommandLineParserQt.h
 	${CMAKE_CURRENT_LIST_DIR}/CommandLineParserQt/CommandLineParserQt.cpp
 
@@ -9,6 +7,12 @@ set(SRC_LIST
 
 	${CMAKE_CURRENT_LIST_DIR}/Streams/StandartStreamsWrapper.h
 	${CMAKE_CURRENT_LIST_DIR}/Streams/StandartStreamsWrapper.cpp
+
+	${CMAKE_CURRENT_LIST_DIR}/ApplicationSettings/ApplicationSettings.h
+	${CMAKE_CURRENT_LIST_DIR}/ApplicationSettings/ApplicationSettings.cpp
+
+	${CMAKE_CURRENT_LIST_DIR}/ApiProxy/ApiProxy.h
+	${CMAKE_CURRENT_LIST_DIR}/ApiProxy/ApiProxy.cpp
 
 	${CMAKE_CURRENT_LIST_DIR}/main.cpp
 	)

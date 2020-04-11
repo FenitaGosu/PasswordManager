@@ -6,8 +6,6 @@
 
 #include <QCoreApplication>
 
-#include "Mediator/Mediator.h"
-
 #include "ApplicationControllerLib/Interfaces/IApplicationSettings.h"
 #include "ApplicationControllerLib/ApplicationController/ApplicationController.h"
 
@@ -20,7 +18,9 @@
 #include "PasswordLogicLib/DataController/DataController.h"
 #include "PasswordLogicLib/PasswordApi/PasswordApi.h"
 
-#include "PasswordKit/Streams/StandartStreamsWrapper.h"
+#include "Mediator/Mediator.h"
+#include "Streams/StandartStreamsWrapper.h"
+#include "ApiProxy/ApiProxy.h"
 
 namespace {
 const std::string DATABASE_NAME = "/PasswordManager.db";
@@ -43,8 +43,9 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
 		std::unique_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
 		std::unique_ptr<Controller::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
+		std::unique_ptr<Controller::IApiProxy>					apiProxy				= std::make_unique<PasswordKit::ApiProxy>(std::move(passwordApi));
 
-		controller->Setup(std::move(passwordApi), std::move(dataStream));
+		controller->Setup(std::move(apiProxy), std::move(dataStream));
 
 		controller->Run(std::move(settings));
 

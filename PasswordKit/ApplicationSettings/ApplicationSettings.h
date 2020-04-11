@@ -10,9 +10,9 @@ namespace Tools {
 class Same;
 }
 
-namespace Controller {
+namespace PasswordKit {
 
-class ApplicationSettings : public IApplicationSettings
+class ApplicationSettings : public Controller::IApplicationSettings
 {
 public:
 	ApplicationSettings(const std::map<std::string, Tools::Same>& values);
