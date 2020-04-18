@@ -5,7 +5,7 @@
 
 #include "ApplicationController.h"
 
-using namespace Controller;
+using namespace PasswordKit;
 
 void ApplicationController::Setup(std::unique_ptr<IApiProxy>&& passwordApi, std::unique_ptr<IDataStream>&& dataStream)
 {

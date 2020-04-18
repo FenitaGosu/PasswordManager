@@ -25,7 +25,7 @@ add_subdirectory(ToolsLib)
 add_subdirectory(JsonToolsLib)
 add_subdirectory(PasswordGeneratorLib)
 add_subdirectory(PasswordLogicLib)
-add_subdirectory(ApplicationControllerLib)
+add_subdirectory(PasswordLogicApiInfoLib)
 
 #tests
 add_subdirectory(DataBaseLibTest)

@@ -3,13 +3,13 @@
 #include <memory>
 #include <string>
 
-#include "ApplicationControllerLib/Interfaces/ICommandLineParser.h"
+#include "PasswordKit/Interfaces/ICommandLineParser.h"
 
 class QCoreApplication;
 
 namespace PasswordKit {
 
-class CommandLineParserQt : public Controller::ICommandLineParser
+class CommandLineParserQt : public ICommandLineParser
 {
 public:
 	CommandLineParserQt();

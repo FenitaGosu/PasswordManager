@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-namespace Controller {
+namespace PasswordKit {
 
 class ICommandLineParser
 {

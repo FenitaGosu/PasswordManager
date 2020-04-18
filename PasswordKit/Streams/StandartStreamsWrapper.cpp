@@ -23,6 +23,8 @@ std::string StandartStreamsWrapper::WaitData()
 
 		return message;
 	}
+
+	return GetFinishStatus();
 }
 
 void StandartStreamsWrapper::PushData(const std::string& data)

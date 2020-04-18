@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace Controller {
+namespace PasswordKit {
 
 class IApplicationSettings
 {

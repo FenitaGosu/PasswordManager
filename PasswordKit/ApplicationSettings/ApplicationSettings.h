@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-#include "ApplicationControllerLib/Interfaces/IApplicationSettings.h"
+#include "PasswordKit/Interfaces/IApplicationSettings.h"
 
 namespace Tools {
 class Same;
@@ -12,7 +12,7 @@ class Same;
 
 namespace PasswordKit {
 
-class ApplicationSettings : public Controller::IApplicationSettings
+class ApplicationSettings : public IApplicationSettings
 {
 public:
 	ApplicationSettings(const std::map<std::string, Tools::Same>& values);

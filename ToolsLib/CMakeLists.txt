@@ -9,6 +9,10 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/StreamWrapper/StreamWrapper.cpp
 
 	${CMAKE_CURRENT_LIST_DIR}/StringFormat/StringFormat.h
+
+	${CMAKE_CURRENT_LIST_DIR}/Serialize/ISerializer.h
+	${CMAKE_CURRENT_LIST_DIR}/Serialize/IDeserializer.h
+	${CMAKE_CURRENT_LIST_DIR}/Serialize/IDeserializer.h
 	)
 
 add_library(ToolsLib STATIC ${SRC_LIST})

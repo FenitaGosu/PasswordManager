@@ -2,11 +2,9 @@
 
 #include <memory>
 
-namespace Controller {
-class IApplicationSettings;
-}
-
 namespace PasswordKit {
+
+	class IApplicationSettings;
 
 /**
  * Mediator
@@ -17,7 +15,7 @@ public:
 	Mediator();
 	~Mediator();
 
-	std::unique_ptr<Controller::IApplicationSettings> GetApplicationSettings() const;
+	std::unique_ptr<IApplicationSettings> GetApplicationSettings() const;
 
 private:
 	void AddCommandLineOptions();

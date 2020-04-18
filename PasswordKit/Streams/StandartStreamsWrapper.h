@@ -2,11 +2,11 @@
 
 #include <iostream>
 
-#include "ApplicationControllerLib/Interfaces/IDataStream.h"
+#include "PasswordKit/Interfaces/IDataStream.h"
 
 namespace PasswordKit {
 
-	class StandartStreamsWrapper : public Controller::IDataStream
+	class StandartStreamsWrapper : public IDataStream
 	{
 	public:
 		StandartStreamsWrapper(std::istream& input, std::ostream& output);
