@@ -1,8 +1,6 @@
 set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IApplicationSettings.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IDataStream.h
-	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IApiProxy.h
-	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IApiProxyMethod.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/ICommandLineParser.h
 
 	${CMAKE_CURRENT_LIST_DIR}/ApplicationController/ApplicationController.h
@@ -20,11 +18,6 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/ApplicationSettings/ApplicationSettings.h
 	${CMAKE_CURRENT_LIST_DIR}/ApplicationSettings/ApplicationSettings.cpp
 
-	${CMAKE_CURRENT_LIST_DIR}/ApiProxy/ApiProxy.h
-	${CMAKE_CURRENT_LIST_DIR}/ApiProxy/ApiProxy.cpp
-
-	${CMAKE_CURRENT_LIST_DIR}/ApiProxyMethod/ApiProxyMethod.h
-
 	${CMAKE_CURRENT_LIST_DIR}/ApiProxyMethodExecuter/ApiProxyMethodExecuter.h
 	${CMAKE_CURRENT_LIST_DIR}/ApiProxyMethodExecuter/ApiProxyMethodExecuter.cpp
 
@@ -39,6 +32,7 @@ target_link_libraries(PasswordKit PRIVATE PasswordLogicApiInfoLib)
 target_link_libraries(PasswordKit PRIVATE ToolsLib)
 target_link_libraries(PasswordKit PRIVATE EncryptionLib)
 target_link_libraries(PasswordKit PRIVATE JsonToolsLib)
+target_link_libraries(PasswordKit PRIVATE ApiProxyLib)
 
 target_include_directories(PasswordKit PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
 

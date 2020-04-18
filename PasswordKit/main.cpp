@@ -21,7 +21,7 @@
 #include "ApplicationController/ApplicationController.h"
 #include "Mediator/Mediator.h"
 #include "Streams/StandartStreamsWrapper.h"
-#include "ApiProxy/ApiProxy.h"
+
 
 namespace {
 const std::string DATABASE_NAME = "/PasswordManager.db";
@@ -45,9 +45,8 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
 		std::unique_ptr<PasswordKit::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
 		std::unique_ptr<Tools::ISerializeFactory>				serializeFactory		= nullptr;
-		std::unique_ptr<PasswordKit::IApiProxy>					apiProxy				= std::make_unique<PasswordKit::ApiProxy>(std::move(passwordApi), std::move(serializeFactory));
 
-		controller->Setup(std::move(apiProxy), std::move(dataStream));
+		controller->Setup(std::move(serializeFactory), std::move(passwordApi), std::move(dataStream));
 
 		controller->Run(std::move(settings));
 

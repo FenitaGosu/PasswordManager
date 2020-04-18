@@ -3,20 +3,19 @@
 #include <string>
 
 #include "ToolsLib/Serialize/ISerializeFactory.h"
-
 #include "ToolsLib/Serialize/IDeserializer.h"
 #include "ToolsLib/Serialize/ISerializer.h"
 
-#include "PasswordKit/Interfaces/IApiProxyMethod.h"
+#include "ApiProxyLib/Interfaces/IApiProxyMethod.h"
 
-namespace PasswordKit {
+namespace Proxy {
 
 	template <class MethodInfo, class ApiProxyMethodExecuter>
 	class ApiProxyMethod : public IApiProxyMethod
 	{
 	public:
-		ApiProxyMethod(const Tools::ISerializeFactory& serializer, const ApiProxyMethodExecuter& executer)
-			: m_serializer(serializer)
+		ApiProxyMethod(const Tools::ISerializeFactory& serializeFactory, const ApiProxyMethodExecuter& executer)
+			: m_serializeFactory(serializeFactory)
 			, m_executer(executer)
 		{
 		}
@@ -34,7 +33,7 @@ namespace PasswordKit {
 
 			const MethodInfo::OutputParameters output = m_executer.Do(input);
 
-			const std::shared_ptr<Tools::ISerializer> serializer = m_serializer.CreateISerializer();
+			const std::shared_ptr<Tools::ISerializer> serializer = m_serializeFactory.CreateISerializer();
 
 			MethodInfo::Serialize(output, serializer);
 
@@ -42,7 +41,7 @@ namespace PasswordKit {
 		}
 
 	private:
-		const Tools::ISerializeFactory& m_serializer;
-		const ApiProxyMethodExecuter	m_executer;
+		const Tools::ISerializeFactory&		m_serializeFactory;
+		const ApiProxyMethodExecuter		m_executer;
 	};
 }
