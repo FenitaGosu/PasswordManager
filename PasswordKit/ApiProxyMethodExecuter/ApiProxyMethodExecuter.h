@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "PasswordLogicLib/Interfaces/IPasswordApi.h"
 
 namespace PasswordKit {
@@ -8,7 +10,7 @@ namespace PasswordKit {
 	class ApiProxyMethodExecuter
 	{
 	public:
-		ApiProxyMethodExecuter(PasswordLogic::IPasswordApi* api)
+		ApiProxyMethodExecuter(const std::shared_ptr<PasswordLogic::IPasswordApi>& api)
 			: m_api(api)
 		{
 		}
@@ -16,7 +18,7 @@ namespace PasswordKit {
 		typename MethodInfo::OutputParameters Do(const typename MethodInfo::InputParameters& inputParameters) const;
 
 	private:
-		PasswordLogic::IPasswordApi* m_api;
+		std::shared_ptr<PasswordLogic::IPasswordApi> m_api;
 	};
 
 }

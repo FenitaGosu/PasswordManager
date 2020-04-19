@@ -15,7 +15,7 @@ namespace PasswordKit {
 	class ApplicationController
 	{
 	public:
-		void Setup(std::unique_ptr<Tools::ISerializeFactory>&& serializeFactory, std::unique_ptr<PasswordLogic::IPasswordApi>&& api, std::unique_ptr<IDataStream>&& dataStream);
+		void Setup(std::shared_ptr<Tools::ISerializeFactory>&& serializeFactory, std::shared_ptr<PasswordLogic::IPasswordApi>&& api, std::unique_ptr<IDataStream>&& dataStream);
 		void Run(std::unique_ptr<IApplicationSettings>&& settings);
 	
 	private:
@@ -23,8 +23,8 @@ namespace PasswordKit {
 		void RegisterMethods();
 
 	private:
-		std::unique_ptr<Tools::ISerializeFactory>		m_serializeFactory;
-		std::unique_ptr<PasswordLogic::IPasswordApi>	m_api;
+		std::shared_ptr<Tools::ISerializeFactory>		m_serializeFactory;
+		std::shared_ptr<PasswordLogic::IPasswordApi>	m_api;
 		std::unique_ptr<IDataStream>					m_dataStream;
 		std::unique_ptr<Proxy::IApiProxy>				m_proxyApi;
 	};

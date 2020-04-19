@@ -2,7 +2,7 @@
 
 using namespace Proxy;
 
-ApiProxy::ApiProxy(const Tools::ISerializeFactory& serializeFactory)
+ApiProxy::ApiProxy(const std::shared_ptr<Tools::ISerializeFactory>& serializeFactory)
 	: m_serializeFactory(serializeFactory)
 {
 }

@@ -4,8 +4,6 @@
 
 #include "ToolsLib/Serialize/ISerializeFactory.h"
 
-#include "PasswordLogicLib/PasswordApi/PasswordApi.h"
-
 #include "ApiProxyLib/Interfaces/IApiProxy.h"
 #include "ApiProxyLib/Interfaces/IApiProxyMethod.h"
 
@@ -14,7 +12,7 @@ namespace Proxy {
 	class ApiProxy : public IApiProxy
 	{
 	public:
-		ApiProxy(const Tools::ISerializeFactory& serializeFactory);
+		ApiProxy(const std::shared_ptr<Tools::ISerializeFactory>& serializeFactory);
 		~ApiProxy();
 
 		std::string HandleMessage(const std::string& message) override;
@@ -29,8 +27,8 @@ namespace Proxy {
 		std::pair<std::string, std::shared_ptr<Tools::ISerializer>> Execute(const std::string& name, const std::shared_ptr<Tools::IDeserializer>& parameters) const;
 
 	private:
-		const Tools::ISerializeFactory&								m_serializeFactory;
-		std::map<std::string, std::unique_ptr<IApiProxyMethod>>		m_apiMethods;
+		std::shared_ptr<Tools::ISerializeFactory>				m_serializeFactory;
+		std::map<std::string, std::unique_ptr<IApiProxyMethod>>	m_apiMethods;
 	};
 
 }

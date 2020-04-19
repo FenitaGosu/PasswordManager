@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <memory>
 
 #include "ToolsLib/Serialize/ISerializeFactory.h"
 #include "ToolsLib/Serialize/IDeserializer.h"
@@ -14,7 +15,7 @@ namespace Proxy {
 	class ApiProxyMethod : public IApiProxyMethod
 	{
 	public:
-		ApiProxyMethod(const Tools::ISerializeFactory& serializeFactory, const ApiProxyMethodExecuter& executer)
+		ApiProxyMethod(const std::shared_ptr<Tools::ISerializeFactory>& serializeFactory, const std::shared_ptr<ApiProxyMethodExecuter>& executer)
 			: m_serializeFactory(serializeFactory)
 			, m_executer(executer)
 		{
@@ -31,9 +32,9 @@ namespace Proxy {
 
 			MethodInfo::Dserialize(input, deserializer);
 
-			const MethodInfo::OutputParameters output = m_executer.Do(input);
+			const MethodInfo::OutputParameters output = m_executer->Do(input);
 
-			const std::shared_ptr<Tools::ISerializer> serializer = m_serializeFactory.CreateISerializer();
+			const std::shared_ptr<Tools::ISerializer> serializer = m_serializeFactory->CreateISerializer();
 
 			MethodInfo::Serialize(output, serializer);
 
@@ -41,7 +42,7 @@ namespace Proxy {
 		}
 
 	private:
-		const Tools::ISerializeFactory&		m_serializeFactory;
-		const ApiProxyMethodExecuter		m_executer;
+		std::shared_ptr<Tools::ISerializeFactory>	m_serializeFactory;
+		std::shared_ptr<ApiProxyMethodExecuter>		m_executer;
 	};
 }

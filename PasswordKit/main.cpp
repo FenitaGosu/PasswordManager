@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordLogic::ICredentialsInspector>	credentialsInspector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataBase, std::make_unique<Encryption::CryptoHashQt>());
 		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
-		std::unique_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
 		std::unique_ptr<PasswordKit::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
-		std::unique_ptr<Tools::ISerializeFactory>				serializeFactory		= nullptr;
+		std::shared_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
+		std::shared_ptr<Tools::ISerializeFactory>				serializeFactory		= nullptr;
 
 		controller->Setup(std::move(serializeFactory), std::move(passwordApi), std::move(dataStream));
 

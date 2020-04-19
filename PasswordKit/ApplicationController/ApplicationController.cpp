@@ -17,19 +17,19 @@ using namespace PasswordKit;
 namespace {
 
 	template <class T>
-	std::unique_ptr<Proxy::IApiProxyMethod> CreateMethod(const Tools::ISerializeFactory& factory, PasswordLogic::IPasswordApi* api)
+	std::unique_ptr<Proxy::IApiProxyMethod> CreateMethod(const std::shared_ptr<Tools::ISerializeFactory>& factory, const std::shared_ptr<PasswordLogic::IPasswordApi>& api)
 	{
-		return std::make_unique<Proxy::ApiProxyMethod<T, PasswordKit::ApiProxyMethodExecuter<T>>>(factory, ApiProxyMethodExecuter<T>(api));
+		return std::make_unique<Proxy::ApiProxyMethod<T, PasswordKit::ApiProxyMethodExecuter<T>>>(factory, std::make_shared<PasswordKit::ApiProxyMethodExecuter<T>>(api));
 	}
 
 }
 
-void ApplicationController::Setup(std::unique_ptr<Tools::ISerializeFactory>&& serializeFactory, std::unique_ptr<PasswordLogic::IPasswordApi>&& api, std::unique_ptr<IDataStream>&& dataStream)
+void ApplicationController::Setup(std::shared_ptr<Tools::ISerializeFactory>&& serializeFactory, std::shared_ptr<PasswordLogic::IPasswordApi>&& api, std::unique_ptr<IDataStream>&& dataStream)
 {
 	m_serializeFactory	= std::move(serializeFactory);
 	m_api				= std::move(api);
 	m_dataStream		= std::move(dataStream);
-	m_proxyApi			= std::make_unique<Proxy::ApiProxy>(*m_serializeFactory);
+	m_proxyApi			= std::make_unique<Proxy::ApiProxy>(m_serializeFactory);
 }
 
 void ApplicationController::Run(std::unique_ptr<IApplicationSettings>&& settings)
@@ -52,5 +52,5 @@ void ApplicationController::RunActionLoop()
 
 void ApplicationController::RegisterMethods()
 {
-	m_proxyApi->RegisterMethod(CreateMethod<PasswordLogicApiInfo::SetMainPasswordMethodInfo>(*m_serializeFactory, m_api.get()));
+	m_proxyApi->RegisterMethod(CreateMethod<PasswordLogicApiInfo::SetMainPasswordMethodInfo>(m_serializeFactory, m_api));
 }
