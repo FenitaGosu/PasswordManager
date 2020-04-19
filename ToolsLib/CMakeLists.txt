@@ -12,7 +12,7 @@ set(SRC_LIST
 
 	${CMAKE_CURRENT_LIST_DIR}/Serialize/ISerializer.h
 	${CMAKE_CURRENT_LIST_DIR}/Serialize/IDeserializer.h
-	${CMAKE_CURRENT_LIST_DIR}/Serialize/IDeserializer.h
+	${CMAKE_CURRENT_LIST_DIR}/Serialize/ISerializeFactory.h
 	)
 
 add_library(ToolsLib STATIC ${SRC_LIST})

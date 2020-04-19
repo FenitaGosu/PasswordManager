@@ -34,7 +34,7 @@ namespace Proxy {
 
 			const MethodInfo::OutputParameters output = m_executer->Do(input);
 
-			const std::shared_ptr<Tools::ISerializer> serializer = m_serializeFactory->CreateISerializer();
+			const std::shared_ptr<Tools::ISerializer> serializer = m_serializeFactory->CreateSerializer();
 
 			MethodInfo::Serialize(output, serializer);
 

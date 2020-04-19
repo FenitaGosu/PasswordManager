@@ -2,14 +2,19 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IReaderJson.h
 	${CMAKE_CURRENT_LIST_DIR}/Interfaces/IWriterJson.h
 
-	${CMAKE_CURRENT_LIST_DIR}/JsonFactory/JsonFactory.h
-	${CMAKE_CURRENT_LIST_DIR}/JsonFactory/JsonFactory.cpp
-
 	${CMAKE_CURRENT_LIST_DIR}/ReaderQJson/ReaderQJson.h
 	${CMAKE_CURRENT_LIST_DIR}/ReaderQJson/ReaderQJson.cpp
 
 	${CMAKE_CURRENT_LIST_DIR}/WriterQJson/WriterQJson.h
 	${CMAKE_CURRENT_LIST_DIR}/WriterQJson/WriterQJson.cpp
+
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonSerializer.h
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonDeserializer.h
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonSerializeFactory.h
+
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonSerializer.cpp
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonDeserializer.cpp
+	${CMAKE_CURRENT_LIST_DIR}/JsonSerialize/JsonSerializeFactory.cpp
 	)
 
 add_library(JsonToolsLib STATIC ${SRC_LIST})

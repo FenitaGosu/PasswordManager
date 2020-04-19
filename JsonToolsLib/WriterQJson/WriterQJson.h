@@ -7,6 +7,9 @@
 
 namespace JsonTools {
 
+/**
+ * Qt implementation of the interface IWriterJson.
+ */
 class WriterQJson : public IWriterJson
 {
 public:

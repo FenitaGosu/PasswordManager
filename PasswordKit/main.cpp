@@ -6,7 +6,12 @@
 
 #include <QCoreApplication>
 
-#include "ToolsLib/Serialize/ISerializeFactory.h"
+#include "JsonToolsLib/JsonSerialize/JsonSerializer.h"
+#include "JsonToolsLib/JsonSerialize/JsonDeserializer.h"
+#include "JsonToolsLib/JsonSerialize/JsonSerializeFactory.h"
+
+#include "JsonToolsLib/WriterQJson/WriterQJson.h"
+#include "JsonToolsLib/ReaderQJson/ReaderQJson.h"
 
 #include "EncryptionLib/CryptoHashQt/CryptoHashQt.h"
 
@@ -44,7 +49,10 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
 		std::unique_ptr<PasswordKit::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
 		std::shared_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
-		std::shared_ptr<Tools::ISerializeFactory>				serializeFactory		= nullptr;
+		std::shared_ptr<Tools::ISerializeFactory>				serializeFactory		= std::make_shared<JsonTools::JsonSerializeFactory>(
+																								[](const std::string& str){ return std::make_shared<JsonTools::ReaderQJson>(str); },
+																								[](){ return std::make_shared<JsonTools::WriterQJson>(); }
+																							);
 
 		controller->Setup(std::move(serializeFactory), std::move(passwordApi), std::move(dataStream));
 

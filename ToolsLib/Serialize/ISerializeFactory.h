@@ -13,7 +13,7 @@ namespace Tools {
 		~ISerializeFactory() = default;
 
 		virtual std::shared_ptr<IDeserializer>	CreateDeserializer(const std::string& str) const = 0;
-		virtual std::shared_ptr<ISerializer>	CreateISerializer() const = 0;
+		virtual std::shared_ptr<ISerializer>	CreateSerializer() const = 0;
 	};
 
 }
