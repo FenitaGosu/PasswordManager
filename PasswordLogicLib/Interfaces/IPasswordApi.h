@@ -22,7 +22,7 @@ namespace PasswordLogic {
 	public:
 		virtual	bool NeedToSetMainPassword() const = 0;
 		virtual bool EnterMainPassword(const std::string& password) const = 0;
-		virtual void SetMainPassword(const std::string& password) = 0;
+		virtual void SetMainPassword(const std::string& password, const std::string& newPassword) = 0;
 
 	/// paswords library api
 	public:

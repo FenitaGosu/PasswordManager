@@ -26,7 +26,7 @@ bool PasswordApi::EnterMainPassword(const std::string& password) const
 	return false;
 }
 
-void PasswordApi::SetMainPassword(const std::string& password)
+void PasswordApi::SetMainPassword(const std::string& password, const std::string& newPassword)
 {
 }
 

@@ -24,7 +24,7 @@ namespace PasswordLogic {
 
 		bool NeedToSetMainPassword() const override;
 		bool EnterMainPassword(const std::string& password) const override;
-		void SetMainPassword(const std::string& password) override;
+		void SetMainPassword(const std::string& password, const std::string& newPassword) override;
 
 		std::vector<AccountInfo> GetAllAccountsInfo() const override;
 		void AddNewAccount(const AccountInfo& info) override;
