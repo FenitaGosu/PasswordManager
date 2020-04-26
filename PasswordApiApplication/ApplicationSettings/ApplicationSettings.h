@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-#include "PasswordKit/Interfaces/IApplicationSettings.h"
+#include "PasswordApiApplication/Interfaces/IApplicationSettings.h"
 
 namespace Tools {
 class Same;

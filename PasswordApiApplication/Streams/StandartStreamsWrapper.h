@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-#include "PasswordKit/Interfaces/IDataStream.h"
+#include "PasswordApiApplication/Interfaces/IDataStream.h"
 
 namespace PasswordKit {
 

@@ -6,7 +6,7 @@
 #include "ApiProxyLib/ApiProxy/ApiProxy.h"
 #include "ApiProxyLib/ApiProxyMethod/ApiProxyMethod.h"
 
-#include "PasswordKit/ApiProxyMethodExecuter/ApiProxyMethodExecuter.h"
+#include "PasswordApiApplication/ApiProxyMethodExecuter/ApiProxyMethodExecuter.h"
 
 #include "PasswordLogicApiInfoLib/ApiParameters.h"
 

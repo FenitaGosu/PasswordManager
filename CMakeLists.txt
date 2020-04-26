@@ -37,4 +37,4 @@ add_subdirectory(PasswordGeneratorLibTest)
 add_subdirectory(PasswordLogicLibTest)
 
 #bin
-add_subdirectory(PasswordKit)
+add_subdirectory(PasswordApiApplication)

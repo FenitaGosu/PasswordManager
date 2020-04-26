@@ -6,8 +6,8 @@
 
 #include "PasswordLogicLib/Interfaces/IPasswordApi.h"
 
-#include "PasswordKit/Interfaces/IApplicationSettings.h"
-#include "PasswordKit/Interfaces/IDataStream.h"
+#include "PasswordApiApplication/Interfaces/IApplicationSettings.h"
+#include "PasswordApiApplication/Interfaces/IDataStream.h"
 
 
 namespace PasswordKit {

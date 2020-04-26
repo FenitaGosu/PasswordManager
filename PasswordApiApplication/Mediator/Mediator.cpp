@@ -5,11 +5,11 @@
 
 #include "ToolsLib/Same/Same.h"
 
-#include "PasswordKit/Interfaces/IApplicationSettings.h"
-#include "PasswordKit/Interfaces/ICommandLineParser.h"
+#include "PasswordApiApplication/Interfaces/IApplicationSettings.h"
+#include "PasswordApiApplication/Interfaces/ICommandLineParser.h"
 
-#include "PasswordKit/CommandLineParserQt/CommandLineParserQt.h"
-#include "PasswordKit/ApplicationSettings/ApplicationSettings.h"
+#include "PasswordApiApplication/CommandLineParserQt/CommandLineParserQt.h"
+#include "PasswordApiApplication/ApplicationSettings/ApplicationSettings.h"
 
 #include "Mediator.h"
 

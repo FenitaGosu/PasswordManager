@@ -24,20 +24,20 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/main.cpp
 	)
 
-add_executable(PasswordKit ${SRC_LIST})
+add_executable(PasswordApiApplication ${SRC_LIST})
 
-target_link_libraries(PasswordKit PRIVATE PasswordGeneratorLib)
-target_link_libraries(PasswordKit PRIVATE PasswordLogicLib)
-target_link_libraries(PasswordKit PRIVATE PasswordLogicApiInfoLib)
-target_link_libraries(PasswordKit PRIVATE ToolsLib)
-target_link_libraries(PasswordKit PRIVATE EncryptionLib)
-target_link_libraries(PasswordKit PRIVATE JsonToolsLib)
-target_link_libraries(PasswordKit PRIVATE ApiProxyLib)
+target_link_libraries(PasswordApiApplication PRIVATE PasswordGeneratorLib)
+target_link_libraries(PasswordApiApplication PRIVATE PasswordLogicLib)
+target_link_libraries(PasswordApiApplication PRIVATE PasswordLogicApiInfoLib)
+target_link_libraries(PasswordApiApplication PRIVATE ToolsLib)
+target_link_libraries(PasswordApiApplication PRIVATE EncryptionLib)
+target_link_libraries(PasswordApiApplication PRIVATE JsonToolsLib)
+target_link_libraries(PasswordApiApplication PRIVATE ApiProxyLib)
 
-target_include_directories(PasswordKit PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
+target_include_directories(PasswordApiApplication PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
 
 set(QT_MODULES_LIST
 	Core
 	)
 
-qt5_use_modules(PasswordKit LINK_PRIVATE ${QT_MODULES_LIST})
+qt5_use_modules(PasswordApiApplication LINK_PRIVATE ${QT_MODULES_LIST})
