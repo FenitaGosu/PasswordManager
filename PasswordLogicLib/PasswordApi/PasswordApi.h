@@ -33,5 +33,6 @@ namespace PasswordLogic {
 		std::unique_ptr<PasswordLogic::ICredentialsInspector>	m_credentialIncpector;
 		std::unique_ptr<PasswordLogic::IDataController>			m_dataController;
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	m_passwordGenerator;
+		mutable bool m_accessIsAllowed;
 	};
 }
