@@ -3,6 +3,8 @@
 #include <string>
 #include <exception>
 
+#include "LoggingLib/Log.h"
+
 #include "ApiProxyLib/ApiProxy/ApiProxy.h"
 #include "ApiProxyLib/ApiProxyMethod/ApiProxyMethod.h"
 
@@ -26,6 +28,8 @@ namespace {
 
 void ApplicationController::Setup(std::shared_ptr<Tools::ISerializeFactory>&& serializeFactory, std::shared_ptr<PasswordLogic::IPasswordApi>&& api, std::unique_ptr<IDataStream>&& dataStream)
 {
+	LOG.Write("Setup api aplication controller.");
+
 	m_serializeFactory	= std::move(serializeFactory);
 	m_api				= std::move(api);
 	m_dataStream		= std::move(dataStream);
@@ -39,6 +43,8 @@ void ApplicationController::Run(std::unique_ptr<IApplicationSettings>&& settings
 
 void ApplicationController::RunActionLoop()
 {
+	LOG.Write("Run api action loop.");
+
 	while(true)
 	{
 		const std::string data = m_dataStream->WaitData();

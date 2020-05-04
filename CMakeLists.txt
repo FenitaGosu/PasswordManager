@@ -23,10 +23,13 @@ add_subdirectory(DataBaseLib)
 add_subdirectory(EncryptionLib)
 add_subdirectory(ToolsLib)
 add_subdirectory(JsonToolsLib)
+add_subdirectory(LoggingLib)
+
 add_subdirectory(PasswordGeneratorLib)
 add_subdirectory(PasswordLogicLib)
 add_subdirectory(PasswordLogicApiInfoLib)
 add_subdirectory(ApiProxyLib)
+add_subdirectory(ProcessExecuterLib)
 
 #tests
 add_subdirectory(DataBaseLibTest)

@@ -6,19 +6,14 @@ namespace {
 	const std::string END_STRING = "End";
 }
 
-StandartStreamsWrapper::StandartStreamsWrapper(std::istream& input, std::ostream& output)
-	: m_input(input)
-	, m_output(output)
-{
-}
 
 std::string StandartStreamsWrapper::WaitData()
 {
 	std::string message;
 
-	if(std::getline(m_input, message))
+	if(std::getline(std::cin, message))
 	{
-		if (message == GetFinishStatus() || m_input.eof())
+		if (message == GetFinishStatus() || std::cin.eof())
 			return GetFinishStatus();
 
 		return message;
@@ -29,7 +24,7 @@ std::string StandartStreamsWrapper::WaitData()
 
 void StandartStreamsWrapper::PushData(const std::string& data)
 {
-	m_output << data;
+	std::cout << data;
 }
 
 const std::string& StandartStreamsWrapper::GetFinishStatus()

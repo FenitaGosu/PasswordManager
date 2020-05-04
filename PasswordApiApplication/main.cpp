@@ -6,6 +6,9 @@
 
 #include <QCoreApplication>
 
+#include "LoggingLib/Log.h"
+#include "LoggingLib/LogFactory/LogFactory.h"
+
 #include "JsonToolsLib/JsonSerialize/JsonSerializer.h"
 #include "JsonToolsLib/JsonSerialize/JsonDeserializer.h"
 #include "JsonToolsLib/JsonSerialize/JsonSerializeFactory.h"
@@ -27,15 +30,19 @@
 #include "Mediator/Mediator.h"
 #include "Streams/StandartStreamsWrapper.h"
 
-
 namespace {
 const std::string DATABASE_NAME = "/PasswordManager.db";
+const std::string LOG_FILE		= "PasswordApiLog.txt";
 }
 
 int main(int argc, char *argv[])
 {
 	try
 	{
+		LOG_INIT(Logging::LogFactory::CreateFileLog(LOG_FILE));
+
+		LOG.Write("Api aplication started.");
+
 		QCoreApplication app(argc, argv); // for commandline parser
 
 		const auto mediator		= std::make_unique<PasswordKit::Mediator>();
@@ -47,7 +54,7 @@ int main(int argc, char *argv[])
 		std::unique_ptr<PasswordLogic::ICredentialsInspector>	credentialsInspector	= std::make_unique<PasswordLogic::CredentialsInspector>(dataBase, std::make_unique<Encryption::CryptoHashQt>());
 		std::unique_ptr<PasswordLogic::IDataController>			dataController			= std::make_unique<PasswordLogic::DataController>(dataBase);
 		std::unique_ptr<PasswordGenerator::IPasswordGenerator>	passwordGenerator		= std::make_unique<PasswordGenerator::SimpleGenerator>();
-		std::unique_ptr<PasswordKit::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>(std::cin, std::cout);
+		std::unique_ptr<PasswordKit::IDataStream>				dataStream				= std::make_unique<PasswordKit::StandartStreamsWrapper>();
 		std::shared_ptr<PasswordLogic::IPasswordApi>			passwordApi				= std::make_unique<PasswordLogic::PasswordApi>(std::move(credentialsInspector), std::move(dataController), std::move(passwordGenerator));
 		std::shared_ptr<Tools::ISerializeFactory>				serializeFactory		= std::make_shared<JsonTools::JsonSerializeFactory>(
 																								[](const std::string& str){ return std::make_shared<JsonTools::ReaderQJson>(str); },
@@ -58,11 +65,14 @@ int main(int argc, char *argv[])
 
 		controller->Run(std::move(settings));
 
+		LOG.Write("Api aplication completed successfully.");
+
 		return 0;
 	}
 	catch(std::exception& exp)
 	{
-		std::cerr << exp.what();
+		LOG.Write("Api aplication failed with error: [%s].", exp.what());
+
 		return EXIT_FAILURE;
 	}
 }

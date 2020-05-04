@@ -26,6 +26,7 @@ set(SRC_LIST
 
 add_executable(PasswordApiApplication ${SRC_LIST})
 
+target_link_libraries(PasswordApiApplication PRIVATE LoggingLib)
 target_link_libraries(PasswordApiApplication PRIVATE PasswordGeneratorLib)
 target_link_libraries(PasswordApiApplication PRIVATE PasswordLogicLib)
 target_link_libraries(PasswordApiApplication PRIVATE PasswordLogicApiInfoLib)
