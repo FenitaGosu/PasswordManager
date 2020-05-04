@@ -41,3 +41,4 @@ add_subdirectory(PasswordLogicLibTest)
 
 #bin
 add_subdirectory(PasswordApiApplication)
+add_subdirectory(PasswordUiApplication)

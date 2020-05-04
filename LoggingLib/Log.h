@@ -5,6 +5,7 @@
 #include <string>
 
 #include "Interfaces/ILog.h"
+#include "LogFactory/LogFactory.h"
 
 namespace Logging
 {
