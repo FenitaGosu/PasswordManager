@@ -1,6 +1,7 @@
 #include <string>
 
 #include <QApplication>
+#include <QFile>
 
 #include "LoggingLib/Log.h"
 
@@ -8,6 +9,14 @@
 
 namespace {
 	const std::string LOG_FILE = "PasswordUiLog.txt";
+
+	void LoadStyle(QApplication& app)
+	{
+		QFile styleFile(":/style.qss");
+		styleFile.open(QFile::ReadOnly);
+
+		app.setStyleSheet(styleFile.readAll());
+	}
 }
 
 int main(int argc, char* argv[])
@@ -18,13 +27,15 @@ int main(int argc, char* argv[])
 
 		LOG.Write("Ui aplication started.");
 
-		QApplication a(argc, argv);
+		QApplication app(argc, argv);
+
+		LoadStyle(app);
 
 		MainWindow w;
 
 		w.show();
 
-		return a.exec();
+		return app.exec();
 	}
 	catch (std::exception& exp)
 	{

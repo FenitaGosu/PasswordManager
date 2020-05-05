@@ -3,6 +3,8 @@ set(SRC_LIST
 
 	${CMAKE_CURRENT_LIST_DIR}/MainWindow/MainWindow.h
 	${CMAKE_CURRENT_LIST_DIR}/MainWindow/MainWindow.cpp
+
+	${CMAKE_CURRENT_LIST_DIR}/Resources/resources.qrc
 	)
 
 add_executable(PasswordUiApplication WIN32 ${SRC_LIST})
