@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
-
-#include <QString>
+#include <cassert>
 
 #include "ToolsLib/Same/Same.h"
 
@@ -25,7 +24,7 @@ using namespace DataBase;
 struct DataBaseDataSourceImpl::Impl
 {
 	Impl(const std::string& path)
-		: connection(std::make_unique<DataBaseConnectionSQL>(QString::fromStdString(path)))
+		: connection(std::make_unique<DataBaseConnectionSQL>(path))
 	{
 		const auto status = connection->OpenConnection();
 
@@ -55,7 +54,7 @@ struct DataBaseDataSourceImpl::Impl
 			query->Exec(DataBaseArtifacts::SELECT_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT} } );
 
 			if (query->Next())
-				password = query->Value(query->IndexOf(DataBaseArtifacts::VALUE_INDEX).value()).toString().toStdString();
+				password = std::any_cast<std::string>(query->Value(query->IndexOf(DataBaseArtifacts::VALUE_INDEX).value()));
 
 			success = true;
 		}
@@ -75,7 +74,7 @@ struct DataBaseDataSourceImpl::Impl
 
 		try
 		{
-			transaction->GetQuery()->Exec(DataBaseArtifacts::UPDATE_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT}, {DataBaseArtifacts::VALUE, QString::fromStdString(password)} });
+			transaction->GetQuery()->Exec(DataBaseArtifacts::UPDATE_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::MAIN_PASSWORD_CONSTANT}, {DataBaseArtifacts::VALUE, password} });
 			success = true;
 		}
 		catch (std::exception& exp)
@@ -106,9 +105,9 @@ struct DataBaseDataSourceImpl::Impl
 			{
 				Data mapInfo;
 
-				mapInfo.emplace(Parameters::PARAM_ID,	query->Value(indexId).toString().toStdString());
-				mapInfo.emplace(Parameters::PARAM_NAME,	query->Value(indexName).toString().toStdString());
-				mapInfo.emplace(Parameters::PARAM_TYPE,	query->Value(indexType).toString().toStdString());
+				mapInfo.emplace(Parameters::PARAM_ID,	std::any_cast<std::string>(query->Value(indexId)));
+				mapInfo.emplace(Parameters::PARAM_NAME, std::any_cast<std::string>(query->Value(indexName)));
+				mapInfo.emplace(Parameters::PARAM_TYPE, std::any_cast<std::string>(query->Value(indexType)));
 
 				info.push_back(mapInfo);
 			}
@@ -136,7 +135,7 @@ struct DataBaseDataSourceImpl::Impl
 			{
 				const auto it = data.find(key);
 				assert(it != data.cend());
-				return QString::fromStdString(it->second.Get<const std::string&>());
+				return it->second.Get<const std::string&>();
 			};
 
 			/// insert account data

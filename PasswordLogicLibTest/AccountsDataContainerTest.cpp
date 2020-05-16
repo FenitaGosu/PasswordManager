@@ -1,7 +1,5 @@
 #include <memory>
 
-#include <QString>
-
 #include "gtest/gtest.h"
 #include "gmock/gmock.h"
 
@@ -41,15 +39,15 @@ TEST(AccountsDataContainer, GetAllInfoAndAddDataListTest)
 	const auto info = container->GetAllInfo();
 
 	ASSERT_EQ(info.size(), 1);
-	ASSERT_EQ(info.front().GetId().toStdString(), id);
-	ASSERT_EQ(info.front().GetName().toStdString(), name);
+	ASSERT_EQ(info.front().GetId(), id);
+	ASSERT_EQ(info.front().GetName(), name);
 	ASSERT_EQ(info.front().GetType(), type);
 }
 
 TEST(AccountsDataContainer, GetDataListTest)
 {
-	const QString		id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
-	const QString		name	= "TestName";
+	const std::string	id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
+	const std::string	name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
 	const AccountsInfo info{ {id, name, type} };
@@ -65,18 +63,18 @@ TEST(AccountsDataContainer, GetDataListTest)
 	{
 		const auto it = data.find(key);
 		assert(it != data.cend());
-		return QString::fromStdString(it->second.Get<const std::string&>());
+		return it->second.Get<const std::string&>();
 	};
 
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_ID)	, id);
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_NAME)	, name);
-	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, QString::number(static_cast<int>(type)));
+	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, std::to_string(static_cast<int>(type)));
 }
 
 TEST(AccountsDataContainer, GetDataTest)
 {
-	const QString		id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
-	const QString		name	= "TestName";
+	const std::string	id		= "e403d007-5791-4c5b-b745-cdc2d55039b9";
+	const std::string	name	= "TestName";
 	const AccountType	type	= AccountType::Simple;
 
 	const AccountsInfo info{ {id, name, type} };
@@ -90,12 +88,12 @@ TEST(AccountsDataContainer, GetDataTest)
 	{
 		const auto it = data.find(key);
 		assert(it != data.cend());
-		return QString::fromStdString(it->second.Get<const std::string&>());
+		return it->second.Get<const std::string&>();
 	};
 
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_ID)	, id);
 	ASSERT_EQ(getValue(mapData, Parameters::PARAM_NAME)	, name);
-	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, QString::number(static_cast<int>(type)));
+	ASSERT_EQ(getValue(mapData, Parameters::PARAM_TYPE)	, std::to_string(static_cast<int>(type)));
 }
 
 TEST(AccountsDataContainer, GetAllInfoAndAddDataTest)
@@ -117,7 +115,7 @@ TEST(AccountsDataContainer, GetAllInfoAndAddDataTest)
 	const auto info = container->GetAllInfo();
 
 	ASSERT_EQ(info.size(), 1);
-	ASSERT_EQ(info.front().GetId().toStdString(), id);
-	ASSERT_EQ(info.front().GetName().toStdString(), name);
+	ASSERT_EQ(info.front().GetId(), id);
+	ASSERT_EQ(info.front().GetName(), name);
 	ASSERT_EQ(info.front().GetType(), type);
 }

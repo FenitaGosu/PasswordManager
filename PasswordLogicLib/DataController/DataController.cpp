@@ -1,5 +1,3 @@
-#include <QString>
-
 #include "EncryptionLib/Interfaces/IKeyProvider.h"
 #include "EncryptionLib/XOREncryptor/XOREncryptor.h"
 

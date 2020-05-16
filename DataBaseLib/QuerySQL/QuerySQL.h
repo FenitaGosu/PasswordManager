@@ -15,14 +15,14 @@ public:
 	QuerySQL(const QSqlDatabase& db);
 
 	void Exec() override;
-	void Exec(const QString& textQuery, const Parameters& values = {}) override;
+	void Exec(const std::string& textQuery, const Parameters& values = {}) override;
 
-	void SetTextQuery(const QString& textQuery) override;
+	void SetTextQuery(const std::string& textQuery) override;
 	void SetParametersQuery(const Parameters& values) override;
 
 	bool Next() override;
-	QVariant Value(int index) const override;
-	std::optional<int> IndexOf(const QString& name) const override;
+	std::any Value(int index) const override;
+	std::optional<int> IndexOf(const std::string& name) const override;
 
 private:
 	std::string GetError() const;

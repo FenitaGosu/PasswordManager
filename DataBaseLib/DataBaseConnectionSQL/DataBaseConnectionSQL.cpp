@@ -27,8 +27,8 @@ struct DataBaseConnectionSQL::Impl
 	QString connectionName;
 };
 
-DataBaseConnectionSQL::DataBaseConnectionSQL(const QString& path)
-	: m_impl(std::make_unique<Impl>(path, QUuid::createUuid().toString()))
+DataBaseConnectionSQL::DataBaseConnectionSQL(const std::string& path)
+	: m_impl(std::make_unique<Impl>(QString::fromStdString(path), QUuid::createUuid().toString()))
 {
 }
 

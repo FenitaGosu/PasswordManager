@@ -16,7 +16,7 @@ class DataBaseFileGuard
 public:
 	DataBaseFileGuard()
 		: m_filename(QUuid::createUuid().toString() + ".db")
-		, m_connection(m_filename)
+		, m_connection(m_filename.toStdString())
 	{
 		m_connection.OpenConnection();
 	}

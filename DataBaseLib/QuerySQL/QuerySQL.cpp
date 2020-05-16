@@ -9,6 +9,54 @@
 
 using namespace DataBase;
 
+namespace {
+
+	std::any QVariantToStdAny(const QVariant& var)
+	{
+		switch (var.userType())
+		{
+		case QVariant::Bool:
+			return std::any(var.value<bool>());
+		case QVariant::Int:
+			return std::any(var.value<int>());
+		case QVariant::LongLong:
+			return std::any(var.value<long long>());
+		case QVariant::UInt:
+			return std::any(var.value<unsigned>());
+		case QVariant::String:
+			return std::any(var.toString().toStdString());
+		case QVariant::Double:
+			return std::any(var.value<double>());
+		case QVariant::Invalid:
+			return std::any();
+		default:
+			throw std::runtime_error(std::string("Unknown type: ") + std::string(var.typeName()) + ".");
+		}
+	}
+
+	QVariant StdAnyToQVariant(const std::any& any)
+	{
+		if (any.type() == typeid(bool))
+			return QVariant::fromValue(std::any_cast<bool>(any));
+		else if (any.type() == typeid(int))
+			return QVariant::fromValue(std::any_cast<int>(any));
+		else if (any.type() == typeid(unsigned))
+			return QVariant::fromValue(std::any_cast<unsigned>(any));
+		else if (any.type() == typeid(long long))
+			return QVariant::fromValue(std::any_cast<long long>(any));
+		else if (any.type() == typeid(std::string))
+			return QVariant::fromValue(QString::fromStdString(std::any_cast<std::string>(any)));
+		else if (any.type() == typeid(const char*))
+			return QVariant::fromValue(QString(std::any_cast<const char*>(any)));
+		else if (any.type() == typeid(double))
+			return QVariant::fromValue(std::any_cast<double>(any));
+		else if (any.type() == typeid(void))
+			return QVariant();
+
+		throw std::runtime_error(std::string("Unknown type: ") + std::string(any.type().name()) + ".");
+	}
+}
+
 struct QuerySQL::Impl
 {
 	Impl(const QSqlDatabase& db)
@@ -38,23 +86,23 @@ void QuerySQL::Exec()
 
 }
 
-void QuerySQL::Exec(const QString& textQuery, const IQuery::Parameters& values)
+void QuerySQL::Exec(const std::string& textQuery, const IQuery::Parameters& values)
 {
 	SetTextQuery(textQuery);
 	SetParametersQuery(values);
 	Exec();
 }
 
-void QuerySQL::SetTextQuery(const QString& textQuery)
+void QuerySQL::SetTextQuery(const std::string& textQuery)
 {
-	if (!m_impl->query.prepare(textQuery))
+	if (!m_impl->query.prepare(QString::fromStdString(textQuery)))
 		throw std::logic_error("Request preparation failed: " + GetError());
 }
 
 void QuerySQL::SetParametersQuery(const IQuery::Parameters& values)
 {
 	for (const auto& value : values)
-		m_impl->query.bindValue(value.first, value.second);
+		m_impl->query.bindValue(QString::fromStdString(value.first), StdAnyToQVariant(value.second));
 
 	const auto boundValues = m_impl->query.boundValues();
 
@@ -69,14 +117,14 @@ bool QuerySQL::Next()
 	return m_impl->query.next();
 }
 
-QVariant QuerySQL::Value(int index) const
+std::any QuerySQL::Value(int index) const
 {
-	return m_impl->query.value(index);
+	return QVariantToStdAny(m_impl->query.value(index));
 }
 
-std::optional<int> QuerySQL::IndexOf(const QString& name) const
+std::optional<int> QuerySQL::IndexOf(const std::string& name) const
 {
-	const auto it = m_impl->fieldIndex.find(name);
+	const auto it = m_impl->fieldIndex.find(QString::fromStdString(name));
 	return (it == m_impl->fieldIndex.cend()) ? std::nullopt : std::optional<int>(it->second);
 }
 

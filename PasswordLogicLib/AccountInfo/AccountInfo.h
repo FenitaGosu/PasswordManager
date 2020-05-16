@@ -1,8 +1,7 @@
 #pragma once
 
 #include <memory>
-
-class QString;
+#include <string>
 
 namespace PasswordLogic {
 
@@ -12,17 +11,17 @@ class AccountInfo
 {
 public:
 	AccountInfo();
-	AccountInfo(AccountInfo&& rhs);
+	AccountInfo(AccountInfo&& rhs) noexcept;
 	AccountInfo(const AccountInfo& rhs);
-	AccountInfo(const QString& id, const QString& name, AccountType type);
-	AccountInfo(const QString& name, AccountType type);
+	AccountInfo(const std::string& id, const std::string& name, AccountType type);
+	AccountInfo(const std::string& name, AccountType type);
 	~AccountInfo();
 
-	AccountInfo& operator=(AccountInfo&& rhs);
+	AccountInfo& operator=(AccountInfo&& rhs) noexcept;
 	AccountInfo& operator=(const AccountInfo& rhs);
 
-	const QString& GetId() const noexcept;
-	const QString& GetName() const noexcept;
+	const std::string& GetId() const noexcept;
+	const std::string& GetName() const noexcept;
 	AccountType GetType() const noexcept;
 
 private:

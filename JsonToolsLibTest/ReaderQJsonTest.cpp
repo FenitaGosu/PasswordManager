@@ -14,7 +14,7 @@ namespace {
 		QFile file(path);
 		file.open(QFile::ReadOnly);
 
-		return file.readAll();
+		return file.readAll().toStdString();
 	}
 }
 

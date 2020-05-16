@@ -4,14 +4,12 @@
 
 #include "DataBaseLib/Interfaces/IDataBaseConnection.h"
 
-class QString;
-
 namespace DataBase {
 
 class DataBaseConnectionSQL : public IDataBaseConnection
 {
 public:
-	DataBaseConnectionSQL(const QString& path);
+	DataBaseConnectionSQL(const std::string& path);
 	~DataBaseConnectionSQL();
 
 public:

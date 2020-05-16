@@ -1,4 +1,5 @@
 #include <iostream>
+#include <functional>
 #include <cassert>
 
 #include "DataBaseLib/Interfaces/IDataBaseConnection.h"
@@ -32,7 +33,7 @@ void DataBaseMigrator::MigrateDataBase(const std::unique_ptr<IDataBaseConnection
 		query->Exec(DataBaseArtifacts::SELECT_CONSTANT, { {DataBaseArtifacts::NAME, DataBaseArtifacts::DATABASE_VERSION_CONSTANT} } );
 
 		if (query->Next())
-			currentVersion = static_cast<size_t>(query->Value(query->IndexOf(DataBaseArtifacts::VALUE_INDEX).value()).toString().toInt());
+			currentVersion = static_cast<size_t>(std::stoi(std::any_cast<std::string>(query->Value(query->IndexOf(DataBaseArtifacts::VALUE_INDEX).value()))));
 
 		assert(currentVersion);
 

@@ -16,7 +16,7 @@ class DataBaseFileGuard
 public:
 	DataBaseFileGuard()
 		: m_filename(QUuid::createUuid().toString() + ".db")
-		, m_connection(m_filename)
+		, m_connection(m_filename.toStdString())
 	{
 		m_connection.OpenConnection();
 	}
@@ -165,7 +165,7 @@ TEST(QuerySQLTest, ValueValid)
 	query->Exec();
 	query->Next();
 
-	ASSERT_EQ(query->Value(query->IndexOf("id").value()).isValid(), true);
+	ASSERT_EQ(query->Value(query->IndexOf("id").value()).has_value(), true);
 }
 
 TEST(QuerySQLTest, ValueInValid)
@@ -186,7 +186,7 @@ TEST(QuerySQLTest, ValueInValid)
 	query->Exec();
 	query->Next();
 
-	ASSERT_EQ(query->Value(100).isValid(), false);
+	ASSERT_EQ(query->Value(100).has_value(), false);
 }
 
 TEST(QuerySQLTest, NextValid)
