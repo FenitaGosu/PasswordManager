@@ -7,12 +7,15 @@
 
 #include "MainWindow/MainWindow.h"
 
+#include "Api/Api.h"
+
 namespace {
-	const std::string LOG_FILE = "PasswordUiLog.txt";
+	const std::string LOG_FILE		= "PasswordUiLog.txt";
+	const std::string STYLE_FILE	= ":/style.qss";
 
 	void LoadStyle(QApplication& app)
 	{
-		QFile styleFile(":/style.qss");
+		QFile styleFile(QString::fromStdString(STYLE_FILE));
 		styleFile.open(QFile::ReadOnly);
 
 		app.setStyleSheet(styleFile.readAll());

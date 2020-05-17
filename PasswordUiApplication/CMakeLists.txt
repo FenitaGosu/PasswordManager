@@ -5,6 +5,12 @@ set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/MainWindow/MainWindow.cpp
 
 	${CMAKE_CURRENT_LIST_DIR}/Resources/resources.qrc
+
+
+	${CMAKE_CURRENT_LIST_DIR}/Api/Interfaces/ICredentialsManager.h
+
+	${CMAKE_CURRENT_LIST_DIR}/Api/Api.h
+	${CMAKE_CURRENT_LIST_DIR}/Api/Api.cpp
 	)
 
 add_executable(PasswordUiApplication WIN32 ${SRC_LIST})
