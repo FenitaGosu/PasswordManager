@@ -1,5 +1,5 @@
 #include <cassert>
-#include <exception>
+#include <stdexcept>
 
 #include <QFile>
 #include <QString>

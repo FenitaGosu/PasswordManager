@@ -1,4 +1,5 @@
 #include <map>
+#include <stdexcept>
 
 #include <QSqlError>
 #include <QSqlRecord>

@@ -1,3 +1,5 @@
+#include <stdexcept>
+
 #include <QSqlQuery>
 #include <QSqlError>
 

@@ -1,4 +1,4 @@
-#include <exception>
+#include <stdexcept>
 
 #include <QJsonDocument>
 #include <QJsonObject>
