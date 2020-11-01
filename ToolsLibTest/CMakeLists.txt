@@ -1,7 +1,8 @@
 set(SRC_LIST
 	${CMAKE_CURRENT_LIST_DIR}/SameTest.cpp
 	${CMAKE_CURRENT_LIST_DIR}/StreamWrapperTest.cpp
-	${CMAKE_CURRENT_LIST_DIR}/StringFormat.cpp
+	${CMAKE_CURRENT_LIST_DIR}/StringFormatTest.cpp
+	${CMAKE_CURRENT_LIST_DIR}/CommandLineParserTest.cpp
 	)
 
 add_executable(ToolsLibTest ${SRC_LIST})
