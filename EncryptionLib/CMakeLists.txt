@@ -19,9 +19,3 @@ set(SRC_LIST
 add_library(EncryptionLib STATIC ${SRC_LIST})
 
 target_include_directories(EncryptionLib PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
-
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(EncryptionLib LINK_PRIVATE ${QT_MODULES_LIST})

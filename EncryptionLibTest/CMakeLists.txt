@@ -5,12 +5,6 @@ set(SRC_LIST
 
 add_executable(EncryptionLibTest ${SRC_LIST})
 
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(EncryptionLibTest LINK_PRIVATE ${QT_MODULES_LIST})
-
 target_link_libraries(EncryptionLibTest PRIVATE EncryptionLib)
 target_link_libraries(EncryptionLibTest PRIVATE ${GTEST_BOTH_LIBRARIES})
 

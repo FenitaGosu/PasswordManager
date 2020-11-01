@@ -18,10 +18,3 @@ set(SRC_LIST
 add_library(DataBaseLib STATIC ${SRC_LIST})
 
 target_include_directories(DataBaseLib PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
-
-set(QT_MODULES_LIST
-	Core
-	Sql
-	)
-
-qt5_use_modules(DataBaseLib LINK_PRIVATE ${QT_MODULES_LIST})

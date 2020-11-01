@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>Empty.json</file>
-		<file>Values.json</file>
-		<file>NotMainSection.json</file>
-		<file>Incorrect.json</file>
-    </qresource>
-</RCC>

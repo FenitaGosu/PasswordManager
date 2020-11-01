@@ -36,9 +36,3 @@ target_link_libraries(PasswordApiApplication PRIVATE JsonToolsLib)
 target_link_libraries(PasswordApiApplication PRIVATE ApiProxyLib)
 
 target_include_directories(PasswordApiApplication PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
-
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(PasswordApiApplication LINK_PRIVATE ${QT_MODULES_LIST})

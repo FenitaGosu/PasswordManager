@@ -1,4 +1,0 @@
-QMainWindow {
-    min-width: 1200px;
-    min-height: 800px;
-}

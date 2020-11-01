@@ -6,12 +6,6 @@ set(SRC_LIST
 
 add_executable(DataBaseLibTest ${SRC_LIST})
 
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(DataBaseLibTest LINK_PRIVATE ${QT_MODULES_LIST})
-
 target_link_libraries(DataBaseLibTest PRIVATE DataBaseLib)
 target_link_libraries(DataBaseLibTest PRIVATE ${GTEST_BOTH_LIBRARIES})
 

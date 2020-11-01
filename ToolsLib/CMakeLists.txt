@@ -18,9 +18,3 @@ set(SRC_LIST
 add_library(ToolsLib STATIC ${SRC_LIST})
 
 target_include_directories(ToolsLib PRIVATE ${CMAKE_CURRENT_LIST_DIR}/..)
-
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(ToolsLib LINK_PRIVATE ${QT_MODULES_LIST})

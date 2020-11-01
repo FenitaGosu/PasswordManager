@@ -6,12 +6,6 @@ set(SRC_LIST
 
 add_executable(ToolsLibTest ${SRC_LIST})
 
-set(QT_MODULES_LIST
-	Core
-	)
-
-qt5_use_modules(ToolsLibTest LINK_PRIVATE ${QT_MODULES_LIST})
-
 target_link_libraries(ToolsLibTest PRIVATE ToolsLib)
 target_link_libraries(ToolsLibTest PRIVATE ${GTEST_BOTH_LIBRARIES})
 

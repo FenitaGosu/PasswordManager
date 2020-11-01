@@ -1,0 +1,13 @@
+{
+	"MAIN":
+	{
+		"Double": 1.50,
+		"Int": 100,
+		"Bool": true,
+		"String": "test",
+		"Object":
+		{
+			"String": "test"
+		}
+	}
+}

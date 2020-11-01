@@ -7,14 +7,11 @@
 
 namespace JsonTools {
 
-/**
- * Qt implementation of the interface IWriterJson.
- */
-class WriterQJson : public IWriterJson
+class WriterJson : public IWriterJson
 {
 public:
-	WriterQJson();
-	~WriterQJson();
+	WriterJson();
+	~WriterJson();
 
 	void AddBool(const std::string& key, bool value) override;
 	void AddDouble(const std::string& key, double value) override;

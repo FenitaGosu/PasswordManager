@@ -4,21 +4,13 @@
 
 #include "JsonToolsLib/Interfaces/IReaderJson.h"
 
-class QJsonObject;
-
 namespace JsonTools {
 
-/**
- * Qt implementation of the interface IReaderJson.
- */
-class ReaderQJson : public IReaderJson
+class ReaderJson : public IReaderJson
 {
 public:
-	ReaderQJson(const std::string& jsonStr);
-	~ReaderQJson();
-
-private:
-	ReaderQJson(QJsonObject&& obj);
+	ReaderJson(const std::string& jsonStr);
+	~ReaderJson();
 
 public:
 	bool GetBool(const std::string& key, const bool defaultValue = false) const override;
@@ -31,7 +23,11 @@ public:
 	bool IsEmpty() const override;
 
 private:
-	std::shared_ptr<QJsonObject> m_obj;
+	struct Impl;
+	std::unique_ptr<Impl> m_impl;
+
+private:
+	ReaderJson(std::unique_ptr<Impl>&& impl);
 };
 
 }

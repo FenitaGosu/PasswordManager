@@ -2,6 +2,7 @@
 #include <vector>
 #include <algorithm>
 #include <functional>
+#include <iterator>
 
 #include "RandomIntGenerator.h"
 
