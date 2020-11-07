@@ -12,7 +12,7 @@ find_package(GTest REQUIRED)
 
 #libs
 #add_subdirectory(DataBaseLib)
-#add_subdirectory(EncryptionLib)
+add_subdirectory(EncryptionLib)
 add_subdirectory(ToolsLib)
 add_subdirectory(JsonToolsLib)
 add_subdirectory(LoggingLib)
@@ -24,7 +24,7 @@ add_subdirectory(LoggingLib)
 
 #tests
 #add_subdirectory(DataBaseLibTest)
-#add_subdirectory(EncryptionLibTest)
+add_subdirectory(EncryptionLibTest)
 add_subdirectory(ToolsLibTest)
 add_subdirectory(JsonToolsLibTest)
 #add_subdirectory(PasswordGeneratorLibTest)

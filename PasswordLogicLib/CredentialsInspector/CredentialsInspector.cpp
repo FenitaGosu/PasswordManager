@@ -10,7 +10,7 @@ struct CredentialsInspector::Impl
 {
 	std::string GetHash(const std::string& password, const std::unique_ptr<Encryption::ICryptoHash>& hashGenerator) const
 	{
-		return hashGenerator->GetSha3_256(GetFrontSalt() + password + GetBackSalt());
+		return hashGenerator->GetMd5(GetFrontSalt() + password + GetBackSalt());
 	}
 
 private:

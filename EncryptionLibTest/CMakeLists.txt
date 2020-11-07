@@ -1,5 +1,5 @@
 set(SRC_LIST
-	${CMAKE_CURRENT_LIST_DIR}/CryptoHashQtTest.cpp
+	${CMAKE_CURRENT_LIST_DIR}/CryptoHashTest.cpp
 	${CMAKE_CURRENT_LIST_DIR}/XOREncryptorTest.cpp
 	)
 
